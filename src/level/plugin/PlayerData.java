@@ -174,13 +174,13 @@ public class PlayerData {
                 }
             } else {
                 //LESS THEN THE LEVEL MAX POINTS
-                    if (!setPoints(temppoints)) {
-                        player.sendMessage(Messages.StoragePlaceNotWorking);
-                        return;
-                    }
-                    if (result > 0) {
-                        runPointsMessage(result);
-                    }
+                if (!setPoints(temppoints)) {
+                    player.sendMessage(Messages.StoragePlaceNotWorking);
+                    return;
+                }
+                if (result > 0) {
+                    runPointsMessage(result);
+                }
             }
         }
     }
@@ -190,15 +190,15 @@ public class PlayerData {
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
         String message = Messages.AddPointsMessage(points);
 
-        if(Levelyml.getString("AddPointsMessageLocation") != null) {
-            if(Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("ACTIONBAR")) {
+        if (Levelyml.getString("AddPointsMessageLocation") != null) {
+            if (Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("ACTIONBAR")) {
                 if (Main.lib != null) {
                     Main.lib.sendActionBar(player, message);
                 } else {
                     player.sendMessage(message);
                 }
             }
-            if(Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("CHAT")) {
+            if (Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("CHAT")) {
                 player.sendMessage(message);
             }
         } else {
@@ -557,7 +557,7 @@ public class PlayerData {
     public int getLeaderboardPosition() {
         ArrayList<PositionInfo> scores = LeaderboardHandler.GetLeaderboardPositionInfo();
         PositionInfo score = scores.stream().filter(score2 -> player.getName().equals(score2.username)).findAny().orElse(null);
-        if(score == null) {
+        if (score == null) {
             return 0;
         } else {
             return score.position;
@@ -567,8 +567,8 @@ public class PlayerData {
     public void AddLevelPermission(int level) {
         File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
-        if(Vault.isVaultInstalled()) {//LevelUpPermission
-            if(yml.getBoolean("LevelUpPermission")) {
+        if (Vault.isVaultInstalled()) {//LevelUpPermission
+            if (yml.getBoolean("LevelUpPermission")) {
                 Vault.GivePermissionThatYouLeveledUpToLevel(player, level);
             }
         }
