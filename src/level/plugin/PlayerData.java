@@ -132,7 +132,7 @@ public class PlayerData {
     public void Addpoints(int result) throws MaxLevel {
         int templevel = getLevel();
         int temppoints = getPoints();
-        if (isMaxlevelOn()) {
+        if (isMaxLevelOn()) {
             if (templevel > getMaxLevel() || temppoints == getMaxLevel()) {
                 throw (new MaxLevel());
             }
@@ -215,7 +215,7 @@ public class PlayerData {
 
     public void AddLevel(int b) throws MaxLevel {
         int level = getLevel();
-        if (isMaxlevelOn()) {
+        if (isMaxLevelOn()) {
             if (level > getMaxLevel()) {
                 throw (new MaxLevel());
             } else {
@@ -237,7 +237,7 @@ public class PlayerData {
     }
 
     public void ChangeLevel(int a) throws MaxLevel {
-        if (isMaxlevelOn()) {
+        if (isMaxLevelOn()) {
             if (a > getMaxLevel()) {
                 throw (new MaxLevel());
             }
@@ -255,7 +255,7 @@ public class PlayerData {
         int level = getLevel();
         int maxpoints = getMaxPoints(); //ADDED TO GET NEW MAX POINTS METHOD INTO THE OLD.
 
-        if (isMaxlevelOn()) {
+        if (isMaxLevelOn()) {
             if (level > getMaxLevel() || level == getMaxLevel()) {
                 throw (new MaxLevel());
             }
@@ -335,7 +335,7 @@ public class PlayerData {
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         int MaxLevelPoints = Levelyml.getInt("MaxLevelPoints");
         int level = getLevel();
-        if (isMaxlevelOn()) {
+        if (isMaxLevelOn()) {
             if (getMaxLevel() == level) {
                 return 0;
             }
@@ -347,7 +347,7 @@ public class PlayerData {
         return Levelyml.getInt("" + getLevel());
     }
 
-    public boolean isMaxlevelOn() {
+    public boolean isMaxLevelOn() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
