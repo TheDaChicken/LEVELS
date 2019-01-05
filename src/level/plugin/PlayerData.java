@@ -31,7 +31,7 @@ public class PlayerData {
 
     public Player player;
     public String username;
-    public UUID uuid;
+    private UUID uuid;
     public int MaxPrefixNumber;
 
     //OLD METHODS (CHANGED TO FIT NEW CODE):
@@ -144,7 +144,7 @@ public class PlayerData {
 
         if (temppoints == maxpoints) { //USED TO JUST ADD ONE LEVEL IF MAX POINTS IS THE SAME AS THE POINTS
             int together = Math.abs(maxpoints - temppoints);
-            if (!setPoints(temppoints)) {
+            if (!setPoints(together)) {
                 player.sendMessage(Messages.StoragePlaceNotWorking);
                 return;
             }
