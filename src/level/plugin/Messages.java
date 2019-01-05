@@ -55,7 +55,7 @@ public class Messages {
         String levelprefix = Main.playerData.get(player).getLevelPrefix();
         int maxLevel = Main.playerData.get(player).getMaxLevel();
         List<String> temp;
-        if(Main.playerData.get(player).isMaxlevelOn()) {
+        if (Main.playerData.get(player).isMaxLevelOn()) {
             if (maxLevel != Level) {
                 temp = Config.getStringList("StatsInfoOnlySelf");
             } else {
@@ -99,7 +99,7 @@ public class Messages {
 
         List<String> temp;
 
-        if(Main.playerData.get(player).isMaxlevelOn()) {
+        if (Main.playerData.get(player).isMaxLevelOn()) {
             if (maxLevel != Level) {
                 temp = Config.getStringList("StatsInfoPlayers");
             } else {
