@@ -83,7 +83,7 @@ public class PlayerData {
         }
 
         if (Main.scoreboard != null) {
-            top_of_head_runnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
+            LevelPrefixRunnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
                 if (Main.isPlayerOnline(username)) {
                     if (Levelyml.getBoolean("SupportforNameTagEdit")) {
                         String levelstringprefix = "" + getLevelString() + " ";
@@ -123,7 +123,7 @@ public class PlayerData {
                         player.setScoreboard(Main.scoreboard);
                     }
                 } else {
-                    Bukkit.getScheduler().cancelTask(top_of_head_runnable);
+                    Bukkit.getScheduler().cancelTask(LevelPrefixRunnable);
                 }
             }, 0, 20L);
         }
