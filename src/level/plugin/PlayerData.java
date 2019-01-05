@@ -85,7 +85,16 @@ public class PlayerData {
 
         if (Main.scoreboard != null) {
             updaterunnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
-                if (!Levelyml.getBoolean("SupportforNameTagEdit")) {
+                if (Levelyml.getBoolean("SupportforNameTagEdit")) {
+                    String levelstringprefix = "" + getLevelString() + " ";
+                    String levelstringsuffix = " " + getLevelString() + "";
+                    if (Levelyml.getBoolean("EnableLevelOnPrefix")) {
+                        NametagEdit.getApi().setPrefix(player, levelstringprefix);
+                    }
+                    if (Levelyml.getBoolean("EnableLevelOnSuffix")) {
+                        NametagEdit.getApi().setSuffix(player, levelstringsuffix);
+                    }
+                } else {
                     Team team;
                     String level = String.valueOf(getLevel());
                     String levelstring = getLevelString();
@@ -94,8 +103,8 @@ public class PlayerData {
                     } else {
                         team = Main.scoreboard.getTeam(level);
                     }
-                    if(Main.scoreboard.getEntryTeam(player.getName()) != null) {
-                        if(!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
+                    if (Main.scoreboard.getEntryTeam(player.getName()) != null) {
+                        if (!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
                             Main.scoreboard.getEntryTeam(player.getName()).removeEntry(player.getName());
                         } else {
                             return;
@@ -103,26 +112,15 @@ public class PlayerData {
                     }
                     team.addEntry(player.getName());
                     if (Levelyml.getBoolean("EnableLevelOnPrefix")) {
-                        if(!team.getPrefix().equalsIgnoreCase(levelstring + " ")) {
+                        if (!team.getPrefix().equalsIgnoreCase(levelstring + " ")) {
                             team.setPrefix(levelstring + " ");
                         }
                     } else if (Levelyml.getBoolean("EnableLevelOnSuffix")) {
-                        if(team.getSuffix().equalsIgnoreCase(levelstring)) {
+                        if (team.getSuffix().equalsIgnoreCase(levelstring)) {
                             team.setSuffix(levelstring);
                         }
                     }
                     player.setScoreboard(Main.scoreboard);
-                } else {
-                    if (Levelyml.getBoolean("SupportforNameTagEdit")) {
-                        String levelstringprefix = "" + getLevelString() + " ";
-                        String levelstringsuffix = " " + getLevelString() + "";
-                        if (Levelyml.getBoolean("EnableLevelOnPrefix")) {
-                            NametagEdit.getApi().setPrefix(player, levelstringprefix);
-                        }
-                        if (Levelyml.getBoolean("EnableLevelOnSuffix")) {
-                            NametagEdit.getApi().setSuffix(player, levelstringsuffix);
-                        }
-                    }
                 }
             }, 0, 20L);
         }
