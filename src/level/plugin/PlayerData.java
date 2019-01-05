@@ -554,7 +554,7 @@ public class PlayerData {
     }
 
     //GETS THE PLAYER POSITION ON THE LEADERBOARD (IF THE LEADERBOARD IS ON)
-    public int getLeaderboardPosition() {
+    public int getLeaderBoardPosition() {
         ArrayList<PositionInfo> scores = LeaderboardHandler.GetLeaderboardPositionInfo();
         PositionInfo score = scores.stream().filter(score2 -> player.getName().equals(score2.username)).findAny().orElse(null);
         if (score == null) {
@@ -564,7 +564,7 @@ public class PlayerData {
         }
     }
 
-    public void AddLevelPermission(int level) {
+    private void AddLevelPermission(int level) {
         File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
         if (Vault.isVaultInstalled()) {//LevelUpPermission
