@@ -173,7 +173,7 @@ public class PlayerData {
                     }
                 }
             } else {
-                if (temppoints < maxpoints) { //LESS THEN THE LEVEL MAX POINTS
+                //LESS THEN THE LEVEL MAX POINTS
                     if (!setPoints(temppoints)) {
                         player.sendMessage(Messages.StoragePlaceNotWorking);
                         return;
@@ -181,7 +181,6 @@ public class PlayerData {
                     if (result > 0) {
                         runPointsMessage(result);
                     }
-                }
             }
         }
     }
