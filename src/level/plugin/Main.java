@@ -53,9 +53,6 @@ public class Main extends JavaPlugin {
                 Main.playerData.put(player, new PlayerData(player));
             }
         }
-        if (!this.getDataFolder().exists()) {
-            this.getDataFolder().mkdir();
-        }
         if (setupLib()) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "This Server has full support of this plugin!");
         } else {
@@ -100,6 +97,9 @@ public class Main extends JavaPlugin {
     }
 
     private void Config() {
+        if (!this.getDataFolder().exists()) {
+            this.getDataFolder().mkdir();
+        }
         createLevelConfig();
         createModsListConfig();
         createMessageConfig();
