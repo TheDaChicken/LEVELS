@@ -30,7 +30,7 @@ public class DebugLevel implements CommandExecutor {
                     sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "levelstring: " + Main.playerData.get(player).getLevelString());
                     sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "maxLevel: " + Main.playerData.get(player).getMaxLevel());
                     sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "maxpoints: " + Main.playerData.get(player).getMaxPoints());
-                    sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "maxprefixnumber: " + Main.playerData.get(player).maxprefixnumber);
+                    sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "maxprefixnumber: " + Main.playerData.get(player).MaxPrefixNumber);
                     sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "points: " + Main.playerData.get(player).getPoints());
                     if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
                         sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "StorageType: " + "FILE");
