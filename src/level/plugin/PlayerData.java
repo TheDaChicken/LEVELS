@@ -5,7 +5,6 @@ import level.plugin.CustomEvents.LevelUpEvent;
 import level.plugin.Errors.CantChangeThatManyPoints;
 import level.plugin.Errors.MaxLevel;
 import level.plugin.Leaderboard.LeaderboardHandler;
-import level.plugin.Leaderboard.LeaderboardScore;
 import level.plugin.Leaderboard.PositionInfo;
 import level.plugin.SupportedPluginsClasses.Vault;
 import org.bukkit.Bukkit;
@@ -404,10 +403,7 @@ public class PlayerData {
                     AddLevelPermission(level);
                     return true;
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -450,10 +446,7 @@ public class PlayerData {
                     statement.executeUpdate(test);
                     return true;
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return false;
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return false;
             }
@@ -495,10 +488,7 @@ public class PlayerData {
                     }
                     return level;
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return 0;
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return 0;
             }
@@ -542,10 +532,7 @@ public class PlayerData {
                     }
                     return level;
                 }
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-                return 0;
-            } catch (SQLException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return 0;
             }
