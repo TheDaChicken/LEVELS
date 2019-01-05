@@ -22,7 +22,6 @@ public class Hologram {
         am.setArms(false);
         am.setGravity(false);
         am.setVisible(false);
-        //am.setCustomName("a");
         am.setCustomNameVisible(true);
         return am;
     }
