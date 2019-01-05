@@ -29,19 +29,19 @@ public class PlayerData {
     //This has changed class to handle new storage places and for easy access to peoples info like their level for online players!
 
 
-    public static Player player;
-    public static String username;
-    public static UUID uuid;
-    public static int maxprefixnumber;
+    public Player player;
+    public String username;
+    public UUID uuid;
+    public int maxprefixnumber;
 
     //OLD METHODS (CHANGED TO FIT NEW CODE):
     private int runnable = 0; //FOR LEVELUPACTIONBAR
     private int updaterunnable = 0; //FOR LEVEL ON TOP OF HEAD
 
     public PlayerData(Player player) {
-        PlayerData.player = player;
-        uuid = player.getUniqueId();
-        username = player.getName();
+        this.player = player;
+        this.uuid = player.getUniqueId();
+        this.username = player.getName();
         //Loads the player data!
         //Why didn't I think of this before... I used a method for this.
 
