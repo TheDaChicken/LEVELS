@@ -62,7 +62,7 @@ public class PlayerData {
                 }
             }
             if (yml.getStringList("Users") == null) {
-                List<String> users = new ArrayList<String>();
+                List<String> users = new ArrayList<>();
                 users.add(player.getUniqueId().toString());
                 yml.set("Users", users);
                 try {
@@ -86,7 +86,7 @@ public class PlayerData {
         if (Main.scoreboard != null) {
             updaterunnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
                 if (!Levelyml.getBoolean("SupportforNameTagEdit")) {
-                    Team team = null;
+                    Team team;
                     String level = String.valueOf(getLevel());
                     String levelstring = getLevelString();
                     if (Main.scoreboard.getTeam(level) == null) {
@@ -178,7 +178,6 @@ public class PlayerData {
                     }
                     if (!setLevel(templevel)) {
                         player.sendMessage(Messages.StoragePlaceNotWorking);
-                        return;
                     }
                 }
             } else {
@@ -195,7 +194,7 @@ public class PlayerData {
         }
     }
 
-    public void runPointsMessage(int points) {
+    private void runPointsMessage(int points) {
         File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
         String message = Messages.AddPointsMessage(points);
@@ -260,7 +259,6 @@ public class PlayerData {
             return;
         }
 
-        setLevel(a);
         LevelUpActionBar();
     }
 
@@ -284,11 +282,11 @@ public class PlayerData {
     }
 
     //NEW KINDA METHODS
-    public void LevelUpActionBar() {
+    private void LevelUpActionBar() {
         File LevelsConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration ymlconfig = YamlConfiguration.loadConfiguration(LevelsConfig);
-        if (ymlconfig.getBoolean("levelupruncommand") == true) {
-            if (ymlconfig.getBoolean("levelupruncommandcertainperlevel") == true) {
+        if (ymlconfig.getBoolean("levelupruncommand")) {
+            if (ymlconfig.getBoolean("levelupruncommandcertainperlevel")) {
                 if (ymlconfig.getStringList("levelcommands." + getLevel()) == null) {
                     return;
                 }
