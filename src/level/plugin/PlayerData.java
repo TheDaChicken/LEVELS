@@ -350,14 +350,14 @@ public class PlayerData {
         return Levelyml.getInt("" + getLevel());
     }
 
-    private boolean isMaxLevelOn() {
+    public boolean isMaxLevelOn() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
         return !Maxlevel.equalsIgnoreCase("no") && !Maxlevel.equalsIgnoreCase("ignore");
     }
 
-    private int getMaxLevel() {
+    public int getMaxLevel() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
