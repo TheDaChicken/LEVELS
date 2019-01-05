@@ -1,0 +1,34 @@
+name: Level
+main: level.plugin.Main
+version: 3.0.07
+author: DatChicken040
+softdepend: [PlaceholderAPI,HolographicDisplays,Vault]
+commands:
+   levelstats:
+      description: Stats
+      usage: /<command>
+      aliases: [st,ls,levelst,stlevel]
+   AddPoints:
+      description: This Adds points to a player.
+      usage: /<command>
+      aliases: ap
+   changelevel:
+      description: This changes a player's level.
+      usage: /<command>
+      aliases: [cl,setlevel, changlevel]
+   debuglevel:
+      description: This command allows the plugin dev to debug the plugin if there is a problem.
+      usage: /<command>
+      aliases: dl
+   addlevel:
+      description: This Adds a Level to a person.
+      usage: /<command>
+      aliases: al
+   changepoints:
+      description: This changes a player's points.
+      usage: /<command>
+      aliases: cp
+   levelleaderboard:
+      description: This command has all the commands needed for leaderboards.
+      usage: /<command>
+      aliases: [ll, lh, lhologram]

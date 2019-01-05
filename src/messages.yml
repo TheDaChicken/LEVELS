@@ -1,0 +1,56 @@
+#
+# This file contains all the messages in this plugin! You can change them if you want!
+# If you edit this file, you need to restart your server OR reload the plugin for it to take effect!
+#
+AddPointsMaxLevelCatchMessage: "&c&lYour were giving points but was discarded because your on the highest level!"
+PlayerhasNotJoinedServerBefore: "&c&lThat User has not joined this server before."
+ProblemAddingPoints: "&c&lThere was a problem adding points. Make sure, it's a number."
+ProblemAddingLevel: "&c&lThere was a problem adding Levels. Make sure, it's a number."
+AddLevelMaxLevelCatchMessage: "&c&lYour were giving levels but was discarded because your on the highest level!"
+AddLevelUsage: "&c&lUsage: /addlevel playername number"
+AddPointsUsage: "&c&lUsage: /addpoints playername number"
+YouNeedOP: "&c&lYou don't have permissions to perform this command!"
+LevelUpActionbar: "Level Up! %number%!"
+LevelHasSet: "&a&lThe Level has been set!"
+StatsInfoOnlySelf:
+    - "&b&lYour Level! > %levelprefix%%levelnumber%"
+    - "&7&lPoints: %points%/%maxpoints%"
+StatsInfoOnlySelfMaxLevel:
+    - "&b&lYour Level! > %levelprefix%%levelnumber% &7&l(Max Level)"
+    - "&7&lPoints: %points%/%maxpoints%"
+ChangePointsUsage: "&a&lUsage: /changepoints playername number"
+CantAddThatManyPoints: "&a&lYou can't change the points that much! Please use /addpoints !"
+ChangePointsMaxLevelCatchMessage: "&a&lYour points were changed but was discarded because your on the highest level!"
+ChangeLevelUsage: "&a&lUsage: /changelevel playername number"
+ProblemChangingLevel: "&a&lThere was a problem changing the level. Make sure, it's a number."
+LevelHigherThenMaxLevel: "&a&lThat Number is higher than the Max Level and cannot be set!"
+StatsInfoPlayers:
+    - "&bLevel %player_name%&l > %levelprefix%%levelnumber%"
+    - "&7&lPoints: %points%/%maxpoints%"
+StatsInfoPlayersMaxLevel:
+    - "&bLevel %player_name%&l > %levelprefix%%levelnumber% &7&l(Max Level)"
+    - "&7&lPoints: %points%/%maxpoints%"
+AddPointsMessage: "&a&l+%amountofpoints% points!"
+MYSQLNotenabledinConfig: "&a&lMYSQL is disabled in the config. &7&lIf you want to use MYSQL please enable it in the config."
+ProblemwithMYSQLServer: "&c&lThere was a problem with the MYSQL Server."
+LevelLeaderboardCommandUsage:
+    - "&a&lUsage:"
+    - "/levelleaderboard spawnHologram"
+    - "/levelleaderboard deletehologram"
+    - "/levelleaderboard setupleaderheads"
+DeleteHologram: "&a&lRemoving and Deleting the Hologram!"
+HologramAlreadyDeleted: "&c&lThe Hologram is already deleted."
+YouNeedtoBePlayer: "&c&lYou need to be a player for this command!"
+ChangeLevelsMaxLevelCatchMessage: "&a&lYour Level were changed but was discarded because your on the highest level!"
+LeaderHeadsLabelSign:
+    - "&lFirst Create a Sign (Make sure to label the %position% as the position and so on) and type this: "
+    - "[LEVEL]"
+    - "%pos%"
+    - "You can change the message that the sign creates in the levelsconfig.yml"
+    - "Next type /ll sethead <levelposition> to set the head location."
+leaderHeadNotANumber: "&c&l%pos% is not a number!"
+LeaderHeadSignCreated: "&a&l#%pos% sign has been created!"
+leaderboardSetHeadUsage: "&a&lUsage: /ll sethead <levelposition>"
+leaderboardSetHeadNotNumber: "&a&l%number% is not a number! It needs to be number!"
+PlaceHead: "&a&lNow Place a Skull in Location you have set!"
+StoragePlaceNotWorking: "&c&lThere was a problem saving that. Please tell server owner that this has occurred."
