@@ -390,14 +390,8 @@ public class OfflinePlayerMethods {
                     }
                 }
             } else {
-                if (temppoints < maxpoints) { //LESS THEN THE LEVEL MAX POINTS
-                    if (!setPoints(offlinePlayer, temppoints)) {
-                        return;
-                    }
-                    if (result > 0) {
-                        //OK
-                    }
-                }
+                //LESS THEN THE LEVEL MAX POINTS
+                setPoints(offlinePlayer, temppoints);
             }
         }
 
