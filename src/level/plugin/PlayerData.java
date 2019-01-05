@@ -474,7 +474,7 @@ public class PlayerData {
                     Statement statement = Main.statement;
                     // Create connection and statement
                     String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
-                    ResultSet rs = null;
+                    ResultSet rs;
                     try {
                         rs = statement.executeQuery(query);
                     } catch (SQLException e) {
@@ -521,7 +521,7 @@ public class PlayerData {
                     Statement statement = Main.statement;
                     // Create connection and statement
                     String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
-                    ResultSet rs = null;
+                    ResultSet rs;
                     try {
                         rs = statement.executeQuery(query);
                     } catch (SQLException e) {
