@@ -49,14 +49,14 @@ public class Stats implements CommandExecutor {
                         }
                         return true;
                     } else {
-                        OfflinePlayer a;
+                        OfflinePlayer offlineplayer;
                         try {
-                            a = Main.getOfflinePlayer(username);
+                            offlineplayer = Main.getOfflinePlayer(username);
                         } catch (TheUserhasNotplayedBefore e) {
                             sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore);
                             return true;
                         }
-                        for (String test : Messages.StatsInfoPlayers(a)) {
+                        for (String test : Messages.StatsInfoPlayers(offlineplayer)) {
                             sender.sendMessage(test);
                         }
                         return true;
