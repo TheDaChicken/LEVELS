@@ -52,9 +52,9 @@ public class PlayerData {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
             File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "data.yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
-            if (yml.getString("Level." + player.getUniqueId().toString()) == null) {
-                yml.set("Level." + player.getUniqueId(), 0);
-                yml.set("Points." + player.getUniqueId(), 0);
+            if (yml.getString("Level." + uuid.toString()) == null) {
+                yml.set("Level." + uuid, 0);
+                yml.set("Points." + uuid, 0);
                 try {
                     yml.save(config);
                 } catch (IOException e) {
@@ -63,7 +63,7 @@ public class PlayerData {
             }
             if (yml.getStringList("Users") == null) {
                 List<String> users = new ArrayList<>();
-                users.add(player.getUniqueId().toString());
+                users.add(uuid.toString());
                 yml.set("Users", users);
                 try {
                     yml.save(config);
@@ -71,9 +71,9 @@ public class PlayerData {
                     e.printStackTrace();
                 }
             }
-            if (!yml.getStringList("Users").contains(player.getUniqueId().toString())) {
+            if (!yml.getStringList("Users").contains(uuid.toString())) {
                 List<String> users = yml.getStringList("Users");
-                users.add(player.getUniqueId().toString());
+                users.add(uuid.toString());
                 yml.set("Users", users);
                 try {
                     yml.save(config);
@@ -350,14 +350,14 @@ public class PlayerData {
         return Levelyml.getInt("" + getLevel());
     }
 
-    public boolean isMaxLevelOn() {
+    private boolean isMaxLevelOn() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
         return !Maxlevel.equalsIgnoreCase("no") && !Maxlevel.equalsIgnoreCase("ignore");
     }
 
-    public int getMaxLevel() {
+    private int getMaxLevel() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
@@ -373,7 +373,7 @@ public class PlayerData {
             File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "data.yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
             // Sets Level
-            yml.set("Level." + player.getUniqueId(), level);
+            yml.set("Level." + uuid, level);
             try {
                 yml.save(config);
                 AddLevelPermission(level);
@@ -388,7 +388,7 @@ public class PlayerData {
                 synchronized (this) {
                     Main.openConnectionMYSQL();
                     Statement statement = Main.statement;
-                    String query = "SELECT * FROM PlayerData WHERE UUID='" + player.getUniqueId() + "'";
+                    String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
                     ResultSet rs = statement.executeQuery(query);
                     boolean exists = false;
 
@@ -397,9 +397,9 @@ public class PlayerData {
                     }
                     String test;
                     if (exists) {
-                        test = "UPDATE PlayerData set Level=\"" + level + "\" where UUID=\"" + player.getUniqueId() + "\"";
+                        test = "UPDATE PlayerData set Level=\"" + level + "\" where UUID=\"" + uuid + "\"";
                     } else {
-                        test = "INSERT INTO PlayerData (UUID, Level) VALUES ('" + player.getUniqueId() + "', " + level + ")" + ";";
+                        test = "INSERT INTO PlayerData (UUID, Level) VALUES ('" + uuid + "', " + level + ")" + ";";
                     }
                     statement.executeUpdate(test);
                     AddLevelPermission(level);
@@ -413,7 +413,6 @@ public class PlayerData {
                 return false;
             }
         }
-        return false;
     }
 
     public boolean setPoints(int points) {
@@ -421,7 +420,7 @@ public class PlayerData {
             File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "data.yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
             // Sets Level
-            yml.set("Points." + player.getUniqueId(), points);
+            yml.set("Points." + uuid, points);
             try {
                 yml.save(config);
                 return true;
@@ -435,7 +434,7 @@ public class PlayerData {
                 synchronized (this) {
                     Main.openConnectionMYSQL();
                     Statement statement = Main.statement;
-                    String query = "SELECT * FROM PlayerData WHERE UUID='" + player.getUniqueId() + "'";
+                    String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
                     ResultSet rs = statement.executeQuery(query);
                     boolean exists = false;
 
@@ -444,9 +443,9 @@ public class PlayerData {
                     }
                     String test;
                     if (exists) {
-                        test = "UPDATE PlayerData set Points=\"" + points + "\" where UUID=\"" + player.getUniqueId() + "\"";
+                        test = "UPDATE PlayerData set Points=\"" + points + "\" where UUID=\"" + uuid + "\"";
                     } else {
-                        test = "INSERT INTO PlayerData (UUID, Points) VALUES ('" + player.getUniqueId() + "', " + points + ")" + ";";
+                        test = "INSERT INTO PlayerData (UUID, Points) VALUES ('" + uuid + "', " + points + ")" + ";";
                     }
                     statement.executeUpdate(test);
                     return true;
@@ -466,7 +465,7 @@ public class PlayerData {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
             File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "data.yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
-            return yml.getInt("Level." + player.getUniqueId());
+            return yml.getInt("Level." + uuid);
         }
         if (StorageOptions.isStorageOption(StorageOptions.MYSQL)) {
             try {
@@ -474,7 +473,7 @@ public class PlayerData {
                     Main.openConnectionMYSQL();
                     Statement statement = Main.statement;
                     // Create connection and statement
-                    String query = "SELECT * FROM PlayerData WHERE UUID='" + player.getUniqueId() + "'";
+                    String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
                     ResultSet rs = null;
                     try {
                         rs = statement.executeQuery(query);
@@ -513,7 +512,7 @@ public class PlayerData {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
             File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "data.yml");
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
-            return yml.getInt("Points." + player.getUniqueId());
+            return yml.getInt("Points." + uuid);
         }
         if (StorageOptions.isStorageOption(StorageOptions.MYSQL)) {
             try {
@@ -521,7 +520,7 @@ public class PlayerData {
                     Main.openConnectionMYSQL();
                     Statement statement = Main.statement;
                     // Create connection and statement
-                    String query = "SELECT * FROM PlayerData WHERE UUID='" + player.getUniqueId() + "'";
+                    String query = "SELECT * FROM PlayerData WHERE UUID='" + uuid + "'";
                     ResultSet rs = null;
                     try {
                         rs = statement.executeQuery(query);
