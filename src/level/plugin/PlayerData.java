@@ -71,7 +71,7 @@ public class PlayerData {
                     e.printStackTrace();
                 }
             }
-            if (!contains(yml.getStringList("Users"), player.getUniqueId().toString())) {
+            if (!yml.getStringList("Users").contains(player.getUniqueId().toString())) {
                 List<String> users = yml.getStringList("Users");
                 users.add(player.getUniqueId().toString());
                 yml.set("Users", users);
@@ -127,16 +127,6 @@ public class PlayerData {
             }, 0, 20L);
         }
     }
-
-    private boolean contains(List<String> stringArrayList, String contain) {
-        for(String string : stringArrayList) {
-            if(string.equalsIgnoreCase(contain)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     public void Addpoints(int result) throws MaxLevel {
         int templevel = getLevel();
