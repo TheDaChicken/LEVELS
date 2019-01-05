@@ -27,8 +27,8 @@ public class OnBlockBreak implements Listener {
         int pointstogive;
 
         if (player.getGameMode() != GameMode.CREATIVE) {
-            if (yml.getBoolean("BlockBreaking") == true) {
-                if (yml.getBoolean("BlockBreakingRandom") == true) {
+            if (yml.getBoolean("BlockBreaking")) {
+                if (yml.getBoolean("BlockBreakingRandom")) {
                     int min = yml.getInt("BlockBreakingMin");
                     int max = yml.getInt("BlockBreakingMax");
                     pointstogive = ThreadLocalRandom.current().nextInt(min, max + 1);

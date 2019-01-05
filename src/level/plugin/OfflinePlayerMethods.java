@@ -189,7 +189,7 @@ public class OfflinePlayerMethods {
     }
 
     public static void ChangeLevel(OfflinePlayer player, int a) throws MaxLevel {
-        if (isMaxlevelOn() == true) {
+        if (isMaxlevelOn()) {
             if (a > getMaxLevel()) {
                 throw (new MaxLevel());
             }
@@ -250,7 +250,7 @@ public class OfflinePlayerMethods {
         int level = getLevel(player);
         int maxpoints = getMaxPoints(player); //ADDED TO GET NEW MAX POINTS METHOD INTO THE OLD.
 
-        if (isMaxlevelOn() == true) {
+        if (isMaxlevelOn()) {
             if (level > getMaxLevel() || level == getMaxLevel()) {
                 throw (new MaxLevel());
             }

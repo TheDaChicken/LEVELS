@@ -25,7 +25,7 @@ public class onDeath implements Listener {
         YamlConfiguration Configcfg = YamlConfiguration.loadConfiguration(Config);
         File l = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(l);
-        if (yml.getBoolean("EnableKillMobsPoints") == true) {
+        if (yml.getBoolean("EnableKillMobsPoints")) {
             if (Config.exists()) {
                 Player player = event.getEntity().getKiller();
                 String entityName = event.getEntity().getType().getName();

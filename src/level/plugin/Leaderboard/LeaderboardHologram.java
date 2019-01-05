@@ -120,7 +120,7 @@ public class LeaderboardHologram {
         if(leaderboard == null) {
             return true;
         }
-        if (yml.getString("hologram.location.worldname") == null || yml.getString("hologram.location.worldname").equalsIgnoreCase("[none]") == true) {
+        if (yml.getString("hologram.location.worldname") == null || yml.getString("hologram.location.worldname").equalsIgnoreCase("[none]")) {
             return true;
         }
         return false;

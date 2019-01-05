@@ -30,7 +30,7 @@ public class OnChat implements Listener {
 
 		String level = ChatColor.translateAlternateColorCodes('&', yml.getString("ForceChatFormat")).replace("%levelstring%", levelstring).replace("%level%", levelnumber).replace("%levelprefix%", levelprefix);
 
-		if(yml.getBoolean("Force Level Prefix to any chat plugin") == true) {
+		if (yml.getBoolean("Force Level Prefix to any chat plugin")) {
 		
 		    if(level != null) {
 

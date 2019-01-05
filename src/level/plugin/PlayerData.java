@@ -248,7 +248,7 @@ public class PlayerData {
     }
 
     public void ChangeLevel(int a) throws MaxLevel {
-        if (isMaxlevelOn() == true) {
+        if (isMaxlevelOn()) {
             if (a > getMaxLevel()) {
                 throw (new MaxLevel());
             }
@@ -266,7 +266,7 @@ public class PlayerData {
         int level = getLevel();
         int maxpoints = getMaxPoints(); //ADDED TO GET NEW MAX POINTS METHOD INTO THE OLD.
 
-        if (isMaxlevelOn() == true) {
+        if (isMaxlevelOn()) {
             if (level > getMaxLevel() || level == getMaxLevel()) {
                 throw (new MaxLevel());
             }

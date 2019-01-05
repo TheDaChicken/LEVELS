@@ -45,7 +45,7 @@ public class Main extends JavaPlugin {
         Events();
         Config();
         LeaderboardHologram.SpawnLeaderboardHologram();
-        if (LeaderHeads.UpdateSigns() == true) {
+        if (LeaderHeads.UpdateSigns()) {
             LeaderHeads.UpdateSignHeadScheduler();
         }
         if (Bukkit.getOnlinePlayers().size() != 0) { //If a reload happens. It will load all the player's data.
