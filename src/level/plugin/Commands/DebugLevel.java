@@ -60,7 +60,7 @@ public class DebugLevel implements CommandExecutor {
                         if (Main.playerData.get(player) == null) {
                             Main.playerData.put(player, new PlayerData(player));
                         }
-                        sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Position: " + Main.playerData.get(player).getLeaderboardPosition() + "");
+                        sender.sendMessage(ChatColor.GRAY + "" + ChatColor.BOLD + "Position: " + Main.playerData.get(player).getLeaderBoardPosition() + "");
                         return true;
                     }
 
