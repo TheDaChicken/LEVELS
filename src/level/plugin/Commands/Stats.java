@@ -34,7 +34,7 @@ public class Stats implements CommandExecutor {
                     String username = args[0];
                     boolean online = Main.isPlayerOnline(username);
                     if (online) {
-                        Player player = null;
+                        Player player;
                         try {
                             player = Main.getPlayerbyString(username);
                         } catch (TheUserisNotOnline e) {

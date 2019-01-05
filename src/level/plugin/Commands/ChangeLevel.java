@@ -31,7 +31,7 @@ public class ChangeLevel implements CommandExecutor {
                     boolean online = Main.isPlayerOnline(username);
 
                     if (online) {
-                        Player player = null;
+                        Player player;
                         int parseint;
                         try {
                             player = Main.getPlayerbyString(username);

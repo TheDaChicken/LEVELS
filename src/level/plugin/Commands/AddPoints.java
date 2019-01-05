@@ -39,7 +39,7 @@ public class AddPoints implements CommandExecutor {
                 boolean online = Main.isPlayerOnline(username);
 
                 if (online) {
-                    Player player = null;
+                    Player player;
                     int integer;
                     try {
                         player = Main.getPlayerbyString(username);
@@ -62,7 +62,6 @@ public class AddPoints implements CommandExecutor {
                     }
                     return true;
                 } else {
-                    @SuppressWarnings("unused")
                     OfflinePlayer offlinePlayer;
                     int integer;
 

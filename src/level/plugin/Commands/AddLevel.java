@@ -32,7 +32,7 @@ public class AddLevel implements CommandExecutor {
                     boolean online = Main.isPlayerOnline(username);
 
                     if (online) {
-                        Player player = null;
+                        Player player;
                         int integer;
 
                         try {

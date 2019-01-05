@@ -33,7 +33,7 @@ public class ChangePoints implements CommandExecutor {
                     boolean online = Main.isPlayerOnline(username);
 
                     if (online) {
-                        Player player = null;
+                        Player player;
                         try {
                             player = Main.getPlayerbyString(username);
                         } catch (TheUserisNotOnline e) { //
