@@ -271,6 +271,29 @@ public class Main extends JavaPlugin {
         }
     }
 
+    public static boolean isPlayerOnline(String username) {
+        Player player = Bukkit.getOnlinePlayers().stream().filter(player2 -> username.equalsIgnoreCase(player2.getName())).findAny().orElse(null);
+        return player != null;
+    }
+
+
+    public static Player getPlayerbyString(String username) throws TheUserisNotOnline {
+        if (Bukkit.getPlayer(username) != null) {
+            return Bukkit.getPlayer(username);
+        } else {
+            throw (new TheUserisNotOnline("The User is not Online!"));
+        }
+    }
+
+    @SuppressWarnings("deprecation")
+    public static OfflinePlayer getOfflinePlayer(String username) throws TheUserhasNotplayedBefore {
+        if (!Bukkit.getOfflinePlayer(username).hasPlayedBefore() || Bukkit.getOfflinePlayer(username) == null) {
+            throw (new TheUserhasNotplayedBefore());
+        } else {
+            return Bukkit.getOfflinePlayer(username);
+        }
+    }
+
     private boolean setupLib() {
         String version;
         try {
@@ -294,34 +317,10 @@ public class Main extends JavaPlugin {
             lib = new Lib1_13_R2();
         } else if (version.equals("v1_8_R2")) {
             lib = new Lib1_8_R2();
+        } else if (version.equals("v1_10_R1")) {
+            lib = new Lib1_10_R1();
         }
         return lib != null;
-    }
-
-
-    public static Player getPlayerbyString(String username) throws TheUserisNotOnline {
-        if (Bukkit.getPlayer(username) != null) {
-            return Bukkit.getPlayer(username);
-        } else {
-            throw (new TheUserisNotOnline("The User is not Online!"));
-        }
-    }
-
-    @SuppressWarnings("deprecation")
-    public static OfflinePlayer getOfflinePlayer(String username) throws TheUserhasNotplayedBefore {
-        if (!Bukkit.getOfflinePlayer(username).hasPlayedBefore() || Bukkit.getOfflinePlayer(username) == null) {
-            throw (new TheUserhasNotplayedBefore());
-        } else {
-            return Bukkit.getOfflinePlayer(username);
-        }
-    }
-
-    public static boolean isPlayerOnline(String username) {
-        Player player = Bukkit.getOnlinePlayers().stream().filter(player2 -> username.equalsIgnoreCase(player2.getName())).findAny().orElse(null);
-        if(player == null) {
-            return false;
-        }
-        return true;
     }
 
     public static void openConnectionMYSQL() throws SQLException, ClassNotFoundException {
