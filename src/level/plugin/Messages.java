@@ -252,6 +252,7 @@ public class Messages {
 
     public static String StoragePlaceNotWorking = ChatColor.translateAlternateColorCodes('&', Config.getString("StoragePlaceNotWorking"));
 
+    //TODO MAKE A MESSAGE.
     public static String SubtractPointsMessage(int points) {
         return "";
     }
