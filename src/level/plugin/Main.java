@@ -226,7 +226,7 @@ public class Main extends JavaPlugin {
         messageyml.put("LevelHigherThenMaxLevel", "&a&lThat Number is higher than the Max Level and cannot be set!");
         messageyml.put("StatsInfoPlayers", "&bLevel %player_name%&l > %levelprefix%%levelnumber%>SPLIT>&7&lPoints: %points%/%maxpoints%");
         messageyml.put("StatsInfoPlayersMaxLevel", "&bLevel %player_name%&l > %levelprefix%%levelnumber% &7&l(Max Level)>SPLIT>&7&lPoints: %points%/%maxpoints%");
-        messageyml.put("AddPointsMessage", "&a&l+%amountofpoints% points!");
+        messageyml.put("AddPointsMessage", "&a&l+%amountofpoints% points");
         messageyml.put("MYSQLNotenabledinConfig", "&a&lMYSQL is disabled in the config. &7&lIf you want to use MYSQL please enable it in the config.");
         messageyml.put("ProblemwithMYSQLServer", "&c&lThere was a problem with the MYSQL Server.");
         messageyml.put("LevelLeaderboardCommandUsage", "&a&lUsage:>SPLIT>/levelleaderboard spawnHologram>SPLIT>/levelleaderboard deletehologram>SPLIT>/levelleaderboard setupleaderheads");

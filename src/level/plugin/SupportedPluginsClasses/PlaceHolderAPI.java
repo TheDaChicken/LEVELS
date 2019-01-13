@@ -54,7 +54,7 @@ public class PlaceHolderAPI extends EZPlaceholderHook {
             if(Main.playerData.get(player) == null) {
                 Main.playerData.put(player, new PlayerData(player));
             }
-            return String.valueOf(Main.playerData.get(player).getLeaderboardPosition());
+            return String.valueOf(Main.playerData.get(player).getLeaderBoardPosition());
         }
         return null;
     }

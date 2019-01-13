@@ -184,6 +184,54 @@ public class PlayerData {
         }
     }
 
+
+    public void SubtractPoints(int result) {
+        int templevel = getLevel();
+        int temppoints = getPoints();
+
+        int maxpoints = getMaxPoints();
+
+        temppoints = Math.abs(temppoints - result);
+        if (temppoints == 0) {
+            if (!setPoints(maxpoints - temppoints - 1)) {
+                player.sendMessage(Messages.StoragePlaceNotWorking);
+                return;
+            }
+            if (!setLevel(templevel - 1)) {
+                player.sendMessage(Messages.StoragePlaceNotWorking);
+                return;
+            }
+            LevelUpActionBar();
+        } else {
+            if (temppoints > maxpoints) { //MORE THEN THE LEVEL MAX POINTS
+                synchronized (this) {
+                    int together = Math.abs(temppoints - maxpoints);
+                    LevelUpActionBar();
+                    templevel--;
+                    while (MoreLevelingUP(together)) {
+                        together = Math.abs(maxpoints - together);
+                        templevel--;
+                    }
+                    if (!setPoints(together)) {
+                        player.sendMessage(Messages.StoragePlaceNotWorking);
+                        return;
+                    }
+                    if (!setLevel(templevel)) {
+                        player.sendMessage(Messages.StoragePlaceNotWorking);
+                    }
+                }
+            } else {
+                if (!setPoints(temppoints)) {
+                    player.sendMessage(Messages.StoragePlaceNotWorking);
+                    return;
+                }
+                if (result != 0) {
+                    runSubtractPointsMessage(result);
+                }
+            }
+        }
+    }
+
     private void runPointsMessage(int points) {
         File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
@@ -205,6 +253,42 @@ public class PlayerData {
         }
 
 
+    }
+
+    //TODO WORK ON SUBTRACTING
+    private void runSubtractPointsMessage(int points) {
+        File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
+        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
+        String message = Messages.SubtractPointsMessage(points);
+
+        if (Levelyml.getString("SubtractPointsMessageLocation") != null) {
+            if (Levelyml.getString("SubtractPointsMessageLocation").equalsIgnoreCase("ACTIONBAR")) {
+                if (Main.lib != null) {
+                    Main.lib.sendActionBar(player, message);
+                } else {
+                    player.sendMessage(message);
+                }
+            }
+            if (Levelyml.getString("SubtractPointsMessageLocation").equalsIgnoreCase("CHAT")) {
+                player.sendMessage(message);
+            }
+        } else {
+            //Since people might not delete their LevelConfig file when updating, I chose to check the AddPointsMessageLocation
+            if (Levelyml.getString("AddPointsMessageLocation") != null) {
+                if (Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("ACTIONBAR")) {
+                    if (Main.lib != null) {
+                        Main.lib.sendActionBar(player, message);
+                    } else {
+                        player.sendMessage(message);
+                    }
+                }
+                if (Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("CHAT")) {
+                    player.sendMessage(message);
+                }
+            } else {
+                player.sendMessage(message);
+            }
+        }
     }
 
     //NEW METHODS (MADE TO GET THE STUFF FROM THE CONFIG THAT IS STORED IN THIS CLASS AND TO STILL RUN THE OLD CODE FROM THE OLD VERSION)

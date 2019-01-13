@@ -40,7 +40,7 @@ public class Messages {
 
         String message = ChatColor.translateAlternateColorCodes('&', Config.getString("LevelUpActionbar")).replace("%number%", String.valueOf(number));
 
-		String reformat = String.valueOf(ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16)))) + message;
+        String reformat = ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))) + message;
 		
 		return reformat;
 	}
@@ -171,7 +171,7 @@ public class Messages {
 
     public static String LeaderboardPositionMessage(int position, String name, int level) {
 
-        String positionprefix = levelconfig.getString("Leaderboard.PositionPrefix." + String.valueOf(position));
+        String positionprefix = levelconfig.getString("Leaderboard.PositionPrefix." + position);
 
         String message = ChatColor.translateAlternateColorCodes('&', levelconfig.getString("Leaderboard.LeaderboardMessage").replace("%positionprefix%", positionprefix).replace("%player_name%", name).replace("%level_number%", String.valueOf(level)));
 
@@ -252,4 +252,7 @@ public class Messages {
 
     public static String StoragePlaceNotWorking = ChatColor.translateAlternateColorCodes('&', Config.getString("StoragePlaceNotWorking"));
 
+    public static String SubtractPointsMessage(int points) {
+        return "";
+    }
 }

@@ -30,7 +30,7 @@ StatsInfoPlayers:
 StatsInfoPlayersMaxLevel:
     - "&bLevel %player_name%&l > %levelprefix%%levelnumber% &7&l(Max Level)"
     - "&7&lPoints: %points%/%maxpoints%"
-AddPointsMessage: "&a&l+%amountofpoints% points!"
+AddPointsMessage: "&a&l+%amountofpoints% points"
 MYSQLNotenabledinConfig: "&a&lMYSQL is disabled in the config. &7&lIf you want to use MYSQL please enable it in the config."
 ProblemwithMYSQLServer: "&c&lThere was a problem with the MYSQL Server."
 LevelLeaderboardCommandUsage:
@@ -54,3 +54,6 @@ leaderboardSetHeadUsage: "&a&lUsage: /ll sethead <levelposition>"
 leaderboardSetHeadNotNumber: "&a&l%number% is not a number! It needs to be number!"
 PlaceHead: "&a&lNow Place a Skull in Location you have set!"
 StoragePlaceNotWorking: "&c&lThere was a problem saving that. Please tell server owner that this has occurred."
+UsageSubtractPoints: "&c&lUsage: /subtractpoints playername number"
+UsageSubtractLevel: "&c&lUsage: /subtractlevel playername number"
+SubtractPointsMessage: "&c&l-%amountofpoints% points"
