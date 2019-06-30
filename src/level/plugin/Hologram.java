@@ -3,6 +3,7 @@ package level.plugin;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import java.util.ArrayList;
@@ -18,7 +19,14 @@ public class Hologram {
     }
 
     public ArmorStand createHologram(Location location) {
-        ArmorStand am = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+        // This is to use any armor stands that were not removed during a restart.
+        Entity entity = location.getWorld().getNearbyEntities(location, 0, 0, 0).stream().filter(entity_1 -> entity_1.getType() == EntityType.ARMOR_STAND).findAny().orElse(null);
+        ArmorStand am;
+        if (entity != null) {
+            am = (ArmorStand) entity;
+        } else {
+            am = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
+        }
         am.setArms(false);
         am.setGravity(false);
         am.setVisible(false);
