@@ -22,9 +22,13 @@ public class AddLevel implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("AddLevel")) {
+            Player player_sender = null;
+            if (sender instanceof Player) {
+                player_sender = (Player) sender;
+            }
             if (sender.isOp()) {
                 if (args.length == 0 || args.length == 1) {
-                    sender.sendMessage(Messages.AddLevelUsage);
+                    sender.sendMessage(Messages.AddLevelUsage(player_sender));
                     return true;
                 } else {
                     String username = args[0];
@@ -38,7 +42,7 @@ public class AddLevel implements CommandExecutor {
                         try {
                             integer = Integer.valueOf(number);
                         } catch (Exception e) {
-                            sender.sendMessage(Messages.ProblemAddingLevel);
+                            sender.sendMessage(Messages.ProblemAddingLevel(player_sender));
                             return true;
                         }
 
@@ -52,7 +56,7 @@ public class AddLevel implements CommandExecutor {
                             Main.playerData.get(player).AddLevel(integer);
                         } catch (MaxLevel e) {
                             //e.printStackTrace();
-                            sender.sendMessage(Messages.AddLevelMaxLevelCatchMessage);
+                            sender.sendMessage(Messages.AddLevelMaxLevelCatchMessage(player_sender));
                             return true;
                         }
                         return true;
@@ -64,7 +68,7 @@ public class AddLevel implements CommandExecutor {
                         try {
                             integer = Integer.valueOf(number);
                         } catch (Exception e) {
-                            sender.sendMessage(Messages.ProblemAddingLevel);
+                            sender.sendMessage(Messages.ProblemAddingLevel(player_sender));
                             return true;
                         }
 
@@ -77,7 +81,7 @@ public class AddLevel implements CommandExecutor {
                             OfflinePlayerMethods.AddLevel(offlinePlayer, integer);
                         } catch (MaxLevel e) {
                             //e.printStackTrace();
-                            sender.sendMessage(Messages.AddLevelMaxLevelCatchMessage);
+                            sender.sendMessage(Messages.AddLevelMaxLevelCatchMessage(player_sender));
                             return true;
                         }
                         return true;
@@ -87,7 +91,7 @@ public class AddLevel implements CommandExecutor {
                 }
 
             } else {
-                sender.sendMessage(Messages.YouNeedOP);
+                sender.sendMessage(Messages.YouNeedOP(player_sender));
                 return true;
             }
         }

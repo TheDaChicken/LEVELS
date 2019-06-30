@@ -41,7 +41,7 @@ public class OnBlockBreak implements Listener {
                 try {
                     Main.playerData.get(player).Addpoints(pointstogive);
                 } catch (MaxLevel e) {
-                    player.sendMessage(Messages.AddPointsMaxLevelCatchMessage);
+                    player.sendMessage(Messages.AddPointsMaxLevelCatchMessage(player));
                 }
             }
         }

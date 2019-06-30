@@ -19,6 +19,10 @@ public class Stats implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player_sender = null;
+        if (sender instanceof Player) {
+            player_sender = (Player) sender;
+        }
         if (cmd.getName().equalsIgnoreCase("levelstats")) {
             if (sender instanceof Player) {
                 if (args.length == 0) {
@@ -53,7 +57,7 @@ public class Stats implements CommandExecutor {
                         try {
                             offlineplayer = Main.getOfflinePlayer(username);
                         } catch (TheUserhasNotplayedBefore e) {
-                            sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore);
+                            sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore(player_sender));
                             return true;
                         }
                         for (String test : Messages.StatsInfoPlayers(offlineplayer)) {

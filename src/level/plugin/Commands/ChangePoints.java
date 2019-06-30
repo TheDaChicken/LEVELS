@@ -23,9 +23,13 @@ public class ChangePoints implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("changepoints")) {
+            Player player_sender = null;
+            if (sender instanceof Player) {
+                player_sender = (Player) sender;
+            }
             if (sender.isOp()) {
                 if (args.length == 0 || args.length == 1) {
-                    sender.sendMessage(Messages.ChangePointsUsage);
+                    sender.sendMessage(Messages.ChangePointsUsage(player_sender));
                     return true;
                 } else {
                     String username = args[0];
@@ -44,17 +48,17 @@ public class ChangePoints implements CommandExecutor {
                         try {
                             integer = Integer.valueOf(number);
                         } catch (Exception e) {
-                            sender.sendMessage(Messages.ProblemAddingLevel);
+                            sender.sendMessage(Messages.ProblemAddingLevel(player_sender));
                             return true;
                         }
                         try {
                             Main.playerData.get(player).ChangePoints(integer);
                             return true;
                         } catch (MaxLevel e) {
-                            player.sendMessage(Messages.ChangePointsMaxLevelCatchMessage);
+                            player.sendMessage(Messages.ChangePointsMaxLevelCatchMessage(player));
                             return true;
                         } catch (CantChangeThatManyPoints e) {
-                            sender.sendMessage(Messages.CantAddThatManyPoints);
+                            sender.sendMessage(Messages.CantAddThatManyPoints(player_sender));
                             return true;
                         }
                     } else {
@@ -64,13 +68,13 @@ public class ChangePoints implements CommandExecutor {
                         try {
                             offlinePlayer = Main.getOfflinePlayer(username);
                         } catch (TheUserhasNotplayedBefore e) {
-                            sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore);
+                            sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore(player_sender));
                             return true;
                         }
                         try {
                             integer = Integer.valueOf(number);
                         } catch (Exception e) {
-                            sender.sendMessage(Messages.ProblemAddingLevel);
+                            sender.sendMessage(Messages.ProblemAddingLevel(player_sender));
                             return true;
                         }
                         try {
@@ -79,13 +83,13 @@ public class ChangePoints implements CommandExecutor {
                             //offlinePlayer.sendMessage(Messages.ChangePointsMaxLevelCatchMessage);
                             return true;
                         } catch (CantChangeThatManyPoints e) {
-                            sender.sendMessage(Messages.CantAddThatManyPoints);
+                            sender.sendMessage(Messages.CantAddThatManyPoints(player_sender));
                             return true;
                         }
                     }
                 }
             } else {
-                sender.sendMessage(Messages.YouNeedOP);
+                sender.sendMessage(Messages.YouNeedOP(player_sender));
                 return true;
             }
 

@@ -18,9 +18,13 @@ public class LevelLeaderboardCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
+        Player player_sender = null;
+        if (sender instanceof Player) {
+            player_sender = (Player) sender;
+        }
         if(cmd.getName().equalsIgnoreCase("levelleaderboard")) {
             if(args.length == 0) {
-                sender.sendMessage(Messages.LevelHologramCommandUsage());
+                sender.sendMessage(Messages.LevelHologramCommandUsage(player_sender));
                 return true;
             } else {
                 if(args[0].equalsIgnoreCase("spawnHologram")) {
@@ -28,16 +32,16 @@ public class LevelLeaderboardCommand implements CommandExecutor {
                         Player player = (Player) sender;
                         LeaderboardHologram.setupLeaderboardHologram(player.getLocation());
                     } else {
-                        sender.sendMessage(Messages.YouNeedtoBePlayer);
+                        sender.sendMessage(Messages.YouNeedtoBePlayer(player_sender));
                     }
                     return true;
                 } else {
                     if(args[0].equalsIgnoreCase("deletehologram")) {
                         if(!LeaderboardHologram.isDeleted()) {
                             LeaderboardHologram.DeleteLeaderboardHologram();
-                            sender.sendMessage(Messages.DeleteHologram);
+                            sender.sendMessage(Messages.DeleteHologram(player_sender));
                         } else {
-                            sender.sendMessage(Messages.HologramAlreadyDeleted);
+                            sender.sendMessage(Messages.HologramAlreadyDeleted(player_sender));
                         }
                         return true;
                     } else {
@@ -46,7 +50,7 @@ public class LevelLeaderboardCommand implements CommandExecutor {
                                 Player player = (Player) sender;
                                 player.sendMessage(Messages.LeaderHeadsLabelSign());
                             } else {
-                                sender.sendMessage(Messages.YouNeedtoBePlayer);
+                                sender.sendMessage(Messages.YouNeedtoBePlayer(player_sender));
                             }
                             return true;
                         } else {
@@ -68,7 +72,7 @@ public class LevelLeaderboardCommand implements CommandExecutor {
                                         sender.sendMessage(Messages.PlaceHead);
                                     }
                                 } else {
-                                    sender.sendMessage(Messages.YouNeedtoBePlayer);
+                                    sender.sendMessage(Messages.YouNeedtoBePlayer(player_sender));
                                 }
                                 return true;
                             }

@@ -16,25 +16,22 @@ import level.plugin.Errors.TheUserisNotOnline;
 public class AddPoints implements CommandExecutor {
 
     public AddPoints(Main main) {
-
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("AddPoints")) {
+            Player player_sender = null;
+            if (sender instanceof Player) {
+                player_sender = (Player) sender;
+            }
             if (sender.isOp()) {
                 if (args.length == 0 || args.length == 1) {
-                    sender.sendMessage(Messages.AddPointsUsage);
+                    sender.sendMessage(Messages.AddPointsUsage(player_sender));
                     return true;
                 }
                 String username = args[0];
                 String number = args[1];
-			
-/*			if(Bukkit.getPlayer(username) == null) {
-				sender.sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "That Player is not online!");
-			} else {*/
-
-            //^^ WHAT IS THIS?
 
                 boolean online = Main.isPlayerOnline(username);
 
@@ -50,15 +47,14 @@ public class AddPoints implements CommandExecutor {
                     try {
                         integer = Integer.valueOf(number);
                     } catch (Exception e) {
-                        sender.sendMessage(Messages.ProblemAddingPoints);
+                        sender.sendMessage(Messages.ProblemAddingPoints(player_sender));
                         e.printStackTrace();
                         return true;
                     }
                     try {
                         Main.playerData.get(player).Addpoints(integer);
                     } catch (MaxLevel e) {
-                        //e.printStackTrace();
-                        player.sendMessage(Messages.AddPointsMaxLevelCatchMessage);
+                        player.sendMessage(Messages.AddPointsMaxLevelCatchMessage(player));
                     }
                     return true;
                 } else {
@@ -68,15 +64,14 @@ public class AddPoints implements CommandExecutor {
                     try {
                         offlinePlayer = Main.getOfflinePlayer(username);
                     } catch (TheUserhasNotplayedBefore e) {
-                        sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore);
+                        sender.sendMessage(Messages.PlayerhasNotJoinedServerBefore(null));
                         return true;
                     }
 
                     try {
                         integer = Integer.valueOf(number);
                     } catch (Exception e) {
-                        sender.sendMessage(Messages.ProblemAddingPoints);
-                        e.printStackTrace();
+                        sender.sendMessage(Messages.ProblemAddingPoints(player_sender));
                         return true;
                     }
                     try {
@@ -87,7 +82,7 @@ public class AddPoints implements CommandExecutor {
                 }
 
             } else {
-                sender.sendMessage(Messages.YouNeedOP);
+                sender.sendMessage(Messages.YouNeedOP(player_sender));
                 return true;
             }
 

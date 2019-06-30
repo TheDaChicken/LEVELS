@@ -52,7 +52,7 @@ public class LevelsPlugin {
             Main.playerData.get(player).Addpoints(points);
         } catch (MaxLevel e) {
             //e.printStackTrace();
-            player.sendMessage(Messages.AddPointsMaxLevelCatchMessage);
+            player.sendMessage(Messages.AddPointsMaxLevelCatchMessage(player));
         }
 
     }
@@ -62,7 +62,7 @@ public class LevelsPlugin {
             Main.playerData.get(player).ChangeLevel(level);
         } catch (MaxLevel e) {
             //e.printStackTrace();
-            player.sendMessage(Messages.AddLevelMaxLevelCatchMessage);
+            player.sendMessage(Messages.AddLevelMaxLevelCatchMessage(player));
         }
     }
 
@@ -71,7 +71,7 @@ public class LevelsPlugin {
             Main.playerData.get(player).AddLevel(level);
         } catch (MaxLevel e) {
             //e.printStackTrace();
-            player.sendMessage(Messages.AddLevelMaxLevelCatchMessage);
+            player.sendMessage(Messages.AddLevelMaxLevelCatchMessage(player));
         }
     }
 

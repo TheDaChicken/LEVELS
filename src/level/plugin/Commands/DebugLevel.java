@@ -23,6 +23,10 @@ public class DebugLevel implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("debuglevel")) {
+            Player player_sender = null;
+            if (sender instanceof Player) {
+                player_sender = (Player) sender;
+            }
             if (sender.isOp()) {
                 Player player = (Player) sender;
                 if (args.length == 0) {
@@ -83,7 +87,7 @@ public class DebugLevel implements CommandExecutor {
                     }
                 }
             } else {
-                sender.sendMessage(Messages.YouNeedOP);
+                sender.sendMessage(Messages.YouNeedOP(player_sender));
             }
             return true;
         }

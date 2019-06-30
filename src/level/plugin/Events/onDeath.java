@@ -4,10 +4,7 @@ import level.plugin.Errors.MaxLevel;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
-import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,7 +39,7 @@ public class onDeath implements Listener {
                         try {
                             Main.playerData.get(player).Addpoints(points);
                         } catch (MaxLevel maxLevel) {
-                            player.sendMessage(Messages.AddPointsMaxLevelCatchMessage);
+                            player.sendMessage(Messages.AddPointsMaxLevelCatchMessage(player));
                         }
                     }
                 }

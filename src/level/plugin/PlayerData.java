@@ -235,7 +235,7 @@ public class PlayerData {
     private void runPointsMessage(int points) {
         File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
-        String message = Messages.AddPointsMessage(points);
+        String message = Messages.AddPointsMessage(player, points);
 
         if (Levelyml.getString("AddPointsMessageLocation") != null) {
             if (Levelyml.getString("AddPointsMessageLocation").equalsIgnoreCase("ACTIONBAR")) {
@@ -381,7 +381,7 @@ public class PlayerData {
 
                 public void run() {
                     if (test != 0) {
-                        Main.lib.sendActionBar(player, Messages.LevelUpActionbar(getLevel()));
+                        Main.lib.sendActionBar(player, Messages.LevelUpActionbar(player, getLevel()));
                         test--;
                     } else {
                         Bukkit.getServer().getScheduler().cancelTask(runnable);
@@ -389,7 +389,7 @@ public class PlayerData {
                 }
             }, 0L, 10L);
         } else {
-            player.sendMessage(Messages.LevelUpActionbar(getLevel()));
+            player.sendMessage(Messages.LevelUpActionbar(player, getLevel()));
         }
         LevelUpEvent event = new LevelUpEvent(player, getLevel());
         Bukkit.getPluginManager().callEvent(event);
@@ -432,7 +432,7 @@ public class PlayerData {
         return Levelyml.getInt("" + getLevel());
     }
 
-    protected boolean isMaxLevelOn() {
+    public boolean isMaxLevelOn() {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
         String Maxlevel = Levelyml.getString("MaxLevel");
