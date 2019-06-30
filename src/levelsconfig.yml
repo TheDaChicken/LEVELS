@@ -165,6 +165,10 @@ BlockBreakingMax: 1
 
 # You can't use decimals. Just so you know.
 
+# EnableKillMobsPoints, when enabled, gives points to player, when player kills another player.
+EnablePlayerPoints: false
+# Amount of points to give to the a player when kills a player.
+PlayerPointsAmount: 6
 
 #KillMobsPoints when enabled needs to restart the server to create a config with a file of a list of mobs that you can set points when given when something is killed.
 EnableKillMobsPoints: false
