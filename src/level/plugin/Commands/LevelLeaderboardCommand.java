@@ -12,10 +12,6 @@ import org.bukkit.entity.Player;
 
 public class LevelLeaderboardCommand implements CommandExecutor {
 
-    public LevelLeaderboardCommand(Main main) {
-
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player player_sender = null;

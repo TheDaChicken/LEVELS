@@ -14,10 +14,6 @@ import org.bukkit.entity.Player;
 
 public class ChangeLevel implements CommandExecutor {
 
-    public ChangeLevel(Main main) {
-
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("changelevel")) {

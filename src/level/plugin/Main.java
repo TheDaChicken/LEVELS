@@ -72,23 +72,23 @@ public class Main extends JavaPlugin {
     }
 
     private void Events() {
-        getServer().getPluginManager().registerEvents(new OnChat(this), this);
-        getServer().getPluginManager().registerEvents(new OnJoin(this), this);
-        getServer().getPluginManager().registerEvents(new OnQuit(this), this);
-        getServer().getPluginManager().registerEvents(new OnBlockBreak(this), this);
-        getServer().getPluginManager().registerEvents(new onDeath(this), this);
+        getServer().getPluginManager().registerEvents(new OnChat(), this);
+        getServer().getPluginManager().registerEvents(new OnJoin(), this);
+        getServer().getPluginManager().registerEvents(new OnQuit(), this);
+        getServer().getPluginManager().registerEvents(new OnBlockBreak(), this);
+        getServer().getPluginManager().registerEvents(new onDeath(), this);
         getServer().getPluginManager().registerEvents(new PlayerCommandPreprocess(), this);
         getServer().getPluginManager().registerEvents(new SignChangeEvent(), this);
     }
 
     private void Commands() {
-        getCommand("levelstats").setExecutor(new Stats(this));
-        getCommand("AddPoints").setExecutor(new AddPoints(this));
-        getCommand("ChangeLevel").setExecutor(new ChangeLevel(this));
-        getCommand("DebugLevel").setExecutor(new DebugLevel(this));
-        getCommand("AddLevel").setExecutor(new AddLevel(this));
-        getCommand("ChangePoints").setExecutor(new ChangePoints(this));
-        getCommand("levelleaderboard").setExecutor(new LevelLeaderboardCommand(this));
+        getCommand("levelstats").setExecutor(new Stats());
+        getCommand("AddPoints").setExecutor(new AddPoints());
+        getCommand("ChangeLevel").setExecutor(new ChangeLevel());
+        getCommand("DebugLevel").setExecutor(new DebugLevel());
+        getCommand("AddLevel").setExecutor(new AddLevel());
+        getCommand("ChangePoints").setExecutor(new ChangePoints());
+        getCommand("levelleaderboard").setExecutor(new LevelLeaderboardCommand());
     }
 
     public void onDisable() {

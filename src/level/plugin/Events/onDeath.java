@@ -15,8 +15,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.io.File;
 
 public class onDeath implements Listener {
-    public onDeath(Main main) {
-    }
+
     @EventHandler
     public void Death(EntityDeathEvent event) {
         File levels_config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");

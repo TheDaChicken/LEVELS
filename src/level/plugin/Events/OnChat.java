@@ -14,8 +14,6 @@ import level.plugin.Main;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class OnChat implements Listener {
-	public OnChat(Main main) {
-	}
 
 	@EventHandler(priority=EventPriority.HIGHEST)
 	public void Chat(AsyncPlayerChatEvent event) {

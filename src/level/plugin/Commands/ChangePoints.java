@@ -16,10 +16,6 @@ import level.plugin.Errors.TheUserisNotOnline;
 
 public class ChangePoints implements CommandExecutor {
 
-    public ChangePoints(Main main) {
-
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("changepoints")) {

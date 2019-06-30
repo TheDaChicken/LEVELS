@@ -16,9 +16,6 @@ import java.io.File;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class OnBlockBreak implements Listener {
-    public OnBlockBreak(Main main) {
-    }
-
     @EventHandler
     public void onBlock(BlockBreakEvent event) {
         File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");

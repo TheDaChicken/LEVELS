@@ -8,8 +8,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import level.plugin.Main;
 
 public class OnQuit implements Listener {
-	public OnQuit(Main main) {
-	}
 	@EventHandler
 	public void Quit(PlayerQuitEvent event) {
 		Player player = event.getPlayer();

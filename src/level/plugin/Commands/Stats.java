@@ -14,9 +14,6 @@ import org.bukkit.entity.Player;
 
 public class Stats implements CommandExecutor {
 
-    public Stats(Main main) {
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         Player player_sender = null;

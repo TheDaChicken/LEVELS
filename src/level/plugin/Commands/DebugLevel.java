@@ -15,9 +15,6 @@ import org.bukkit.entity.Player;
 
 public class DebugLevel implements CommandExecutor {
 
-    public DebugLevel(Main main) {
-
-    }
 
     @SuppressWarnings("deprecation")
     @Override

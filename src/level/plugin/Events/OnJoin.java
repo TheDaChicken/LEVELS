@@ -9,8 +9,7 @@ import level.plugin.Main;
 import level.plugin.PlayerData;
 
 public class OnJoin implements Listener {
-	public OnJoin(Main main) {
-	}
+
 	@EventHandler
 	public void Join(PlayerJoinEvent event) {
 		Player player = event.getPlayer();

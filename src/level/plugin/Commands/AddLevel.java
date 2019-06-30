@@ -15,10 +15,6 @@ import level.plugin.Errors.TheUserisNotOnline;
 
 public class AddLevel implements CommandExecutor {
 
-    public AddLevel(Main main) {
-
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("AddLevel")) {

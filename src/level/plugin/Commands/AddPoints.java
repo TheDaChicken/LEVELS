@@ -15,9 +15,6 @@ import level.plugin.Errors.TheUserisNotOnline;
 
 public class AddPoints implements CommandExecutor {
 
-    public AddPoints(Main main) {
-    }
-
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("AddPoints")) {
