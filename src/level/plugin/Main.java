@@ -108,6 +108,7 @@ public class Main extends JavaPlugin {
 
 
     public static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
+        // FOUND THIS SOMEWHERE ON THE INTERNET SORRY.
         List<Class<?>> res = new ArrayList<>();
 
         do {
