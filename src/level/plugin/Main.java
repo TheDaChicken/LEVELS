@@ -13,8 +13,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -23,10 +22,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Main extends JavaPlugin {
 
@@ -111,6 +107,37 @@ public class Main extends JavaPlugin {
     }
 
 
+    public static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
+        List<Class<?>> res = new ArrayList<>();
+
+        do {
+            res.add(clazz);
+
+            // First, add all the interfaces implemented by this class
+            Class<?>[] interfaces = clazz.getInterfaces();
+            if (interfaces.length > 0) {
+                res.addAll(Arrays.asList(interfaces));
+
+                for (Class<?> interface_ : interfaces) {
+                    res.addAll(getAllExtendedOrImplementedTypesRecursively(interface_));
+                }
+            }
+
+            // Add the super class
+            Class<?> superClass = clazz.getSuperclass();
+
+            // Interfaces does not have java,lang.Object as superclass, they have null, so break the cycle and return
+            if (superClass == null) {
+                break;
+            }
+
+            // Now inspect the superclass
+            clazz = superClass;
+        } while (!"java.lang.Object".equals(clazz.getCanonicalName()));
+
+        return new HashSet<Class<?>>(res);
+    }
+
     public void createModsListConfig() {
         File l = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(l);
@@ -118,9 +145,22 @@ public class Main extends JavaPlugin {
             File Config = new File(this.getDataFolder().getPath(), "moblistconfig.yml");
             YamlConfiguration Configcfg = YamlConfiguration.loadConfiguration(Config);
             if (!Config.exists()) {
-                this.saveResource("moblistconfig.yml", false);
-                for (EntityType a : EntityType.values()) {
-                    Configcfg.set("mobs." + a.getName(), 1);
+                try {
+                    Config.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                Configcfg.set("Info", "This is the config that allows you to set the points given to a person when mob is killed.\n" +
+                        "You can remove any of this mobs from the list if you don't want people given points for the mob.");
+                for (EntityType entityType : EntityType.values()) {
+                    //Only get Living Entity.
+                    Class<? extends Entity> EntityClass = entityType.getEntityClass();
+                    if (EntityClass != null) {
+                        if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
+                            Configcfg.set("mobs." + entityType.getName(), 1);
+                        }
+                    }
                 }
             }
             try {
