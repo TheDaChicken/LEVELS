@@ -76,7 +76,9 @@ public class Messages {
         //String StatsInfoOnlySelfMaxLevel  = ChatColor.translateAlternateColorCodes('&', Config.getString("StatsInfoOnlySelfMaxLevel")).replace("%levelprefix%", levelprefix).replace("%levelnumber%", String.valueOf(Level)).replace("%points%", String.valueOf(Point)).replace("%maxpoints%", String.valueOf(maxPoint));
     }
 
-	public static String ChangePointsUsage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangePointsUsage"))) }
+    public static String ChangePointsUsage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangePointsUsage")));
+    }
 
 	public static String CantAddThatManyPoints(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("CantAddThatManyPoints"))); }
 
