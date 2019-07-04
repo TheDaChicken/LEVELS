@@ -37,6 +37,10 @@ public class PlayerData {
     private int runnable = 0; //FOR LEVELUPACTIONBAR
     private int LevelPrefixRunnable = 0; //FOR LEVEL ON TOP OF HEAD
 
+    //For PlayerPointsTime Handler.
+    public long PLAYER_JOIN_MILLIS = 0;
+    public int LAST_SECONDS_DIFFERENCE = 0;
+
     public PlayerData(Player player) {
         this.player = player;
         this.uuid = player.getUniqueId();
@@ -127,6 +131,9 @@ public class PlayerData {
                 }
             }, 0, 20L);
         }
+
+        // This is to handle Player Time To Points.
+        PLAYER_JOIN_MILLIS = System.currentTimeMillis();
     }
 
     public void Addpoints(int result) throws MaxLevel {

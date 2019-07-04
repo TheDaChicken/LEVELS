@@ -24,30 +24,48 @@ public class Messages {
 
     //Player is in this METHODS for the PlaceHolderApi and can be null. (as I know of)
 
-	public static String AddPointsMaxLevelCatchMessage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsMaxLevelCatchMessage"))); }
-	
-	public static String PlayerhasNotJoinedServerBefore(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("PlayerhasNotJoinedServerBefore"))); }
-	
-	public static String ProblemAddingPoints(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemAddingPoints"))); }
+    public static String AddPointsMaxLevelCatchMessage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsMaxLevelCatchMessage")));
+    }
 
-	public static String ProblemAddingLevel(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemAddingLevel"))); }
-	
-	public static String AddLevelMaxLevelCatchMessage(Player player) {  return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddLevelMaxLevelCatchMessage"))); }
+    public static String PlayerhasNotJoinedServerBefore(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("PlayerhasNotJoinedServerBefore")));
+    }
 
-	public static String AddLevelUsage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddLevelUsage"))); }
-	
-	public static String AddPointsUsage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsUsage"))); }
-	
-	public static String YouNeedOP(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("YouNeedOP"))); }
+    public static String ProblemAddingPoints(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemAddingPoints")));
+    }
 
-	public static String LevelUpActionbar(Player player, int number) {
+    public static String ProblemAddingLevel(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemAddingLevel")));
+    }
+
+    public static String AddLevelMaxLevelCatchMessage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddLevelMaxLevelCatchMessage")));
+    }
+
+    public static String AddLevelUsage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddLevelUsage")));
+    }
+
+    public static String AddPointsUsage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsUsage")));
+    }
+
+    public static String YouNeedOP(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("YouNeedOP")));
+    }
+
+    public static String LevelUpActionbar(Player player, int number) {
         String message = ChatColor.translateAlternateColorCodes('&', Config.getString("LevelUpActionbar")).replace("%number%", String.valueOf(number));
-		return PlaceHolderAPIString(player, ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))) + message);
-	}
+        return PlaceHolderAPIString(player, ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))) + message);
+    }
 
-	public static String LevelHasSet(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("LevelHasSet"))); }
+    public static String LevelHasSet(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("LevelHasSet")));
+    }
 
-	public static ArrayList<String> StatsInfoOnlySelf(Player player) {
+    public static ArrayList<String> StatsInfoOnlySelf(Player player) {
         ArrayList<String> test = new ArrayList<String>();
         int Level = Main.playerData.get(player).getLevel();
         int Point = Main.playerData.get(player).getPoints();
@@ -80,18 +98,28 @@ public class Messages {
         return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangePointsUsage")));
     }
 
-	public static String CantAddThatManyPoints(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("CantAddThatManyPoints"))); }
+    public static String CantAddThatManyPoints(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("CantAddThatManyPoints")));
+    }
 
-	public static String ChangePointsMaxLevelCatchMessage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangePointsMaxLevelCatchMessage"))); }
+    public static String ChangePointsMaxLevelCatchMessage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangePointsMaxLevelCatchMessage")));
+    }
 
-	public static String ChangeLevelUsage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangeLevelUsage"))); }
+    public static String ChangeLevelUsage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangeLevelUsage")));
+    }
 
-	public static String ProblemChangingLevel(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemChangingLevel"))); }
+    public static String ProblemChangingLevel(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemChangingLevel")));
+    }
 
-	public static String LevelHigherThenMaxLevel(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("LevelHigherThenMaxLevel"))); }
+    public static String LevelHigherThenMaxLevel(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("LevelHigherThenMaxLevel")));
+    }
 
 
-	public static ArrayList<String> StatsInfoPlayers(Player player) {
+    public static ArrayList<String> StatsInfoPlayers(Player player) {
         ArrayList<String> test = new ArrayList<String>();
         int Level = Main.playerData.get(player).getLevel();
         int Point = Main.playerData.get(player).getPoints();
@@ -117,52 +145,62 @@ public class Messages {
             Finished.add(PlaceHolderAPIString(player, convert));
         }
         return Finished;
-	}
+    }
 
     // OfflinePlayers TODO WHY IS THIS NOT IN THE MESSAGE CONFIG?
-	public static ArrayList<String> StatsInfoPlayers(OfflinePlayer player) {
+    public static ArrayList<String> StatsInfoPlayers(OfflinePlayer player) {
 
-		ArrayList<String> test = new ArrayList<String>();
+        ArrayList<String> test = new ArrayList<String>();
 
-		String Level = OfflinePlayerMethods.getLevelString(player);
+        String Level = OfflinePlayerMethods.getLevelString(player);
 
-		int Point = OfflinePlayerMethods.getPoints(player);
+        int Point = OfflinePlayerMethods.getPoints(player);
 
-		int maxPoint = OfflinePlayerMethods.getMaxPoints(player);
+        int maxPoint = OfflinePlayerMethods.getMaxPoints(player);
 
-		test.add(ChatColor.AQUA + "Level " + player.getName() + ChatColor.BOLD + " > "
-								+ Level);
-		test.add(ChatColor.GRAY + "" + ChatColor.BOLD + "Points: " + Point + "/" + maxPoint);
-		return test;
-	}
+        test.add(ChatColor.AQUA + "Level " + player.getName() + ChatColor.BOLD + " > "
+                + Level);
+        test.add(ChatColor.GRAY + "" + ChatColor.BOLD + "Points: " + Point + "/" + maxPoint);
+        return test;
+    }
 
-	public static String AddPointsMessage(Player player, int result) {
-	    String message = ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsMessage")).replace("%amountofpoints%", String.valueOf(result));
-	    return PlaceHolderAPIString(player, message);
+    public static String AddPointsMessage(Player player, int result) {
+        String message = ChatColor.translateAlternateColorCodes('&', Config.getString("AddPointsMessage")).replace("%amountofpoints%", String.valueOf(result));
+        return PlaceHolderAPIString(player, message);
     }
 
 
-    public static String MYSQLNotenabledinConfig(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("MYSQLNotenabledinConfig"))); }
+    public static String MYSQLNotenabledinConfig(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("MYSQLNotenabledinConfig")));
+    }
 
-	public static String ProblemwithMYSQLServer(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemwithMYSQLServer"))); }
+    public static String ProblemwithMYSQLServer(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ProblemwithMYSQLServer")));
+    }
 
     public static String LevelHologramCommandUsage(Player player) {
         List<String> usage = Config.getStringList("LevelLeaderboardCommandUsage");
 
         ArrayList<String> finished = new ArrayList<>();
 
-        for(String line : usage) {
+        for (String line : usage) {
             finished.add(PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', line)));
         }
 
         return String.join("\n", finished);
     }
 
-    public static String DeleteHologram(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("DeleteHologram"))); }
+    public static String DeleteHologram(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("DeleteHologram")));
+    }
 
-    public static String HologramAlreadyDeleted(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("HologramAlreadyDeleted"))); }
+    public static String HologramAlreadyDeleted(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("HologramAlreadyDeleted")));
+    }
 
-    public static String YouNeedtoBePlayer(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("YouNeedtoBePlayer"))); }
+    public static String YouNeedtoBePlayer(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("YouNeedtoBePlayer")));
+    }
 
     private static File file = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
     private static YamlConfiguration levelconfig = YamlConfiguration.loadConfiguration(file);
@@ -176,7 +214,9 @@ public class Messages {
         return PlaceHolderAPIString(null, message);
     }
 
-    public static String ChangeLevelsMaxLevelCatchMessage(Player player) { return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangeLevelsMaxLevelCatchMessage"))); }
+    public static String ChangeLevelsMaxLevelCatchMessage(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("ChangeLevelsMaxLevelCatchMessage")));
+    }
 
 
     public static String LeaderHeadsLabelSign() {
@@ -185,7 +225,7 @@ public class Messages {
 
         ArrayList<String> finished = new ArrayList<>();
 
-        for(String line : usage) {
+        for (String line : usage) {
             finished.add(PlaceHolderAPIString(null, ChatColor.translateAlternateColorCodes('&', line)));
         }
 
@@ -211,7 +251,7 @@ public class Messages {
 
         int level;
 
-        if(Bukkit.getPlayer(username) != null) {
+        if (Bukkit.getPlayer(username) != null) {
             level = LevelsPlugin.getPlayersLevel(Bukkit.getPlayer(username));
         } else {
             try {
@@ -221,7 +261,7 @@ public class Messages {
             }
         }
 
-        for(String message : stringList) {
+        for (String message : stringList) {
             finished.add(ChatColor.translateAlternateColorCodes('&', message).replace("%position%", position).replace("%player_name%", name).replace("%level_number%", String.valueOf(level)));
         }
 
@@ -235,7 +275,7 @@ public class Messages {
 
         List<String> stringList = levelconfig.getStringList("Leaderboard.LeaderHead." + "SignMessageNoOneThere");
 
-        for(String message : stringList) {
+        for (String message : stringList) {
             finished.add(ChatColor.translateAlternateColorCodes('&', message).replace("%position%", position));
         }
 
@@ -244,7 +284,9 @@ public class Messages {
 
     public static String leaderboardSetHeadUsage = ChatColor.translateAlternateColorCodes('&', Config.getString("leaderboardSetHeadUsage"));
 
-    public static String leaderboardSetHeadNotNumber(String number) { return ChatColor.translateAlternateColorCodes('&', Config.getString("leaderboardSetHeadNotNumber")).replace("%number%", number); }
+    public static String leaderboardSetHeadNotNumber(String number) {
+        return ChatColor.translateAlternateColorCodes('&', Config.getString("leaderboardSetHeadNotNumber")).replace("%number%", number);
+    }
 
     public static String PlaceHead = ChatColor.translateAlternateColorCodes('&', Config.getString("PlaceHead"));
 
@@ -261,5 +303,10 @@ public class Messages {
         } else {
             return string;
         }
+    }
+
+    public static String PlayerPointsToTimeGivenPoints(int points, int seconds) {
+        return ChatColor.translateAlternateColorCodes('&', Config.getString("PlayerPointsToTimeGivenPoints")).
+                replace("%amountofpoints%", String.valueOf(points)).replace("%amountofseconds%", String.valueOf(seconds));
     }
 }

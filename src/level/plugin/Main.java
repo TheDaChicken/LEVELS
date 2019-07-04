@@ -198,6 +198,13 @@ public class Main extends JavaPlugin {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "FOUND OLD CONFIG FROM UPDATE V2 OR LOWER, - Auto choosing Storage TYPE: FILE");
         }
 
+        if (yml.contains("PlayerTimeToPoints.Enable")) {
+            if (yml.getBoolean("PlayerTimeToPoints.Enable")) {
+                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Starting PlayerTimeToPoints Scheduler.");
+                PlayerPointsTimeHandler.PlayerPointsTimeScheduler();
+            }
+        }
+
         //SETTING MYSQL SETTINGS IN CLASS. (FOR NEW METHODS)
         host = yml.getString("MYSQLOptions.Host");
         port = yml.getInt("MYSQLOptions.Port");
@@ -286,6 +293,7 @@ public class Main extends JavaPlugin {
         messageyml.put("leaderboardSetHeadNotNumber", "&a&l%number% is not a number! It needs to be number!");
         messageyml.put("PlaceHead", "&a&lNow Place a Skull in Location you have set!");
         messageyml.put("StoragePlaceNotWorking", "&c&lThere was a problem saving that. Please tell server owner that this has occurred.");
+        messageyml.put("PlayerPointsToTimeGivenPoints", "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!");
     }
 
 

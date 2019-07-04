@@ -173,6 +173,20 @@ PlayerPointsAmount: 6
 #KillMobsPoints when enabled needs to restart the server to create a config with a file of a list of mobs that you can set points when given when something is killed.
 EnableKillMobsPoints: false
 
+PlayerTimeToPoints:
+  # When enabled, this will give points to players for the amount of time the player has been on the server.
+  Enable: false
+
+  # Add/change in the Points list for your own needs.
+  #
+  # <amount of seconds>: <amount of points>
+  #
+  PointsList:
+    60: 5
+    180: 11
+    200: 132124124
+
+
 Leaderboard:
   #This Enables Level Leaderboard Command! To Fully setup this do /ll
   Enable: true

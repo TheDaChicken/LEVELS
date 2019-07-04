@@ -57,3 +57,4 @@ StoragePlaceNotWorking: "&c&lThere was a problem saving that. Please tell server
 UsageSubtractPoints: "&c&lUsage: /subtractpoints playername number"
 UsageSubtractLevel: "&c&lUsage: /subtractlevel playername number"
 SubtractPointsMessage: "&c&l-%amountofpoints% points"
+PlayerPointsToTimeGivenPoints: "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!"
