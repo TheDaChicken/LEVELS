@@ -187,8 +187,9 @@ PlayerTimeToPoints:
     200: 132124124
 
 
+# To Fully setup this do /ll
 Leaderboard:
-  #This Enables Level Leaderboard Command! To Fully setup this do /ll
+  #This Enables Level Leaderboard Command!
   Enable: true
 
   #This allows you to change the command.
@@ -198,6 +199,9 @@ Leaderboard:
 
   #This allows you to change the message that is on the leaderboards!
   LeaderboardMessage: "%positionprefix%&r. %player_name%: %level_number%"
+
+  # Allows a separator between hologram lines.
+  Add-1-line-leaderboard: false
 
   #This allows you to change the color/prefix under the positions on the leaderboard. Make sure your have a prefix from top to the lowest leaderboard position.
   PositionPrefix:

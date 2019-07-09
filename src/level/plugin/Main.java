@@ -5,6 +5,7 @@ import level.plugin.Errors.TheUserhasNotplayedBefore;
 import level.plugin.Errors.TheUserisNotOnline;
 import level.plugin.Events.*;
 import level.plugin.Leaderboard.LeaderHeads;
+import level.plugin.Leaderboard.LeaderboardHandler;
 import level.plugin.Leaderboard.LeaderboardHologram;
 import level.plugin.Libs.*;
 import level.plugin.SupportedPluginsClasses.PlaceHolderAPI;
@@ -202,6 +203,12 @@ public class Main extends JavaPlugin {
             if (yml.getBoolean("PlayerTimeToPoints.Enable")) {
                 Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Starting PlayerTimeToPoints Scheduler.");
                 PlayerPointsTimeHandler.PlayerPointsTimeScheduler();
+            }
+        }
+
+        if (yml.contains("Add-1-line-leaderboard")) {
+            if (yml.getBoolean("Add-1-line-leaderboard")) {
+                LeaderboardHandler.one_lined_leader_board = true;
             }
         }
 

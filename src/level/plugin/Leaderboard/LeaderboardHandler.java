@@ -17,14 +17,12 @@ import java.util.UUID;
 
 public class LeaderboardHandler {
 
+    public static boolean one_lined_leader_board = false;
+
     public static boolean getEnabled() {
         File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(Config);
-        if(cfg.getBoolean("Leaderboard.Enable")) {
-            return true;
-        } else {
-            return false;
-        }
+        return cfg.getBoolean("Leaderboard.Enable");
     }
 
     public static String getCommand() {
@@ -108,6 +106,9 @@ public class LeaderboardHandler {
         while (i < x) {
             //highscoreString.add(Integer.valueOf(i + 1) + ". " + scores.get(i).name + ": " + scores.get(i).level + "");
             highscoreString.add(Messages.LeaderboardPositionMessage(Integer.valueOf(i + 1), scores.get(i).name, scores.get(i).level));
+            if (one_lined_leader_board) {
+                highscoreString.add(" ");
+            }
             i++;
         }
 
