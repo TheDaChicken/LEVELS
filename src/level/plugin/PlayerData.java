@@ -47,9 +47,8 @@ public class PlayerData {
         this.username = player.getName();
         //Loads the player data!
         //Why didn't I think of this before... I used a method for this.
-
-        File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
+        
+        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml"));
 
         //IF PLAYER IS NOT IN STORAGE SETS DEFAULT 0 LEVEL AND POINTS IN STORAGE
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
