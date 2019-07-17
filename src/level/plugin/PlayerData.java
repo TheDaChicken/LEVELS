@@ -463,6 +463,12 @@ public class PlayerData {
             YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
             // Sets Level
             yml.set("Level." + uuid, level);
+            YamlConfiguration levels_config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml"));
+            if (levels_config.contains("setLevels-To-Minecraft-Levels")) {
+                if (levels_config.getBoolean("setLevels-To-Minecraft-Levels")) {
+                    player.setLevel(Main.playerData.get(player).getLevel());
+                }
+            }
             try {
                 yml.save(config);
                 AddLevelPermission(level);
