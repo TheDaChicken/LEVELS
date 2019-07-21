@@ -26,16 +26,11 @@ public class OnChat implements Listener {
         String levelprefix = Main.playerData.get(player).getLevelPrefix();
         String levelnumber = String.valueOf(Main.playerData.get(player).getLevel());
 
-		String level = ChatColor.translateAlternateColorCodes('&', yml.getString("ForceChatFormat")).replace("%levelstring%", levelstring).replace("%level%", levelnumber).replace("%levelprefix%", levelprefix);
+		String level = ChatColor.translateAlternateColorCodes('&',
+				yml.getString("ForceChatFormat")).replace("%levelstring%", levelstring).replace("%level%", levelnumber).replace("%levelprefix%", levelprefix);
 
 		if (yml.getBoolean("Force Level Prefix to any chat plugin")) {
-		
-		    if(level != null) {
-
-		        event.setFormat("" + level + "" + chat);
-
-		    }
-		
+			event.setFormat("" + level + "" + chat);
 		}
 		
 	}
