@@ -206,8 +206,8 @@ public class Main extends JavaPlugin {
             }
         }
 
-        if (yml.contains("Add-1-line-leaderboard")) {
-            if (yml.getBoolean("Add-1-line-leaderboard")) {
+        if (yml.contains("Leaderboard.Add-1-line-leaderboard")) {
+            if (yml.getBoolean("Leaderboard.Add-1-line-leaderboard")) {
                 LeaderboardHandler.one_lined_leader_board = true;
             }
         }
