@@ -1,7 +1,7 @@
 name: Level
 main: level.plugin.Main
 version: 3.0.08
-author: DatChicken040
+author: TheDaChicken
 softdepend: [PlaceholderAPI,HolographicDisplays,Vault]
 commands:
    levelstats:
