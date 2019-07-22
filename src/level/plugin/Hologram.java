@@ -43,6 +43,9 @@ public class Hologram {
             double z = armorStandList.get(lastof).getLocation().getZ();
             Location location = new Location(world, x, y - 0.25, z);
             ArmorStand newline = createHologram(location);
+            if (text.equals("")) {
+                newline.setCustomNameVisible(false);
+            }
             armorStandList.add(newline);
         }
         armorStandList.get(line).setCustomName(text);

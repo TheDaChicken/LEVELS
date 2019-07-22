@@ -105,9 +105,9 @@ public class LeaderboardHandler {
 
         while (i < x) {
             //highscoreString.add(Integer.valueOf(i + 1) + ". " + scores.get(i).name + ": " + scores.get(i).level + "");
-            highscoreString.add(Messages.LeaderboardPositionMessage(Integer.valueOf(i + 1), scores.get(i).name, scores.get(i).level));
+            highscoreString.add(Messages.LeaderboardPositionMessage(i + 1, scores.get(i).name, scores.get(i).level));
             if (one_lined_leader_board) {
-                highscoreString.add(" ");
+                highscoreString.add("");
             }
             i++;
         }
@@ -125,7 +125,7 @@ public class LeaderboardHandler {
 
         while (i < x) {
             //highscoreString.add(Integer.valueOf(i + 1) + ". " + scores.get(i).name + ": " + scores.get(i).level + "");
-            highscoreString.add(new PositionInfo(scores.get(i).name, Integer.valueOf(i + 1), scores.get(i).level));
+            highscoreString.add(new PositionInfo(scores.get(i).name, i + 1, scores.get(i).level));
             //highscoreString.add(Messages.LeaderboardPositionMessage(Integer.valueOf(i + 1), scores.get(i).name, scores.get(i).level));
             i++;
         }
