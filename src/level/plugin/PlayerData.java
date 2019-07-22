@@ -47,7 +47,7 @@ public class PlayerData {
         this.username = player.getName();
         //Loads the player data!
         //Why didn't I think of this before... I used a method for this.
-        
+
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml"));
 
         //IF PLAYER IS NOT IN STORAGE SETS DEFAULT 0 LEVEL AND POINTS IN STORAGE
@@ -465,7 +465,7 @@ public class PlayerData {
             YamlConfiguration levels_config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml"));
             if (levels_config.contains("setLevels-To-Minecraft-Levels")) {
                 if (levels_config.getBoolean("setLevels-To-Minecraft-Levels")) {
-                    player.setLevel(Main.playerData.get(player).getLevel());
+                    player.setLevel(level);
                 }
             }
             try {
@@ -496,6 +496,12 @@ public class PlayerData {
                         test = "INSERT INTO PlayerData (UUID, Level) VALUES ('" + uuid + "', " + level + ")" + ";";
                     }
                     statement.executeUpdate(test);
+                    YamlConfiguration levels_config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml"));
+                    if (levels_config.contains("setLevels-To-Minecraft-Levels")) {
+                        if (levels_config.getBoolean("setLevels-To-Minecraft-Levels")) {
+                            player.setLevel(level);
+                        }
+                    }
                     AddLevelPermission(level);
                     return true;
                 }

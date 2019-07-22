@@ -188,7 +188,7 @@ PlayerTimeToPoints:
 
 # Overrides players Minecraft EXP levels to be shown by there Level.
 # Overrides when a player joins the server, and when leveling up.
-setLevels-To-Minecraft-Levels: true
+setLevels-To-Minecraft-Levels: false
 
 # To Fully setup this do /ll
 Leaderboard:
