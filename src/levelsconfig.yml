@@ -23,8 +23,10 @@ MYSQLOptions: #ONLY IF MYSQL IS ON IN THE STORAGE PLACE
   Username: root
   Password: password
 
+# Example, NameTagEdit but for levels.
 EnableLevelOnTopOfHead: false
 
+# cannot do both at the same time.
 EnableLevelOnPrefix: true
 EnableLevelOnSuffix: false
 
