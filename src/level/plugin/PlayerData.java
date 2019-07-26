@@ -9,6 +9,7 @@ import level.plugin.Leaderboard.PositionInfo;
 import level.plugin.SupportedPluginsClasses.Vault;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -88,19 +89,17 @@ public class PlayerData {
         if (Main.scoreboard != null) {
             LevelPrefixRunnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
                 if (Main.isPlayerOnline(username)) {
-                    if (Levelyml.getBoolean("SupportforNameTagEdit")) {
-                        String levelstringprefix = "" + getLevelString() + " ";
-                        String levelstringsuffix = " " + getLevelString() + "";
-                        if (Levelyml.getBoolean("EnableLevelOnPrefix")) {
-                            NametagEdit.getApi().setPrefix(player, levelstringprefix);
-                        }
-                        if (Levelyml.getBoolean("EnableLevelOnSuffix")) {
-                            NametagEdit.getApi().setSuffix(player, levelstringsuffix);
+                    String level_string = getLevelString();
+                    String prefix_location = Levelyml.getString("LevelOnTopOfHeadLocation");
+                    if (Bukkit.getPluginManager().isPluginEnabled("NametagEdit")) {
+                        if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                            NametagEdit.getApi().setSuffix(player, " " + level_string);
+                        } else {
+                            NametagEdit.getApi().setPrefix(player, level_string + " ");
                         }
                     } else {
                         Team team;
                         String level = String.valueOf(getLevel());
-                        String levelstring = getLevelString();
                         if (Main.scoreboard.getTeam(level) == null) {
                             team = Main.scoreboard.registerNewTeam(level);
                         } else {
@@ -114,13 +113,14 @@ public class PlayerData {
                             }
                         }
                         team.addEntry(player.getName());
-                        if (Levelyml.getBoolean("EnableLevelOnPrefix")) {
-                            if (!team.getPrefix().equalsIgnoreCase(levelstring + " ")) {
-                                team.setPrefix(levelstring + " ");
+
+                        if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                            if (team.getSuffix().equalsIgnoreCase(level_string)) {
+                                team.setSuffix(" " + level_string);
                             }
-                        } else if (Levelyml.getBoolean("EnableLevelOnSuffix")) {
-                            if (team.getSuffix().equalsIgnoreCase(levelstring)) {
-                                team.setSuffix(levelstring);
+                        } else {
+                            if (!team.getPrefix().equalsIgnoreCase(level_string + " ")) {
+                                team.setPrefix(level_string + " ");
                             }
                         }
                         player.setScoreboard(Main.scoreboard);
@@ -413,12 +413,31 @@ public class PlayerData {
         MaxPrefixNumber = Levelyml.getInt("MaxLevelPrefix");
         String levelprefix;
 
+        ConfigurationSection intListPrefixNumbers = Levelyml.getConfigurationSection("LevelColorPrefix");
+
         if (level > MaxPrefixNumber) {
-            levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + MaxPrefixNumber));
+            if (Levelyml.contains("LevelColorPrefix." + MaxPrefixNumber)) {
+                levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + MaxPrefixNumber));
+                return levelprefix;
+            }
         } else {
-            levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + level));
+            // Find good list Prefix Number.
+            int available_level_prefix = -1;
+            for (String integer_ : intListPrefixNumbers.getKeys(false)) {
+                int integer = Integer.parseInt(integer_);
+                if (level > integer || level == integer) {
+                    available_level_prefix = integer;
+                }
+            }
+            if (available_level_prefix == -1) {
+                return "(nullprefix)";
+            }
+            if (Levelyml.contains("LevelColorPrefix." + available_level_prefix)) {
+                levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + available_level_prefix));
+                return levelprefix;
+            }
         }
-        return levelprefix;
+        return "(nullprefix)";
     }
 
     public int getMaxPoints() {

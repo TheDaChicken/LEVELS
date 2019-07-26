@@ -23,14 +23,15 @@ MYSQLOptions: #ONLY IF MYSQL IS ON IN THE STORAGE PLACE
   Username: root
   Password: password
 
-# Example, NameTagEdit but for levels.
+# Example, NameTagEdit prefix or suffix but for levels.
 EnableLevelOnTopOfHead: false
+# Using this with NameTagEdit installed, will replace prefix or suffix on NameTagEdit system for every player.
 
-# cannot do both at the same time.
-EnableLevelOnPrefix: true
-EnableLevelOnSuffix: false
+#Options: PREFIX, SUFFIX.
+#IF not one of those options, auto chooses PREFIX.
+LevelOnTopOfHeadLocation: 'PREFIX'
 
-SupportforNameTagEdit: false
+# used to override /stats from /levelstats
 redirectstatstolevelstats: true
 
 #
