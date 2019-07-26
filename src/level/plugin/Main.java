@@ -12,7 +12,9 @@ import level.plugin.SupportedPluginsClasses.PlaceHolderAPI;
 import level.plugin.SupportedPluginsClasses.Vault;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.*;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -99,6 +101,7 @@ public class Main extends JavaPlugin {
         }
         createLevelConfig();
         createModsListConfig();
+        createBlockListConfig();
         createMessageConfig();
         try {
             createHandlerQuests();
@@ -173,6 +176,36 @@ public class Main extends JavaPlugin {
         }
     }
 
+    public void createBlockListConfig() {
+        File l = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
+        YamlConfiguration yml = YamlConfiguration.loadConfiguration(l);
+        if (yml.contains("BlockBreakingWaysGivingPoints")) {
+            if (yml.getString("BlockBreakingWaysGivingPoints").equalsIgnoreCase("SPECIFIC")) {
+                File Config = new File(this.getDataFolder().getPath(), "blocklistconfig.yml");
+                YamlConfiguration Configcfg = YamlConfiguration.loadConfiguration(Config);
+                if (!Config.exists()) {
+                    try {
+                        Config.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    Configcfg.set("Info", "This is the config that allows you to set the points given to a person when blocks are broken.\n" +
+                            "You can remove any of this blcoks from the list if you don't want people given points for that block.");
+                    for (Material entityType : Material.values()) {
+                        if (entityType.isBlock()) {
+                            Configcfg.set("material." + entityType.name(), 1);
+                        }
+                    }
+                }
+                try {
+                    Configcfg.save(Config);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     public void createLevelConfig() {
         File Config = new File(this.getDataFolder().getPath(), "levelsconfig.yml");

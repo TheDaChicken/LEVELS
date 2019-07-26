@@ -150,14 +150,18 @@ LevelUpPermission: false
 
 #Block Break gives points when a person is breaking a blocks! It not recommended, to do this since someone can abuse this by just using swords and trying to break a block.
 BlockBreaking: false
-#RandomBreakingRandom will give random points from a range!
-BlockBreakingRandom: true
+
+# Options: ONE, RANDOM, SPECIFIC
+BlockBreakingWaysGivingPoints: "ONE"
+# Description of each options:
+#  ONE: Just one number given when block is broken. (BlockBreakingPoints)
+#  RANDOM: random of a range of numbers. (BlockBreakingMin - BlockBreakingMax)
+#  SPECIFIC: Creates blocklistconfig to change every blocks points.
 
 #This is just for regular block Breaking:
 BlockBreakingPoints: 1
 
 #Random Block Breaking Range:
-
 BlockBreakingMin: 0
 BlockBreakingMax: 1
 
