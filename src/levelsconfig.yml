@@ -38,11 +38,6 @@ redirectstatstolevelstats: true
 #List of Locations: CHAT, ACTIONBAR (IF SERVER SUPPORTS), CLEAR (NOTHING)
 AddPointsMessageLocation: "ACTIONBAR"
 
-#
-#This allows you to change the subtract points message location.
-#List of Locations: CHAT, ACTIONBAR (IF SERVER SUPPORTS), CLEAR (NOTHING)
-SubtractPointsMessageLocation: "ACTIONBAR"
-
 # This allows you to enable and run commands when someone leveled up!
 # Variables:
 # %player% - Player's name
