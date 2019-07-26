@@ -6,6 +6,7 @@ import level.plugin.Errors.MaxLevel;
 import level.plugin.Errors.TheUserhasNotplayedBefore;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -141,15 +142,34 @@ public class OfflinePlayerMethods {
         File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
         YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
 
-        int maxprefixnumber = Levelyml.getInt("MaxLevelPrefix");
+        int MaxPrefixNumber = Levelyml.getInt("MaxLevelPrefix");
         String levelprefix;
 
-        if (level > maxprefixnumber) {
-            levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + maxprefixnumber));
+        ConfigurationSection intListPrefixNumbers = Levelyml.getConfigurationSection("LevelColorPrefix");
+
+        if (level > MaxPrefixNumber) {
+            if (Levelyml.contains("LevelColorPrefix." + MaxPrefixNumber)) {
+                levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + MaxPrefixNumber));
+                return levelprefix;
+            }
         } else {
-            levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + level));
+            // Find good list Prefix Number.
+            int available_level_prefix = -1;
+            for (String integer_ : intListPrefixNumbers.getKeys(false)) {
+                int integer = Integer.parseInt(integer_);
+                if (level > integer || level == integer) {
+                    available_level_prefix = integer;
+                }
+            }
+            if (available_level_prefix == -1) {
+                return "(nullprefix)";
+            }
+            if (Levelyml.contains("LevelColorPrefix." + available_level_prefix)) {
+                levelprefix = ChatColor.translateAlternateColorCodes('&', Levelyml.getString("LevelColorPrefix." + available_level_prefix));
+                return levelprefix;
+            }
         }
-        return levelprefix;
+        return "(nullprefix)";
     }
 
     public static int getMaxPoints(OfflinePlayer player) {
