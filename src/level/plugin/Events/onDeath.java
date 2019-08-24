@@ -39,7 +39,7 @@ public class onDeath implements Listener {
                 YamlConfiguration Config_cfg = YamlConfiguration.loadConfiguration(Config);
                 if (Config.exists()) {
                     //Other Mobs
-                    String entityName = event.getEntity().getType().getName();
+                    String entityName = event.getEntity().getType().getName().toUpperCase();
                     if (player != null) {
                         boolean isThere = Config_cfg.get("mobs." + entityName) != null;
                         if (isThere) {

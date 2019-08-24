@@ -167,7 +167,7 @@ public class Main extends JavaPlugin {
                     Class<? extends Entity> EntityClass = entityType.getEntityClass();
                     if (EntityClass != null) {
                         if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
-                            Configcfg.set("mobs." + entityType.getName(), 1);
+                            Configcfg.set("mobs." + entityType.getName().toUpperCase(), 1);
                         }
                     }
                 }
