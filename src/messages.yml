@@ -57,3 +57,5 @@ StoragePlaceNotWorking: "&c&lThere was a problem saving that. Please tell server
 UsageSubtractPoints: "&c&lUsage: /subtractpoints playername number"
 UsageSubtractLevel: "&c&lUsage: /subtractlevel playername number"
 PlayerPointsToTimeGivenPoints: "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!"
+DoesntContainSubCommands: "&c&lThis command doesn't contain any sub-commands!"
+MessagereloadedSucessful: "&a&lThe Messages has now been reloaded."

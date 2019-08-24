@@ -20,7 +20,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Messages {
 
-    public static YamlConfiguration Config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "messages.yml"));
+    private static YamlConfiguration Config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "messages.yml"));
+
+    public static void reloadMessages() {
+        Config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "messages.yml"));
+    }
 
     //Player is in this METHODS for the PlaceHolderApi and can be null. (as I know of)
 
@@ -308,5 +312,13 @@ public class Messages {
     public static String PlayerPointsToTimeGivenPoints(int points, int seconds) {
         return ChatColor.translateAlternateColorCodes('&', Config.getString("PlayerPointsToTimeGivenPoints")).
                 replace("%amountofpoints%", String.valueOf(points)).replace("%amountofseconds%", String.valueOf(seconds));
+    }
+
+    public static String DoesntContainSubCommands(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("DoesntContainSubCommands")));
+    }
+
+    public static String MessagereloadedSucessful(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("MessagereloadedSucessful")));
     }
 }

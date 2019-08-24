@@ -14,9 +14,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
-import org.bukkit.block.Block;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.*;
+import org.bukkit.craftbukkit.libs.joptsimple.internal.Messages;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scoreboard.Scoreboard;
 
@@ -88,6 +91,7 @@ public class Main extends JavaPlugin {
         getCommand("AddLevel").setExecutor(new AddLevel());
         getCommand("ChangePoints").setExecutor(new ChangePoints());
         getCommand("levelleaderboard").setExecutor(new LevelLeaderboardCommand());
+        getCommand("levelreloadmessages").setExecutor(new levelreloadMessage());
     }
 
     public void onDisable() {
@@ -334,6 +338,8 @@ public class Main extends JavaPlugin {
         messageyml.put("PlaceHead", "&a&lNow Place a Skull in Location you have set!");
         messageyml.put("StoragePlaceNotWorking", "&c&lThere was a problem saving that. Please tell server owner that this has occurred.");
         messageyml.put("PlayerPointsToTimeGivenPoints", "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!");
+        messageyml.put("DoesntContainSubCommands", "&a&lThis command doesn't contain any sub commands!");
+        messageyml.put("MessagereloadedSucessful", "&c&lThe Messages has now been reloaded.");
     }
 
 
