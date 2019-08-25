@@ -4,6 +4,7 @@ import level.plugin.Errors.MaxLevel;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -40,6 +41,7 @@ public class onDeath implements Listener {
                 if (Config.exists()) {
                     //Other Mobs
                     String entityName = event.getEntity().getType().getName().toUpperCase();
+                    Bukkit.broadcastMessage(entityName);
                     if (player != null) {
                         boolean isThere = Config_cfg.get("mobs." + entityName) != null;
                         if (isThere) {

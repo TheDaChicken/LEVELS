@@ -167,9 +167,10 @@ public class Main extends JavaPlugin {
                     Class<? extends Entity> EntityClass = entityType.getEntityClass();
                     if (EntityClass != null) {
                         if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
-                            String name = entityType.getName();
-                            if (name != null) {
-                                Configcfg.set("mobs." + name.toUpperCase(), 1);
+                            try {
+                                Configcfg.set("mobs." + entityType.getName().toUpperCase(), 1);
+                            } catch (NullPointerException ignored) {
+
                             }
                         }
                     }
