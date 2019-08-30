@@ -5,18 +5,32 @@ import level.plugin.Leaderboard.LeaderboardHandler;
 import level.plugin.Leaderboard.PositionInfo;
 import level.plugin.Main;
 import level.plugin.PlayerData;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-public class PlaceHolderAPI extends EZPlaceholderHook {
+public class PlaceHolderAPI extends PlaceholderExpansion {
 
-    private Main ourPlugin;
+    private Main plugin;
 
     public PlaceHolderAPI(Main plugin) {
-        super(plugin, "levels");
-        this.ourPlugin = plugin;
+        this.plugin = plugin;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "Levels";
+    }
+
+    @Override
+    public String getAuthor() {
+        return "TheDaChicken";
+    }
+
+    @Override
+    public String getVersion() {
+        return plugin.getDescription().getVersion();
     }
 
     @Override

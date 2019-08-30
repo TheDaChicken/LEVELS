@@ -62,8 +62,8 @@ public class Main extends JavaPlugin {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             // Check if PlaceholderAPI is installed.
             Bukkit.getConsoleSender().sendMessage("PlaceholderAPI found!");
-            new PlaceHolderAPI(this).hook();
-            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the PlaceHolders! - Using PlaceHolder EZPlaceholderHook.");
+            new PlaceHolderAPI(this).register();
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the PlaceHolders! - Using PlaceHolder PlaceholderExpansion.");
         }
         if (Vault.isVaultInstalled()) {
             Vault.setupPermissions();
