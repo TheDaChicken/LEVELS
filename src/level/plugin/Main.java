@@ -45,7 +45,7 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         Commands();
         Events();
-        Config();
+        handleConfigs();
         LeaderboardHologram.SpawnLeaderboardHologram();
         if (LeaderHeads.UpdateSigns()) {
             LeaderHeads.UpdateSignHeadScheduler();
@@ -99,21 +99,101 @@ public class Main extends JavaPlugin {
         LeaderboardHologram.RemoveleaderboardHologram();
     }
 
-    private void Config() {
+
+    private void handleConfigs() {
         if (!this.getDataFolder().exists()) {
             this.getDataFolder().mkdir();
         }
-        createLevelConfig();
-        createModsListConfig();
-        createBlockListConfig();
+
+        File Config = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
+        if (!Config.exists()) {
+            this.saveResource("levelsconfig.yml", false);
+        }
+        YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
+
+        if (yml.getString("STORAGEPlace") != null) {
+            if (yml.getString("STORAGEPlace").equalsIgnoreCase("FILE")) {
+                StorageOptions.setStorageOption(StorageOptions.FILE);
+                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: FILE");
+            } else {
+                if (yml.getString("STORAGEPlace").equalsIgnoreCase("MYSQL")) {
+                    StorageOptions.setStorageOption(StorageOptions.MYSQL);
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: MYSQL");
+                } else {
+                    StorageOptions.setStorageOption(StorageOptions.FILE);
+                    Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "UNKNOWN STORAGE TYPE - Auto choosing Storage TYPE: FILE");
+                }
+            }
+        } else {
+            StorageOptions.setStorageOption(StorageOptions.FILE);
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "FOUND OLD CONFIG FROM UPDATE V2 OR LOWER, - Auto choosing Storage TYPE: FILE");
+        }
+
+        if (yml.contains("PlayerTimeToPoints.Enable")) {
+            if (yml.getBoolean("PlayerTimeToPoints.Enable")) {
+                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Starting PlayerTimeToPoints Scheduler.");
+                PlayerPointsTimeHandler.PlayerPointsTimeScheduler();
+            }
+        }
+
+        if (yml.contains("Leaderboard.Add-1-line-leaderboard")) {
+            if (yml.getBoolean("Leaderboard.Add-1-line-leaderboard")) {
+                LeaderboardHandler.one_lined_leader_board = true;
+            }
+        }
+
+        //SETTING MYSQL SETTINGS IN CLASS. (FOR NEW METHODS)
+        host = yml.getString("MYSQLOptions.Host");
+        port = yml.getInt("MYSQLOptions.Port");
+        database = yml.getString("MYSQLOptions.Database");
+        username_login = yml.getString("MYSQLOptions.Username");
+        password = yml.getString("MYSQLOptions.Password");
+
+        if (yml.getBoolean("EnableLevelOnTopOfHead")) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        }
+
+        // HANDLE moblistconfig.yml
+        if (yml.getBoolean("EnableKillMobsPoints")) {
+            File mob_list_config = new File(this.getDataFolder().getPath(), "moblistconfig.yml");
+            YamlConfiguration moblistconfig_cfg = YamlConfiguration.loadConfiguration(Config);
+            if (!mob_list_config.exists()) {
+                try {
+                    mob_list_config.createNewFile();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return;
+                }
+                moblistconfig_cfg.set("Info", "This is the config that allows you to set the points given to a person when mob is killed.\n" +
+                        "You can remove any of this mobs from the list if you don't want people given points for the mob.");
+                for (EntityType entityType : EntityType.values()) {
+                    //Only get Living Entity.
+                    Class<? extends Entity> EntityClass = entityType.getEntityClass();
+                    if (EntityClass != null) {
+                        if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
+                            try {
+                                moblistconfig_cfg.set("mobs." + entityType.getName().toUpperCase(), 1);
+                            } catch (NullPointerException ignored) {
+
+                            }
+                        }
+                    }
+                }
+            }
+            try {
+                moblistconfig_cfg.save(Config);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
         createMessageConfig();
         try {
             createHandlerQuests();
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
 
+    }
 
     public static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
         // FOUND THIS SOMEWHERE ON THE INTERNET SORRY.
@@ -212,56 +292,6 @@ public class Main extends JavaPlugin {
                     e.printStackTrace();
                 }
             }
-        }
-    }
-
-    public void createLevelConfig() {
-        File Config = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
-        if (!Config.exists()) {
-            this.saveResource("levelsconfig.yml", false);
-        }
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
-
-        if (yml.getString("STORAGEPlace") != null) {
-            if (yml.getString("STORAGEPlace").equalsIgnoreCase("FILE")) {
-                StorageOptions.setStorageOption(StorageOptions.FILE);
-                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: FILE");
-            } else {
-                if (yml.getString("STORAGEPlace").equalsIgnoreCase("MYSQL")) {
-                    StorageOptions.setStorageOption(StorageOptions.MYSQL);
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: MYSQL");
-                } else {
-                    StorageOptions.setStorageOption(StorageOptions.FILE);
-                    Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "UNKNOWN STORAGE TYPE - Auto choosing Storage TYPE: FILE");
-                }
-            }
-        } else {
-            StorageOptions.setStorageOption(StorageOptions.FILE);
-            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "FOUND OLD CONFIG FROM UPDATE V2 OR LOWER, - Auto choosing Storage TYPE: FILE");
-        }
-
-        if (yml.contains("PlayerTimeToPoints.Enable")) {
-            if (yml.getBoolean("PlayerTimeToPoints.Enable")) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Starting PlayerTimeToPoints Scheduler.");
-                PlayerPointsTimeHandler.PlayerPointsTimeScheduler();
-            }
-        }
-
-        if (yml.contains("Leaderboard.Add-1-line-leaderboard")) {
-            if (yml.getBoolean("Leaderboard.Add-1-line-leaderboard")) {
-                LeaderboardHandler.one_lined_leader_board = true;
-            }
-        }
-
-        //SETTING MYSQL SETTINGS IN CLASS. (FOR NEW METHODS)
-        host = yml.getString("MYSQLOptions.Host");
-        port = yml.getInt("MYSQLOptions.Port");
-        database = yml.getString("MYSQLOptions.Database");
-        username_login = yml.getString("MYSQLOptions.Username");
-        password = yml.getString("MYSQLOptions.Password");
-
-        if (yml.getBoolean("EnableLevelOnTopOfHead")) {
-            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         }
     }
 
