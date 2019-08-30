@@ -156,7 +156,6 @@ public class Main extends JavaPlugin {
         // HANDLE moblistconfig.yml
         if (yml.getBoolean("EnableKillMobsPoints")) {
             File mob_list_config = new File(this.getDataFolder().getPath(), "moblistconfig.yml");
-            YamlConfiguration moblistconfig_cfg = YamlConfiguration.loadConfiguration(Config);
             if (!mob_list_config.exists()) {
                 try {
                     mob_list_config.createNewFile();
@@ -164,6 +163,7 @@ public class Main extends JavaPlugin {
                     e.printStackTrace();
                     return;
                 }
+                YamlConfiguration moblistconfig_cfg = YamlConfiguration.loadConfiguration(Config);
                 moblistconfig_cfg.set("Info", "This is the config that allows you to set the points given to a person when mob is killed.\n" +
                         "You can remove any of this mobs from the list if you don't want people given points for the mob.");
                 for (EntityType entityType : EntityType.values()) {
@@ -179,13 +179,43 @@ public class Main extends JavaPlugin {
                         }
                     }
                 }
-            }
-            try {
-                moblistconfig_cfg.save(Config);
-            } catch (IOException e) {
-                e.printStackTrace();
+                try {
+                    moblistconfig_cfg.save(Config);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
+
+        //HANDLE BlocklistConfig.
+
+        if (yml.contains("BlockBreakingWaysGivingPoints")) {
+            if (yml.getString("BlockBreakingWaysGivingPoints").equalsIgnoreCase("SPECIFIC")) {
+                File block_list_config = new File(this.getDataFolder().getPath(), "blocklistconfig.yml");
+                if (!block_list_config.exists()) {
+                    try {
+                        block_list_config.createNewFile();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        return;
+                    }
+                    YamlConfiguration block_list_cfg = YamlConfiguration.loadConfiguration(Config);
+                    block_list_cfg.set("Info", "This is the config that allows you to set the points given to a person when blocks are broken.\n" +
+                            "You can remove any of this blcoks from the list if you don't want people given points for that block.");
+                    for (Material entityType : Material.values()) {
+                        if (entityType.isBlock()) {
+                            block_list_cfg.set("material." + entityType.name(), 1);
+                        }
+                    }
+                    try {
+                        block_list_cfg.save(Config);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+
         createMessageConfig();
         try {
             createHandlerQuests();
@@ -225,74 +255,6 @@ public class Main extends JavaPlugin {
         } while (!"java.lang.Object".equals(clazz.getCanonicalName()));
 
         return new HashSet<Class<?>>(res);
-    }
-
-    public void createModsListConfig() {
-        File l = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(l);
-        if (yml.getBoolean("EnableKillMobsPoints")) {
-            File Config = new File(this.getDataFolder().getPath(), "moblistconfig.yml");
-            YamlConfiguration Configcfg = YamlConfiguration.loadConfiguration(Config);
-            if (!Config.exists()) {
-                try {
-                    Config.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                Configcfg.set("Info", "This is the config that allows you to set the points given to a person when mob is killed.\n" +
-                        "You can remove any of this mobs from the list if you don't want people given points for the mob.");
-                for (EntityType entityType : EntityType.values()) {
-                    //Only get Living Entity.
-                    Class<? extends Entity> EntityClass = entityType.getEntityClass();
-                    if (EntityClass != null) {
-                        if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
-                            try {
-                                Configcfg.set("mobs." + entityType.getName().toUpperCase(), 1);
-                            } catch (NullPointerException ignored) {
-
-                            }
-                        }
-                    }
-                }
-            }
-            try {
-                Configcfg.save(Config);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void createBlockListConfig() {
-        File l = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(l);
-        if (yml.contains("BlockBreakingWaysGivingPoints")) {
-            if (yml.getString("BlockBreakingWaysGivingPoints").equalsIgnoreCase("SPECIFIC")) {
-                File Config = new File(this.getDataFolder().getPath(), "blocklistconfig.yml");
-                YamlConfiguration Configcfg = YamlConfiguration.loadConfiguration(Config);
-                if (!Config.exists()) {
-                    try {
-                        Config.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                    Configcfg.set("Info", "This is the config that allows you to set the points given to a person when blocks are broken.\n" +
-                            "You can remove any of this blcoks from the list if you don't want people given points for that block.");
-                    for (Material entityType : Material.values()) {
-                        if (entityType.isBlock()) {
-                            Configcfg.set("material." + entityType.name(), 1);
-                        }
-                    }
-                }
-                try {
-                    Configcfg.save(Config);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
     }
 
     public static HashMap<String, String> messageyml = new HashMap<>(); //Message YML VALUES AND KEYS. :/
