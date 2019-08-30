@@ -15,7 +15,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.craftbukkit.libs.joptsimple.internal.Messages;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -110,6 +109,8 @@ public class Main extends JavaPlugin {
             this.saveResource("levelsconfig.yml", false);
         }
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
+
+        //HANDLE STORAGE PLACE
 
         if (yml.getString("STORAGEPlace") != null) {
             if (yml.getString("STORAGEPlace").equalsIgnoreCase("FILE")) {
@@ -257,15 +258,13 @@ public class Main extends JavaPlugin {
         return new HashSet<Class<?>>(res);
     }
 
-    public static HashMap<String, String> messageyml = new HashMap<>(); //Message YML VALUES AND KEYS. :/
-
     public void createMessageConfig() {
         File Config = new File(this.getDataFolder().getPath(), "messages.yml");
         if (!Config.exists()) {
             this.saveResource("messages.yml", false);
         }
         YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
-        LoadMessageDefaultValues();
+        HashMap<String, String> messageyml = LoadMessageDefaultValues();
 
         boolean isMissingKeyMessage = false;
 
@@ -293,7 +292,8 @@ public class Main extends JavaPlugin {
         }
     }
 
-    private void LoadMessageDefaultValues() {
+    private HashMap<String, String> LoadMessageDefaultValues() {
+        HashMap<String, String> messageyml = new HashMap<>(); //Message YML VALUES AND KEYS. :/
         messageyml.put("AddPointsMaxLevelCatchMessage", "&c&lYour were giving points but was discarded because your on the highest level!");
         messageyml.put("PlayerhasNotJoinedServerBefore", "&c&lThat User has not joined this server before.");
         messageyml.put("ProblemAddingPoints", "&c&lThere was a problem adding points. Make sure, it's a number.");
@@ -336,6 +336,7 @@ public class Main extends JavaPlugin {
         messageyml.put("PlayerPointsToTimeGivenPoints", "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!");
         messageyml.put("DoesntContainSubCommands", "&a&lThis command doesn't contain any sub commands!");
         messageyml.put("MessagereloadedSucessful", "&c&lThe Messages has now been reloaded.");
+        return messageyml;
     }
 
 
