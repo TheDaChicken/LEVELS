@@ -90,7 +90,7 @@ public class Main extends JavaPlugin {
         getCommand("AddLevel").setExecutor(new AddLevel());
         getCommand("ChangePoints").setExecutor(new ChangePoints());
         getCommand("levelleaderboard").setExecutor(new LevelLeaderboardCommand());
-        getCommand("levelreloadmessages").setExecutor(new levelreloadMessage());
+        getCommand("levelreload").setExecutor(new levelreload());
     }
 
     public void onDisable() {
@@ -336,6 +336,7 @@ public class Main extends JavaPlugin {
         messageyml.put("PlayerPointsToTimeGivenPoints", "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!");
         messageyml.put("DoesntContainSubCommands", "&a&lThis command doesn't contain any sub commands!");
         messageyml.put("MessagereloadedSucessful", "&c&lThe Messages has now been reloaded.");
+        messageyml.put("MobListConfigreloadedSucessful", "&a&lThe Mob list config cache has now been reloaded.");
         return messageyml;
     }
 

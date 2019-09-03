@@ -17,6 +17,14 @@ import java.io.File;
 
 public class onDeath implements Listener {
 
+    public static YamlConfiguration mob_list_config_cache;
+
+    public static void reloadMobListConfigCache() {
+        mob_list_config_cache = YamlConfiguration.loadConfiguration(
+                new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "moblistconfig.yml"));
+    }
+
+
     @EventHandler
     public void Death(EntityDeathEvent event) {
         File levels_config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
@@ -37,15 +45,16 @@ public class onDeath implements Listener {
         } else {
             if (yml.getBoolean("EnableKillMobsPoints")) {
                 File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "moblistconfig.yml");
-                YamlConfiguration Config_cfg = YamlConfiguration.loadConfiguration(Config);
                 if (Config.exists()) {
+                    if (mob_list_config_cache == null) {
+                        mob_list_config_cache = YamlConfiguration.loadConfiguration(Config);
+                    }
                     //Other Mobs
                     String entityName = event.getEntity().getType().getName().toUpperCase();
                     Bukkit.broadcastMessage(entityName);
                     if (player != null) {
-                        boolean isThere = Config_cfg.get("mobs." + entityName) != null;
-                        if (isThere) {
-                            int points = Config_cfg.getInt("mobs." + entityName);
+                        if (mob_list_config_cache.contains("mobs." + entityName)) {
+                            int points = mob_list_config_cache.getInt("mobs." + entityName);
                             // LivingEntity has a getKiller() method
                             //entity.getKiller().sendMessage("You killed an entity!");
                             // getKiller() returns a Player, so you don't have to check if it's a player.
