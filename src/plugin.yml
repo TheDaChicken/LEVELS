@@ -35,4 +35,4 @@ commands:
    levelreload:
       description: Reloads certain things in levels.
       usage: /<command>
-      aliases: [lrm, levelrm, reloadmessagereload]
+      aliases: [lr, levelr, reloadlevel]
