@@ -226,7 +226,7 @@ public class Main extends JavaPlugin {
 
     }
 
-    public static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
+    private static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
         // FOUND THIS SOMEWHERE ON THE INTERNET SORRY.
         List<Class<?>> res = new ArrayList<>();
 
@@ -258,7 +258,7 @@ public class Main extends JavaPlugin {
         return new HashSet<Class<?>>(res);
     }
 
-    public void createMessageConfig() {
+    private void createMessageConfig() {
         File Config = new File(this.getDataFolder().getPath(), "messages.yml");
         if (!Config.exists()) {
             this.saveResource("messages.yml", false);
