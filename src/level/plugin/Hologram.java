@@ -18,7 +18,7 @@ public class Hologram {
         armorStandList.add(Main);
     }
 
-    public ArmorStand createHologram(Location location) {
+    private ArmorStand createHologram(Location location) {
         // This is to use any armor stands that were not removed during a restart.
         Entity entity = location.getWorld().getNearbyEntities(location, 0, 0, 0).stream().filter(entity_1 -> entity_1.getType() == EntityType.ARMOR_STAND).findAny().orElse(null);
         ArmorStand am;
