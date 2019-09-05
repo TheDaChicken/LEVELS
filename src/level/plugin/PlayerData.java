@@ -36,7 +36,6 @@ public class PlayerData {
 
     //OLD METHODS (CHANGED TO FIT NEW CODE):
     private int runnable = 0; //FOR LEVELUPACTIONBAR
-    private int LevelPrefixRunnable = 0; //FOR LEVEL ON TOP OF HEAD
 
     //For PlayerPointsTime Handler.
     public long PLAYER_JOIN_MILLIS = 0;
@@ -86,51 +85,7 @@ public class PlayerData {
             }
         }
 
-        if (Main.scoreboard != null) {
-            LevelPrefixRunnable = Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), () -> {
-                if (Main.isPlayerOnline(username)) {
-                    String level_string = getLevelString();
-                    String prefix_location = Levelyml.getString("LevelOnTopOfHeadLocation");
-                    if (Bukkit.getPluginManager().isPluginEnabled("NametagEdit")) {
-                        if (prefix_location.equalsIgnoreCase("SUFFIX")) {
-                            NametagEdit.getApi().setSuffix(player, " " + level_string);
-                        } else {
-                            NametagEdit.getApi().setPrefix(player, level_string + " ");
-                        }
-                    } else {
-                        Team team;
-                        String level = String.valueOf(getLevel());
-                        if (Main.scoreboard.getTeam(level) == null) {
-                            team = Main.scoreboard.registerNewTeam(level);
-                        } else {
-                            team = Main.scoreboard.getTeam(level);
-                        }
-                        if (Main.scoreboard.getEntryTeam(player.getName()) != null) {
-                            if (!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
-                                Main.scoreboard.getEntryTeam(player.getName()).removeEntry(player.getName());
-                            } else {
-                                return;
-                            }
-                        }
-                        team.addEntry(player.getName());
-
-                        if (prefix_location.equalsIgnoreCase("SUFFIX")) {
-                            if (team.getSuffix().equalsIgnoreCase(level_string)) {
-                                team.setSuffix(" " + level_string);
-                            }
-                        } else {
-                            if (!team.getPrefix().equalsIgnoreCase(level_string + " ")) {
-                                team.setPrefix(level_string + " ");
-                            }
-                        }
-                        player.setScoreboard(Main.scoreboard);
-                    }
-                } else {
-                    Bukkit.getScheduler().cancelTask(LevelPrefixRunnable);
-                }
-            }, 0, 20L);
-        }
-
+        updateLevelPrefixTOPHEAD();
         // This is to handle Player Time To Points.
         PLAYER_JOIN_MILLIS = System.currentTimeMillis();
     }
@@ -490,6 +445,7 @@ public class PlayerData {
             try {
                 yml.save(config);
                 AddLevelPermission(level);
+                updateLevelPrefixTOPHEAD();
                 return true;
             } catch (IOException e) {
                 e.printStackTrace();
@@ -522,6 +478,7 @@ public class PlayerData {
                         }
                     }
                     AddLevelPermission(level);
+                    updateLevelPrefixTOPHEAD();
                     return true;
                 }
             } catch (SQLException | ClassNotFoundException e) {
@@ -678,6 +635,49 @@ public class PlayerData {
         if (Vault.isVaultInstalled()) {//LevelUpPermission
             if (yml.getBoolean("LevelUpPermission")) {
                 Vault.GivePermissionThatYouLeveledUpToLevel(player, level);
+            }
+        }
+    }
+
+    private void updateLevelPrefixTOPHEAD() {
+        File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
+        YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
+        if (Main.isPlayerOnline(username)) {
+            String level_string = getLevelString();
+            String prefix_location = yml.getString("LevelOnTopOfHeadLocation");
+            if (Bukkit.getPluginManager().isPluginEnabled("NametagEdit")) {
+                if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                    NametagEdit.getApi().setSuffix(player, " " + level_string);
+                } else {
+                    NametagEdit.getApi().setPrefix(player, level_string + " ");
+                }
+            } else {
+                Team team;
+                String level = String.valueOf(getLevel());
+                if (Main.scoreboard.getTeam(level) == null) {
+                    team = Main.scoreboard.registerNewTeam(level);
+                } else {
+                    team = Main.scoreboard.getTeam(level);
+                }
+                if (Main.scoreboard.getEntryTeam(player.getName()) != null) {
+                    if (!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
+                        Main.scoreboard.getEntryTeam(player.getName()).removeEntry(player.getName());
+                    } else {
+                        return;
+                    }
+                }
+                team.addEntry(player.getName());
+
+                if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                    if (team.getSuffix().equalsIgnoreCase(level_string)) {
+                        team.setSuffix(" " + level_string);
+                    }
+                } else {
+                    if (!team.getPrefix().equalsIgnoreCase(level_string + " ")) {
+                        team.setPrefix(level_string + " ");
+                    }
+                }
+                player.setScoreboard(Main.scoreboard);
             }
         }
     }

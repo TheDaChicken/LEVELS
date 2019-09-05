@@ -37,14 +37,18 @@ public class Main extends JavaPlugin {
 
     //MYSQL VARIABLES
     private static Connection connection = null;
-    private static String host, database, username_login, password;
-    private static int port;
+    static String host;
+    static String database;
+    static String username_login;
+    static String password;
+    static int port;
     public static Statement statement;
 
     public void onEnable() {
         Commands();
         Events();
-        handleConfigs();
+        configHandler.handleConfigs();
+        createHandlerQuests();
         LeaderboardHologram.SpawnLeaderboardHologram();
         if (LeaderHeads.UpdateSigns()) {
             LeaderHeads.UpdateSignHeadScheduler();
@@ -99,266 +103,28 @@ public class Main extends JavaPlugin {
     }
 
 
-    private void handleConfigs() {
-        if (!this.getDataFolder().exists()) {
-            this.getDataFolder().mkdir();
-        }
-
-        File Config = new File(this.getDataFolder().getPath(), "levelsconfig.yml");
-        if (!Config.exists()) {
-            this.saveResource("levelsconfig.yml", false);
-        }
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
-
-        //HANDLE STORAGE PLACE
-
-        if (yml.getString("STORAGEPlace") != null) {
-            if (yml.getString("STORAGEPlace").equalsIgnoreCase("FILE")) {
-                StorageOptions.setStorageOption(StorageOptions.FILE);
-                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: FILE");
-            } else {
-                if (yml.getString("STORAGEPlace").equalsIgnoreCase("MYSQL")) {
-                    StorageOptions.setStorageOption(StorageOptions.MYSQL);
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "STORAGE PLACE: MYSQL");
-                } else {
-                    StorageOptions.setStorageOption(StorageOptions.FILE);
-                    Bukkit.broadcastMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "UNKNOWN STORAGE TYPE - Auto choosing Storage TYPE: FILE");
-                }
-            }
-        } else {
-            StorageOptions.setStorageOption(StorageOptions.FILE);
-            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "FOUND OLD CONFIG FROM UPDATE V2 OR LOWER, - Auto choosing Storage TYPE: FILE");
-        }
-
-        if (yml.contains("PlayerTimeToPoints.Enable")) {
-            if (yml.getBoolean("PlayerTimeToPoints.Enable")) {
-                Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Starting PlayerTimeToPoints Scheduler.");
-                PlayerPointsTimeHandler.PlayerPointsTimeScheduler();
-            }
-        }
-
-        if (yml.contains("Leaderboard.Add-1-line-leaderboard")) {
-            if (yml.getBoolean("Leaderboard.Add-1-line-leaderboard")) {
-                LeaderboardHandler.one_lined_leader_board = true;
-            }
-        }
-
-        //SETTING MYSQL SETTINGS IN CLASS. (FOR NEW METHODS)
-        host = yml.getString("MYSQLOptions.Host");
-        port = yml.getInt("MYSQLOptions.Port");
-        database = yml.getString("MYSQLOptions.Database");
-        username_login = yml.getString("MYSQLOptions.Username");
-        password = yml.getString("MYSQLOptions.Password");
-
-        if (yml.getBoolean("EnableLevelOnTopOfHead")) {
-            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-        }
-
-        // HANDLE moblistconfig.yml
-        if (yml.getBoolean("EnableKillMobsPoints")) {
-            File mob_list_config = new File(this.getDataFolder().getPath(), "moblistconfig.yml");
-            if (!mob_list_config.exists()) {
-                try {
-                    mob_list_config.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    return;
-                }
-                YamlConfiguration moblistconfig_cfg = YamlConfiguration.loadConfiguration(Config);
-                moblistconfig_cfg.set("Info", "This is the config that allows you to set the points given to a person when mob is killed.\n" +
-                        "You can remove any of this mobs from the list if you don't want people given points for the mob.");
-                for (EntityType entityType : EntityType.values()) {
-                    //Only get Living Entity.
-                    Class<? extends Entity> EntityClass = entityType.getEntityClass();
-                    if (EntityClass != null) {
-                        if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
-                            try {
-                                moblistconfig_cfg.set("mobs." + entityType.getName().toUpperCase(), 1);
-                            } catch (NullPointerException ignored) {
-
-                            }
-                        }
-                    }
-                }
-                try {
-                    moblistconfig_cfg.save(Config);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        //HANDLE BlocklistConfig.
-
-        if (yml.contains("BlockBreakingWaysGivingPoints")) {
-            if (yml.getString("BlockBreakingWaysGivingPoints").equalsIgnoreCase("SPECIFIC")) {
-                File block_list_config = new File(this.getDataFolder().getPath(), "blocklistconfig.yml");
-                if (!block_list_config.exists()) {
-                    try {
-                        block_list_config.createNewFile();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                        return;
-                    }
-                    YamlConfiguration block_list_cfg = YamlConfiguration.loadConfiguration(Config);
-                    block_list_cfg.set("Info", "This is the config that allows you to set the points given to a person when blocks are broken.\n" +
-                            "You can remove any of this blcoks from the list if you don't want people given points for that block.");
-                    for (Material entityType : Material.values()) {
-                        if (entityType.isBlock()) {
-                            block_list_cfg.set("material." + entityType.name(), 1);
-                        }
-                    }
-                    try {
-                        block_list_cfg.save(Config);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
-        createMessageConfig();
-        try {
-            createHandlerQuests();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
-        // FOUND THIS SOMEWHERE ON THE INTERNET SORRY.
-        List<Class<?>> res = new ArrayList<>();
-
-        do {
-            res.add(clazz);
-
-            // First, add all the interfaces implemented by this class
-            Class<?>[] interfaces = clazz.getInterfaces();
-            if (interfaces.length > 0) {
-                res.addAll(Arrays.asList(interfaces));
-
-                for (Class<?> interface_ : interfaces) {
-                    res.addAll(getAllExtendedOrImplementedTypesRecursively(interface_));
-                }
-            }
-
-            // Add the super class
-            Class<?> superClass = clazz.getSuperclass();
-
-            // Interfaces does not have java,lang.Object as superclass, they have null, so break the cycle and return
-            if (superClass == null) {
-                break;
-            }
-
-            // Now inspect the superclass
-            clazz = superClass;
-        } while (!"java.lang.Object".equals(clazz.getCanonicalName()));
-
-        return new HashSet<Class<?>>(res);
-    }
-
-    private void createMessageConfig() {
-        File Config = new File(this.getDataFolder().getPath(), "messages.yml");
-        if (!Config.exists()) {
-            this.saveResource("messages.yml", false);
-        }
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(Config);
-        HashMap<String, String> messageyml = LoadMessageDefaultValues();
-
-        boolean isMissingKeyMessage = false;
-
-        for (String string : messageyml.keySet()) {
-            if (yml.getString(string) == null) {
-                if (!isMissingKeyMessage) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "Found a value(s) that should be in the messages.yml that has been removed or added with a update! " +
-                            "To keep the plugin working, it has been added to the messages.yml!");
-                    isMissingKeyMessage = true;
-                }
-                if (messageyml.get(string).contains(">SPLIT>")) {
-                    List<String> myList = new ArrayList<String>(Arrays.asList(messageyml.get(string).split(">SPLIT>")));
-                    yml.set(string, myList);
-                } else {
-                    yml.set(string, messageyml.get(string));
-                }
-            }
-        }
-        if (isMissingKeyMessage) {
-            try {
-                yml.save(Config);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    private HashMap<String, String> LoadMessageDefaultValues() {
-        HashMap<String, String> messageyml = new HashMap<>(); //Message YML VALUES AND KEYS. :/
-        messageyml.put("AddPointsMaxLevelCatchMessage", "&c&lYour were giving points but was discarded because your on the highest level!");
-        messageyml.put("PlayerhasNotJoinedServerBefore", "&c&lThat User has not joined this server before.");
-        messageyml.put("ProblemAddingPoints", "&c&lThere was a problem adding points. Make sure, it's a number.");
-        messageyml.put("ProblemAddingLevel", "&c&lThere was a problem adding Levels. Make sure, it's a number.");
-        messageyml.put("AddLevelMaxLevelCatchMessage", "&c&lYour were giving levels but was discarded because your on the highest level!");
-        messageyml.put("AddLevelUsage", "&c&lUsage: /addlevel playername number");
-        messageyml.put("AddPointsUsage", "&c&lUsage: /addpoints playername number");
-        messageyml.put("YouNeedOP", "&c&lYou don't have permissions to perform this command!");
-        messageyml.put("LevelUpActionbar", "Level Up! %number%!");
-        messageyml.put("LevelHasSet", "&a&lThe Level has been set!");
-        messageyml.put("StatsInfoOnlySelf", "&b&lYour Level! > %levelprefix%%levelnumber%>SPLIT>&7&lPoints: %points%/%maxpoints%");
-        messageyml.put("StatsInfoOnlySelfMaxLevel", "&b&lYour Level! > %levelprefix%%levelnumber% &7&l(Max Level)>SPLIT>&7&lPoints:%points%/%maxpoints%");
-        messageyml.put("ChangePointsUsage", "&a&lUsage: /changepoints playername number");
-        messageyml.put("CantAddThatManyPoints", "&a&lYou can't change the points that much! Please use /addpoints !");
-        messageyml.put("ChangePointsMaxLevelCatchMessage", "&a&lYour points were changed but was discarded because your on the highest level!");
-        messageyml.put("ChangeLevelUsage", "&a&lUsage: /changelevel playername number");
-        messageyml.put("ProblemChangingLevel", "&a&lThere was a problem changing the level. Make sure, it's a number.");
-        messageyml.put("LevelHigherThenMaxLevel", "&a&lThat Number is higher than the Max Level and cannot be set!");
-        messageyml.put("StatsInfoPlayers", "&bLevel %player_name%&l > %levelprefix%%levelnumber%>SPLIT>&7&lPoints: %points%/%maxpoints%");
-        messageyml.put("StatsInfoPlayersMaxLevel", "&bLevel %player_name%&l > %levelprefix%%levelnumber% &7&l(Max Level)>SPLIT>&7&lPoints: %points%/%maxpoints%");
-        messageyml.put("AddPointsMessage", "&a&l+%amountofpoints% points");
-        messageyml.put("MYSQLNotenabledinConfig", "&a&lMYSQL is disabled in the config. &7&lIf you want to use MYSQL please enable it in the config.");
-        messageyml.put("ProblemwithMYSQLServer", "&c&lThere was a problem with the MYSQL Server.");
-        messageyml.put("LevelLeaderboardCommandUsage", "&a&lUsage:>SPLIT>/levelleaderboard spawnHologram>SPLIT>/levelleaderboard deletehologram>SPLIT>/levelleaderboard setupleaderheads");
-        messageyml.put("DeleteHologram", "&a&lRemoving and Deleting the Hologram!");
-        messageyml.put("HologramAlreadyDeleted", "&c&lThe Hologram is already deleted.");
-        messageyml.put("YouNeedtoBePlayer", "&c&lYou need to be a player for this command!");
-        messageyml.put("ChangeLevelsMaxLevelCatchMessage", "&a&lYour Level were changed but was discarded because your on the highest level!");
-        messageyml.put("LeaderHeadsLabelSign", "&lFirst Create a Sign (Make sure to label the %position% as the position and so on) and type this: >SPLIT>" +
-                "[LEVEL]>SPLIT>" +
-                "%pos%>SPLIT>" +
-                "You can change the message that the sign creates in the levelsconfig.yml>SPLIT>" +
-                "Next type /ll sethead <levelposition> to set the head location.");
-        messageyml.put("leaderHeadNotANumber", "&c&l%pos% is not a number!");
-        messageyml.put("LeaderHeadSignCreated", "&a&l#%pos% sign has been created!");
-        messageyml.put("leaderboardSetHeadUsage", "&a&lUsage: /ll sethead <levelposition>");
-        messageyml.put("leaderboardSetHeadNotNumber", "&a&l%number% is not a number! It needs to be number!");
-        messageyml.put("PlaceHead", "&a&lNow Place a Skull in Location you have set!");
-        messageyml.put("StoragePlaceNotWorking", "&c&lThere was a problem saving that. Please tell server owner that this has occurred.");
-        messageyml.put("PlayerPointsToTimeGivenPoints", "&a&lYou were given %amountofpoints% points for playing on this server for %amountofseconds% seconds!");
-        messageyml.put("DoesntContainSubCommands", "&a&lThis command doesn't contain any sub commands!");
-        messageyml.put("MessagereloadedSucessful", "&c&lThe Messages has now been reloaded.");
-        messageyml.put("MobListConfigreloadedSucessful", "&a&lThe Mob list config cache has now been reloaded.");
-        return messageyml;
-    }
-
-
-    public void createHandlerQuests() throws IOException {
+    public void createHandlerQuests() {
         if (Bukkit.getPluginManager().isPluginEnabled("Quests")) {
             File JarFolder = new File("plugins" + File.separator + "Quests", "modules");
             File Jar = new File(JarFolder, "Level_Quests_Handler.jar");
             if (!Jar.exists()) {
                 this.saveResource("Level_Quests_Handler.jar", false);
                 File file = new File(this.getDataFolder(), "Level_Quests_Handler.jar");
-                InputStream in = new FileInputStream(file);
-                OutputStream out = new FileOutputStream(Jar);
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = in.read(buffer)) > 0)
-                    out.write(buffer, 0, length);
-                in.close();
-                out.close();
-                Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Quests Level Handler Installed!");
-                if (Bukkit.getPluginManager().isPluginEnabled("Quests")) {
-                    Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You need to restart the server for it to take effect!");
+                try {
+                    InputStream in = new FileInputStream(file);
+                    OutputStream out = new FileOutputStream(Jar);
+                    byte[] buffer = new byte[1024];
+                    int length;
+                    while ((length = in.read(buffer)) > 0)
+                        out.write(buffer, 0, length);
+                    in.close();
+                    out.close();
+                    Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "Quests Level Handler Installed!");
+                    if (Bukkit.getPluginManager().isPluginEnabled("Quests")) {
+                        Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "You need to restart the server for it to take effect!");
+                    }
+                } catch (IOException e1) {
+                    e1.printStackTrace();
                 }
             }
         }
