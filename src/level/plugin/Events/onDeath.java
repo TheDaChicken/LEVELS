@@ -50,8 +50,7 @@ public class onDeath implements Listener {
                         mob_list_config_cache = YamlConfiguration.loadConfiguration(Config);
                     }
                     //Other Mobs
-                    String entityName = event.getEntity().getType().getName().toUpperCase();
-                    Bukkit.broadcastMessage(entityName);
+                    String entityName = event.getEntity().getType().getName();
                     if (player != null) {
                         if (mob_list_config_cache.contains("mobs." + entityName)) {
                             int points = mob_list_config_cache.getInt("mobs." + entityName);
