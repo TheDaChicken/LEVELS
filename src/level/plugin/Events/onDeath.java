@@ -4,6 +4,7 @@ import level.plugin.Errors.MaxLevel;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
+import level.plugin.configHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.EntityType;
@@ -27,8 +28,7 @@ public class onDeath implements Listener {
 
     @EventHandler
     public void Death(EntityDeathEvent event) {
-        File levels_config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(levels_config);
+        YamlConfiguration yml = configHandler.yamlConfiguration();
         Player player = event.getEntity().getKiller();
         if (event.getEntity().getType() == EntityType.PLAYER) {
             if (yml.getBoolean("EnablePlayerPoints")) {
