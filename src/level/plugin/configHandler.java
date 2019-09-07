@@ -268,6 +268,7 @@ public class configHandler {
         messageyml.put("DoesntContainSubCommands", "&a&lThis command doesn't contain any sub commands!");
         messageyml.put("MessagereloadedSucessful", "&c&lThe Messages has now been reloaded.");
         messageyml.put("MobListConfigreloadedSucessful", "&a&lThe Mob list config cache has now been reloaded.");
+        messageyml.put("LevelConfigreloadedSucessful", "&a&lThe Level config cache has now been reloaded!");
         return messageyml;
     }
 }

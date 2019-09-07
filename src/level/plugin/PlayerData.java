@@ -630,43 +630,45 @@ public class PlayerData {
     }
 
     private void updateLevelPrefixTOPHEAD() {
-        YamlConfiguration yml = configHandler.yamlConfiguration();
-        if (Main.isPlayerOnline(username)) {
-            String level_string = getLevelString();
-            String prefix_location = yml.getString("LevelOnTopOfHeadLocation");
-            if (Bukkit.getPluginManager().isPluginEnabled("NametagEdit")) {
-                if (prefix_location.equalsIgnoreCase("SUFFIX")) {
-                    NametagEdit.getApi().setSuffix(player, " " + level_string);
-                } else {
-                    NametagEdit.getApi().setPrefix(player, level_string + " ");
-                }
-            } else {
-                Team team;
-                String level = String.valueOf(getLevel());
-                if (Main.scoreboard.getTeam(level) == null) {
-                    team = Main.scoreboard.registerNewTeam(level);
-                } else {
-                    team = Main.scoreboard.getTeam(level);
-                }
-                if (Main.scoreboard.getEntryTeam(player.getName()) != null) {
-                    if (!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
-                        Main.scoreboard.getEntryTeam(player.getName()).removeEntry(player.getName());
+        if (Main.scoreboard != null) {
+            YamlConfiguration yml = configHandler.yamlConfiguration();
+            if (Main.isPlayerOnline(username)) {
+                String level_string = getLevelString();
+                String prefix_location = yml.getString("LevelOnTopOfHeadLocation");
+                if (Bukkit.getPluginManager().isPluginEnabled("NametagEdit")) {
+                    if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                        NametagEdit.getApi().setSuffix(player, " " + level_string);
                     } else {
-                        return;
-                    }
-                }
-                team.addEntry(player.getName());
-
-                if (prefix_location.equalsIgnoreCase("SUFFIX")) {
-                    if (team.getSuffix().equalsIgnoreCase(level_string)) {
-                        team.setSuffix(" " + level_string);
+                        NametagEdit.getApi().setPrefix(player, level_string + " ");
                     }
                 } else {
-                    if (!team.getPrefix().equalsIgnoreCase(level_string + " ")) {
-                        team.setPrefix(level_string + " ");
+                    Team team;
+                    String level = String.valueOf(getLevel());
+                    if (Main.scoreboard.getTeam(level) == null) {
+                        team = Main.scoreboard.registerNewTeam(level);
+                    } else {
+                        team = Main.scoreboard.getTeam(level);
                     }
+                    if (Main.scoreboard.getEntryTeam(player.getName()) != null) {
+                        if (!Main.scoreboard.getEntryTeam(player.getName()).getName().equalsIgnoreCase(team.getName())) {
+                            Main.scoreboard.getEntryTeam(player.getName()).removeEntry(player.getName());
+                        } else {
+                            return;
+                        }
+                    }
+                    team.addEntry(player.getName());
+
+                    if (prefix_location.equalsIgnoreCase("SUFFIX")) {
+                        if (team.getSuffix().equalsIgnoreCase(level_string)) {
+                            team.setSuffix(" " + level_string);
+                        }
+                    } else {
+                        if (!team.getPrefix().equalsIgnoreCase(level_string + " ")) {
+                            team.setPrefix(level_string + " ");
+                        }
+                    }
+                    player.setScoreboard(Main.scoreboard);
                 }
-                player.setScoreboard(Main.scoreboard);
             }
         }
     }

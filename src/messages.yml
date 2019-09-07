@@ -60,3 +60,4 @@ PlayerPointsToTimeGivenPoints: "&a&lYou were given %amountofpoints% points for p
 DoesntContainSubCommands: "&c&lThis command doesn't contain any sub-commands!"
 MessagereloadedSucessful: "&a&lThe Messages has now been reloaded."
 MobListConfigreloadedSucessful: "&a&lThe Mob list config cache has now been reloaded."
+LevelConfigreloadedSucessful: "&a&lThe Level config cache has now been reloaded!"

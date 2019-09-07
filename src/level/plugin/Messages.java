@@ -325,4 +325,8 @@ public class Messages {
     public static String MobListConfigreloadedSucessful(Player player) {
         return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("MobListConfigreloadedSucessful")));
     }
+
+    public static String LevelConfigreloadedSucessful(Player player) {
+        return PlaceHolderAPIString(player, ChatColor.translateAlternateColorCodes('&', Config.getString("LevelConfigreloadedSucessful")));
+    }
 }
