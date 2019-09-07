@@ -22,7 +22,19 @@ public class configHandler {
     private static YamlConfiguration levelConfig;
 
     public static void refreshLevelConfigCache() {
+        levels_config_file = new File(plugin.getDataFolder().getPath(), "levelsconfig.yml");
+        if (!levels_config_file.exists()) {
+            plugin.saveResource("levelsconfig.yml", false);
+        }
+        levelConfig = YamlConfiguration.loadConfiguration(levels_config_file);
+    }
 
+    public static YamlConfiguration yamlConfiguration() {
+        return levelConfig;
+    }
+
+    public static void saveLevelConfig() throws IOException {
+        levelConfig.save(levels_config_file);
     }
 
     static void handleConfigs() {
@@ -258,5 +270,4 @@ public class configHandler {
         messageyml.put("MobListConfigreloadedSucessful", "&a&lThe Mob list config cache has now been reloaded.");
         return messageyml;
     }
-
 }

@@ -38,8 +38,8 @@ public class PlayerData {
     private int runnable = 0; //FOR LEVELUPACTIONBAR
 
     //For PlayerPointsTime Handler.
-    public long PLAYER_JOIN_MILLIS = 0;
-    public int LAST_SECONDS_DIFFERENCE = 0;
+    static long PLAYER_JOIN_MILLIS = 0;
+    static int LAST_SECONDS_DIFFERENCE = 0;
 
     public PlayerData(Player player) {
         this.player = player;
@@ -47,8 +47,6 @@ public class PlayerData {
         this.username = player.getName();
         //Loads the player data!
         //Why didn't I think of this before... I used a method for this.
-
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml"));
 
         //IF PLAYER IS NOT IN STORAGE SETS DEFAULT 0 LEVEL AND POINTS IN STORAGE
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
@@ -194,8 +192,7 @@ public class PlayerData {
     }
 
     private void runPointsMessage(int points) {
-        File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
+        YamlConfiguration Levelyml = configHandler.yamlConfiguration();
         String message = Messages.AddPointsMessage(player, points);
 
         if (Levelyml.getString("AddPointsMessageLocation") != null) {
@@ -218,8 +215,7 @@ public class PlayerData {
 
     //TODO WORK ON SUBTRACTING
     private void runSubtractPointsMessage(int points) {
-        File Config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(Config);
+        YamlConfiguration Levelyml = configHandler.yamlConfiguration();
         String message = Messages.SubtractPointsMessage(points);
 
         if (Levelyml.getString("SubtractPointsMessageLocation") != null) {
@@ -318,8 +314,7 @@ public class PlayerData {
 
     //NEW KINDA METHODS
     private void LevelUpActionBar() {
-        File LevelsConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration ymlconfig = YamlConfiguration.loadConfiguration(LevelsConfig);
+        YamlConfiguration ymlconfig = configHandler.yamlConfiguration();
         if (ymlconfig.getBoolean("levelupruncommand")) {
             if (ymlconfig.getBoolean("levelupruncommandcertainperlevel")) {
                 if (ymlconfig.getStringList("levelcommands." + getLevel()) == null) {
@@ -362,8 +357,7 @@ public class PlayerData {
 
     public String getLevelPrefix() {
         int level = getLevel();
-        File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
+        YamlConfiguration Levelyml = configHandler.yamlConfiguration();
 
         MaxPrefixNumber = Levelyml.getInt("MaxLevelPrefix");
         String levelprefix;
@@ -396,8 +390,7 @@ public class PlayerData {
     }
 
     public int getMaxPoints() {
-        File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
+        YamlConfiguration Levelyml = configHandler.yamlConfiguration();
         int MaxLevelPoints = Levelyml.getInt("MaxLevelPoints");
         int level = getLevel();
         if (isMaxLevelOn()) {
@@ -413,8 +406,7 @@ public class PlayerData {
     }
 
     public boolean isMaxLevelOn() {
-        File LevelConfig = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration Levelyml = YamlConfiguration.loadConfiguration(LevelConfig);
+        YamlConfiguration Levelyml = configHandler.yamlConfiguration();
         String Maxlevel = Levelyml.getString("MaxLevel");
         return !Maxlevel.equalsIgnoreCase("no") && !Maxlevel.equalsIgnoreCase("ignore");
     }
@@ -630,18 +622,15 @@ public class PlayerData {
     }
 
     private void AddLevelPermission(int level) {
-        File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
         if (Vault.isVaultInstalled()) {//LevelUpPermission
-            if (yml.getBoolean("LevelUpPermission")) {
+            if (configHandler.yamlConfiguration().getBoolean("LevelUpPermission")) {
                 Vault.GivePermissionThatYouLeveledUpToLevel(player, level);
             }
         }
     }
 
     private void updateLevelPrefixTOPHEAD() {
-        File config = new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml");
-        YamlConfiguration yml = YamlConfiguration.loadConfiguration(config);
+        YamlConfiguration yml = configHandler.yamlConfiguration();
         if (Main.isPlayerOnline(username)) {
             String level_string = getLevelString();
             String prefix_location = yml.getString("LevelOnTopOfHeadLocation");
