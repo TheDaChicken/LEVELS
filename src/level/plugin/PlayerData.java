@@ -460,7 +460,7 @@ public class PlayerData {
                     if (exists) {
                         test = "UPDATE PlayerData set Level=\"" + level + "\" where UUID=\"" + uuid + "\"";
                     } else {
-                        test = "INSERT INTO PlayerData (UUID, Level) VALUES ('" + uuid + "', " + level + ")" + ";";
+                        test = "INSERT INTO PlayerData (UUID, Level, Points) VALUES ('" + uuid + "', 0" + ", " + '1' + ")" + ";";
                     }
                     statement.executeUpdate(test);
                     YamlConfiguration levels_config = YamlConfiguration.loadConfiguration(new File(JavaPlugin.getPlugin(Main.class).getDataFolder().getPath(), "levelsconfig.yml"));
@@ -511,7 +511,7 @@ public class PlayerData {
                     if (exists) {
                         test = "UPDATE PlayerData set Points=\"" + points + "\" where UUID=\"" + uuid + "\"";
                     } else {
-                        test = "INSERT INTO PlayerData (UUID, Points) VALUES ('" + uuid + "', " + points + ")" + ";";
+                        test = "INSERT INTO PlayerData (UUID, Level, Points) VALUES ('" + uuid + "', 0" + ", " + points + ")" + ";";
                     }
                     statement.executeUpdate(test);
                     return true;
