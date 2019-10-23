@@ -1,6 +1,6 @@
 name: Level
 main: level.plugin.Main
-version: 3.0.19
+version: 3.0.20
 author: TheDaChicken
 softdepend: [PlaceholderAPI,HolographicDisplays,Vault]
 commands:
