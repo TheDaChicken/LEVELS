@@ -13,7 +13,7 @@ public class PlayerJoinListener implements Listener {
     public void onJoinEvent(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        // Add to playerData
+        // Add to HashMap
         Main.onlinePlayers.put(player, new PlayerData(player));
     }
 
