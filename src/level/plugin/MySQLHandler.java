@@ -1,7 +1,6 @@
 package level.plugin;
 
 import level.plugin.Exceptions.MYSQL.TableAlreadyExists;
-import org.bukkit.Bukkit;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -10,14 +9,14 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MySQL {
+public class MySQLHandler {
 
     private Connection connection = null;
     private Statement statement = null;
     private String host, database, username, password;
     private int port;
 
-    public MySQL(String host, String database, String username, String password, int port) {
+    public MySQLHandler(String host, String database, String username, String password, int port) {
         this.host = host;
         this.database = database;
         this.username = username;
@@ -68,6 +67,10 @@ public class MySQL {
     }
 
     boolean createTable(String table_name, HashMap<String, String> hashMap) throws TableAlreadyExists {
+        /*
+         Creates Table in MYSQL Database.
+         @return True if no error. False if error.
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -93,6 +96,10 @@ public class MySQL {
     }
 
     boolean createTableIfNotExist(String table_name, HashMap<String, String> hashMap) {
+        /*
+         Creates Table in MYSQL Database. Ignore if does Exist.
+         @return True if no error. False if error.
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -172,5 +179,6 @@ public class MySQL {
         }
         return false;
     }
+
 
 }
