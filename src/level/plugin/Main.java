@@ -1,16 +1,20 @@
 package level.plugin;
 
+import level.plugin.Enums.LevelUpTypeOptions;
+import level.plugin.Enums.StorageOptions;
 import level.plugin.Events.PlayerJoinListener;
 import level.plugin.Events.PlayerQuitListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.HashMap;
 
-public class Main extends JavaPlugin {
+public class Main extends CustomJavaPlugin {
 
     public static HashMap<Player, PlayerData> onlinePlayers = new HashMap<>();
     public static MySQL mySQL = null;
@@ -31,9 +35,14 @@ public class Main extends JavaPlugin {
         this.saveDefaultConfig();
         FileConfiguration yml = this.getConfig();
         String storagePlace = yml.getString("StoragePlace");
+        String LevelUpType = yml.getString("LevelUpType");
         if (!StorageOptions.parseStorage(storagePlace)) {
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "UNKNOWN STORAGE TYPE - Auto choosing Storage TYPE: FILE");
             StorageOptions.setStorageOption(StorageOptions.FILE);
+        }
+        if (!LevelUpTypeOptions.parseLevelUpType(LevelUpType)) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "UNKNOWN LEVEL UP TYPE - Auto choosing Storage TYPE: SPECIFIC");
+            LevelUpTypeOptions.setLevelUpType(LevelUpTypeOptions.SPECIFIC);
         }
         if (StorageOptions.isStorageOption(StorageOptions.MYSQL)) {
             String host = yml.getString("MYSQLOptions.Host");
@@ -46,6 +55,13 @@ public class Main extends JavaPlugin {
                 Bukkit.getConsoleSender().sendMessage("Failed to connect to MYSQL Server.");
             }
         }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "StoragePlace: " +
+                StorageOptions.getStorageOption().name() + ".");
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "LevelUpType: " +
+                LevelUpTypeOptions.getLevelUpType().name() + ".");
     }
 
+    private void setupDataFile() {
+        this.saveDataFile();
+    }
 }

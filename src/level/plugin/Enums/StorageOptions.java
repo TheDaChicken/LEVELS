@@ -1,4 +1,4 @@
-package level.plugin;
+package level.plugin.Enums;
 
 public enum StorageOptions {
 
@@ -27,5 +27,4 @@ public enum StorageOptions {
         }
         return false;
     }
-
 }

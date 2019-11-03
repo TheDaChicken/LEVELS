@@ -12,7 +12,17 @@ MYSQLOptions:
   Username: root
   Password: password
 
-NameTag:
+
+# Options: Specific, Multiplier
+LevelUpType: "SPECIFIC"
+# Multiplier: Times from start amount.
+# Specific:
+
+Multiplier:
+  StartAmount: 60
+  MultiplierAmount: 4
+
+Nametag:
   # Hooks into NameTagEdit if installed.
   Enable: false
   # Options: PREFIX, SUFFIX.
