@@ -68,6 +68,10 @@ public class MySQL {
     }
 
     boolean createTable(String table_name, HashMap<String, String> hashMap) throws TableAlreadyExists {
+        /*
+         Creates Table in MYSQL Database.
+         @return True if no error. False if error.
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -93,6 +97,10 @@ public class MySQL {
     }
 
     boolean createTableIfNotExist(String table_name, HashMap<String, String> hashMap) {
+        /*
+         Creates Table in MYSQL Database. Ignore if does Exist.
+         @return True if no error. False if error.
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -112,5 +120,6 @@ public class MySQL {
         }
         return false;
     }
+
 
 }
