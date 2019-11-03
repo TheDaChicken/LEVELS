@@ -1,16 +1,20 @@
 package level.plugin;
 
+import level.plugin.Exceptions.MYSQL.TableAlreadyExists;
+import org.bukkit.Bukkit;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class MySQL {
 
     private Connection connection = null;
-    private String host;
-    private String database;
-    private String username;
-    private String password;
+    private Statement statement = null;
+    private String host, database, username, password;
     private int port;
 
     public MySQL(String host, String database, String username, String password, int port) {
@@ -21,7 +25,7 @@ public class MySQL {
         this.port = port;
     }
 
-    public boolean openConnection() {
+    boolean openConnection() {
         /*
          Create connection to the MYSQL Server.
          @return True if connected, false if unable.
@@ -39,15 +43,74 @@ public class MySQL {
             try {
                 Class.forName("com.mysql.jdbc.Driver");
                 connection = DriverManager.getConnection("jdbc:mysql://" + this.host + ":" + this.port + "/" + this.database, this.username, this.password);
-            } catch (SQLException e) {
-                e.printStackTrace();
-                return false;
-            } catch (ClassNotFoundException e) {
+            } catch (SQLException | ClassNotFoundException e) {
                 e.printStackTrace();
                 return false;
             }
         }
         return true;
+    }
+
+    private Statement getStatement() {
+        /*
+         Creates Statement.
+         @return True if connected, false if unable.
+         */
+        if (this.statement == null) {
+            try {
+                this.statement = connection.createStatement();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+        return this.statement;
+    }
+
+    boolean createTable(String table_name, HashMap<String, String> hashMap) throws TableAlreadyExists {
+        Statement statement = this.getStatement();
+        if (statement != null) {
+            synchronized (this) {
+                String table_statement = "CREATE TABLE " + table_name + " (" + hashMap.keySet().stream()
+                        .map(key -> key + " " + hashMap.get(key))
+                        .collect(Collectors.joining(", ")) + ");";
+
+                try {
+                    statement.execute(table_statement);
+                    return true;
+                } catch (SQLException e) {
+                    int error_code = e.getErrorCode();
+                    if (error_code == 1050) {
+                        throw (new TableAlreadyExists(table_name));
+                    } else {
+                        e.printStackTrace();
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean createTableIfNotExist(String table_name, HashMap<String, String> hashMap) {
+        Statement statement = this.getStatement();
+        if (statement != null) {
+            synchronized (this) {
+                String table_statement = "CREATE TABLE IF NOT EXISTS " + table_name + " (" + hashMap.keySet().stream()
+                        .map(key -> key + " " + hashMap.get(key))
+                        .collect(Collectors.joining(", ")) + ");";
+
+                try {
+                    statement.execute(table_statement);
+                    return true;
+                } catch (SQLException e) {
+                    int error_code = e.getErrorCode();
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
     }
 
 }
