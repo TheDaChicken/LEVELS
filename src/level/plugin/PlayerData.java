@@ -14,4 +14,5 @@ public class PlayerData {
         this.player_object = player_object;
         this.player_uuid = player_object.getUniqueId();
     }
+
 }

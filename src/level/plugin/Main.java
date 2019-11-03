@@ -23,4 +23,9 @@ public class Main extends JavaPlugin {
 
     }
 
+    public void setupConfig() {
+        this.saveDefaultConfig();
+        saveConfig();
+    }
+
 }
