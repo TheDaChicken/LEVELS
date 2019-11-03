@@ -1,0 +1,19 @@
+#
+# LEVELS - BY THEDACHICKEN
+#
+
+# LIST OF STORAGE PLACES
+# Options: FILE, MYSQL
+StoragePlace: "FILE"
+MYSQLOptions:
+  Host: localhost
+  Port: 3306
+  Database: Levels
+  Username: root
+  Password: password
+
+NameTag:
+  # Hooks into NameTagEdit if installed.
+  Enable: false
+  # Options: PREFIX, SUFFIX.
+  Location: 'PREFIX'

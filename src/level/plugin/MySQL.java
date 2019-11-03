@@ -9,14 +9,14 @@ import java.sql.Statement;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class MySQLHandler {
+class MySQL {
 
     private Connection connection = null;
     private Statement statement = null;
     private String host, database, username, password;
     private int port;
 
-    public MySQLHandler(String host, String database, String username, String password, int port) {
+    MySQL(String host, String database, String username, String password, int port) {
         this.host = host;
         this.database = database;
         this.username = username;

@@ -18,4 +18,14 @@ public enum StorageOptions {
         StorageOptions.state = state;
     }
 
+    public static boolean parseStorage(String text) {
+        for (StorageOptions storageOptions : StorageOptions.values()) {
+            if (storageOptions.name().equalsIgnoreCase(text)) {
+                StorageOptions.state = storageOptions;
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
