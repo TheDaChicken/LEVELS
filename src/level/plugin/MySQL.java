@@ -68,10 +68,6 @@ public class MySQL {
     }
 
     boolean createTable(String table_name, HashMap<String, String> hashMap) throws TableAlreadyExists {
-        /*
-         Creates Table in MYSQL Database.
-         @return True if no error. False if error.
-         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -97,10 +93,6 @@ public class MySQL {
     }
 
     boolean createTableIfNotExist(String table_name, HashMap<String, String> hashMap) {
-        /*
-         Creates Table in MYSQL Database. Ignore if does Exist.
-         @return True if no error. False if error.
-         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -121,5 +113,47 @@ public class MySQL {
         return false;
     }
 
+    boolean insertDatabase(String table_name, HashMap<String, String> valuesHashMap) {
+        Statement statement = this.getStatement();
+        if (statement != null) {
+            synchronized (this) {
+                String table_statement = "INSERT " + table_name + " (" + valuesHashMap.keySet().stream()
+                        .collect(Collectors.joining(", ")) + ") VALUES (" + valuesHashMap.values().stream()
+                        .map(value -> "\"" + value + "\"")
+                        .collect(Collectors.joining(", ")) + ");";
+                try {
+                    statement.executeUpdate(table_statement);
+                    return true;
+                } catch (SQLException e) {
+                    int error_code = e.getErrorCode();
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean updateDatabase(String table_name, HashMap<String, String> setHashMap, HashMap<String, String> whereHashMap) {
+        Statement statement = this.getStatement();
+        if (statement != null) {
+            synchronized (this) {
+                String table_statement = "UPDATE " + table_name + " SET " + setHashMap.keySet().stream()
+                        .map(key -> key + "=\"" + setHashMap.get(key) + "\"")
+                        .collect(Collectors.joining(", ")) + " WHERE " + whereHashMap.keySet().stream()
+                        .map(key -> key + "=\"" + whereHashMap.get(key) + "\"")
+                        .collect(Collectors.joining(", "));
+                try {
+                    statement.executeUpdate(table_statement);
+                    return true;
+                } catch (SQLException e) {
+                    int error_code = e.getErrorCode();
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
 
 }
