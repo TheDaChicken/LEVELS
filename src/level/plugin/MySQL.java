@@ -54,7 +54,7 @@ public class MySQL {
     private Statement getStatement() {
         /*
          Creates Statement.
-         @return True if connected, false if unable.
+         @return returns Statement, null if unable to create statement.
          */
         if (this.statement == null) {
             try {
