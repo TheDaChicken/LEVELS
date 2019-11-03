@@ -114,6 +114,13 @@ public class MySQL {
     }
 
     boolean insertDatabase(String table_name, HashMap<String, String> valuesHashMap) {
+        /*
+         Inserts into table in database.
+         @return True if no error. False if error.
+         Hashmap:
+             Key -> Name
+             Value -> Value
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
@@ -135,6 +142,16 @@ public class MySQL {
     }
 
     boolean updateDatabase(String table_name, HashMap<String, String> setHashMap, HashMap<String, String> whereHashMap) {
+        /*
+         Updates into table in database.
+         @return True if no error. False if error.
+         setHashMap:
+             Key -> Name
+             Value -> Value
+         whereHashMap:
+             Key -> Name
+             Value -> Value
+         */
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
