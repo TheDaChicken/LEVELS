@@ -22,7 +22,14 @@ public class PlayerData {
 
     private void loadPlayerData() {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
+            if (!CustomJavaPlugin.getPlugin(Main.class).getDataFile().contains("Users." + this.player_uuid.toString() + ".level")) {
+                CustomJavaPlugin.getPlugin(Main.class).getDataFile().set("Users." + this.player_uuid.toString() + ".level", 0);
+                CustomJavaPlugin.getPlugin(Main.class).getDataFile().set("Users." + this.player_uuid.toString() + ".points", 0);
+                CustomJavaPlugin.getPlugin(Main.class).saveDataFile();
+            }
 
+            this.level = CustomJavaPlugin.getPlugin(Main.class).getDataFile().getInt("Users." + this.player_uuid.toString() + ".level");
+            this.points = CustomJavaPlugin.getPlugin(Main.class).getDataFile().getInt("Users." + this.player_uuid.toString() + ".points");
         }
     }
 
@@ -36,6 +43,14 @@ public class PlayerData {
 
     public Player getPlayerObject() {
         return this.player_object;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public int getPoints() {
+        return this.points;
     }
 
     public void setLevel(int level) {

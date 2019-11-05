@@ -7,11 +7,8 @@ import level.plugin.Events.PlayerQuitListener;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 
-import java.io.File;
 import java.util.HashMap;
 
 public class Main extends CustomJavaPlugin {
@@ -24,6 +21,7 @@ public class Main extends CustomJavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         setupConfig();
+        setupMessages();
     }
 
     public void onDisable() {
@@ -61,7 +59,8 @@ public class Main extends CustomJavaPlugin {
                 LevelUpTypeOptions.getLevelUpType().name() + ".");
     }
 
-    private void setupDataFile() {
-        this.saveDataFile();
+    private void setupMessages() {
+        this.getMessageFile().options().copyDefaults(true);
+        this.saveDefaultMessages();
     }
 }
