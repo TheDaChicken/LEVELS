@@ -15,7 +15,7 @@ public class Messages {
     }
 
 
-    public static String getMessageFile(Player player, String message_name) {
+    public static String getMessage(Player player, String message_name) {
         String message = plugin.getMessageFile().getString(message_name);
         if (message != null) {
             message = ChatColor.translateAlternateColorCodes('&', message);
