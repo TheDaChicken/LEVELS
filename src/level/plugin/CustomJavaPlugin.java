@@ -29,8 +29,8 @@ public abstract class CustomJavaPlugin extends JavaPlugin {
     }
 
     FileConfiguration getMessageFile() {
-        if (this.messageFile == null) {
-            this.reloadData();
+        if (this.messageFC == null) {
+            this.reloadMessages();
         }
 
         return this.messageFC;

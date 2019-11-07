@@ -3,3 +3,7 @@ main: level.plugin.Main
 version: 4
 author: TheDaChicken
 softdepend: [PlaceholderAPI,HolographicDisplays,Vault]
+commands:
+  levelstats:
+    aliases: [ls]
+    description: Shows players stats level's stats and yours!
