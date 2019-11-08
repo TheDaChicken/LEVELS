@@ -13,10 +13,17 @@ MYSQLOptions:
   Password: password
 
 
+# THIS OPTION MUST BE THE SAME ON EACH BUNGEECORD SERVER IF USING MYSQL OR THERE WILL BE DIFFERENT MAX POINTS ON EACH SERVER. <--
 # Options: Specific, Multiplier
 LevelUpType: "SPECIFIC"
 # Multiplier: Times from start amount.
-# Specific:
+# Specific: Give max per level.
+
+Specific:
+  # LEVEL: POINTS
+  1: 50
+  2: 110
+  5: 600
 
 Multiplier:
   StartAmount: 60

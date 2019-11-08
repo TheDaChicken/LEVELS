@@ -7,3 +7,6 @@ commands:
   levelstats:
     aliases: [ls]
     description: Shows players stats level's stats and yours!
+  changelevel:
+    aliases: [cl]
+    description: Changes player's level!

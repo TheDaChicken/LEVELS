@@ -139,8 +139,7 @@ class MySQL {
         Statement statement = this.getStatement();
         if (statement != null) {
             synchronized (this) {
-                String table_statement = "INSERT " + table_name + " (" + valuesHashMap.keySet().stream()
-                        .collect(Collectors.joining(", ")) + ") VALUES (" + valuesHashMap.values().stream()
+                String table_statement = "INSERT " + table_name + " (" + String.join(", ", valuesHashMap.keySet()) + ") VALUES (" + valuesHashMap.values().stream()
                         .map(value -> "\"" + value + "\"")
                         .collect(Collectors.joining(", ")) + ");";
                 try {

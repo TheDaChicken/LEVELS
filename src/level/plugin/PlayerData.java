@@ -11,7 +11,7 @@ public class PlayerData {
     private Player player_object = null;
     private String player_name = null;
 
-    private Integer level, points = null;
+    private Integer level, points = 0;
 
     public PlayerData(Player player_object) {
         this.player_object = player_object;
@@ -54,8 +54,11 @@ public class PlayerData {
     }
 
     public void setLevel(int level) {
-
-
+        if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
+            CustomJavaPlugin.getPlugin(Main.class).getDataFile().set("Users." + this.player_uuid.toString() + ".level", level);
+            CustomJavaPlugin.getPlugin(Main.class).saveDataFile();
+            this.level = level;
+        }
     }
 
 }
