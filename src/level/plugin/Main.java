@@ -68,4 +68,5 @@ public class Main extends CustomJavaPlugin {
         this.getMessageFile().options().copyDefaults(true);
         this.saveDefaultMessages();
     }
+
 }
