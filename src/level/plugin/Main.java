@@ -6,6 +6,8 @@ import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
 import level.plugin.Events.PlayerJoinListener;
 import level.plugin.Events.PlayerQuitListener;
+import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
+import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -33,9 +35,26 @@ public class Main extends CustomJavaPlugin {
 
     }
 
+    public static Integer convertStringToInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    public static PlayerData getPlayerData(String username) throws PlayerNameDoesntExist, PlayerNotPlayedBefore {
+        Player player = Bukkit.getPlayer(username);
+        if (player != null) {
+            return Main.onlinePlayers.get(player);
+        } else {
+            return new PlayerData(username);
+        }
+    }
+
     private void setupConfig() {
-        this.getConfig().options().copyDefaults(true);
         this.saveDefaultConfig();
+
         FileConfiguration yml = this.getConfig();
         String storagePlace = yml.getString("StoragePlace");
         String LevelUpType = yml.getString("LevelUpType");
@@ -65,7 +84,7 @@ public class Main extends CustomJavaPlugin {
     }
 
     private void setupMessages() {
-        this.getMessageFile().options().copyDefaults(true);
+        this.getMessageFile();
         this.saveDefaultMessages();
     }
 

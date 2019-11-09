@@ -1,24 +1,27 @@
 #
 # This file contains all the messages in this plugin! You can change them if you want!
 # If you edit this file, you need to restart your server OR reload the plugin for it to take effect!
-#
-#
-# Regular PlaceHolders:
+# Regular Basic PlaceHolders You can use everywhere:
 #  %levelnumber% (player's level number)
 #  %playername% (player's name)
 #  %points% (player's points number)
-#  %maxpoints% (points to get to the next leveL0
-#
+#  %maxpoints% (points to get to the next level)
+
 # Placeholder API Support!
 # You can make multi lines anywhere!
 
 ChangeLevelUsage: "&a&lUsage: /changelevel playername number"
-
 ConsoleLevelStatsUsage: "&c&lUsage: /levelstats playername"
 
 StatsInfoOnlySelf:
   - "&b&lYour Level! > %levelprefix%%levelnumber%"
   - "&7&lPoints: %points%/%maxpoints%"
+
 StatsInfoOnlySelfMaxLevel:
   - "&b&lYour Level! > %levelprefix%%levelnumber% &7&l(Max Level)"
   - "&7&lPoints: %points%/%maxpoints%"
+
+NotANumber: "&c&l%number% is not a number!"
+
+PlayerNotExist: "&c&l%player_to% doesn't exist as a player name!"
+PlayerNotPlayedBefore: "&c&l%player_to% hasn't played on this server before!"

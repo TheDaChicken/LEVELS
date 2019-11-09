@@ -1,5 +1,5 @@
 #
-# LEVELS - BY THEDACHICKEN
+# LEVELS BY THEDACHICKEN
 #
 
 # LIST OF STORAGE PLACES
@@ -21,13 +21,18 @@ LevelUpType: "SPECIFIC"
 
 Specific:
   # LEVEL: POINTS
-  1: 50
-  2: 110
-  5: 600
+  '1': 50
+  '2': 110
+  '5': 600
 
 Multiplier:
   StartAmount: 60
   MultiplierAmount: 4
+
+LevelPrefix:
+  # LEVEL: PREFIX
+  '0': "&7&l"
+  '19': "&6&l"
 
 Nametag:
   # Hooks into NameTagEdit if installed.
