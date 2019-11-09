@@ -45,6 +45,10 @@ public class Messages {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         if (player != null) {
             hashMap.put("playername", player.getName());
+            if (!Main.onlinePlayers.containsKey(player)) {
+                Main.onlinePlayers.put(player, new PlayerData(player));
+            }
+
             hashMap.put("levelnumber", String.valueOf(Main.onlinePlayers.get(player).getLevel()));
             hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
         }
