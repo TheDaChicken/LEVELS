@@ -59,14 +59,7 @@ public class Messages {
     private static String PlaceHolderString(Player player, String string) {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         if (player != null) {
-            hashMap.put("playername", player.getName());
-            if (!Main.onlinePlayers.containsKey(player)) {
-                Main.onlinePlayers.put(player, new PlayerData(player));
-            }
-
-            hashMap.put("levelnumber", String.valueOf(Main.onlinePlayers.get(player).getLevel()));
-            hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
-            hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
+            playerAddToHashMap(player, hashMap);
         }
 
         if (hashMap.size() != 0) {
@@ -83,14 +76,7 @@ public class Messages {
     private static String PlaceHolderString(Player player, String string, HashMap<String, String> extra_hashmap) {
         HashMap<String, String> hashMap = new HashMap<String, String>(extra_hashmap);
         if (player != null) {
-            hashMap.put("playername", player.getName());
-            if (!Main.onlinePlayers.containsKey(player)) {
-                Main.onlinePlayers.put(player, new PlayerData(player));
-            }
-
-            hashMap.put("levelnumber", String.valueOf(Main.onlinePlayers.get(player).getLevel()));
-            hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
-            hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
+            playerAddToHashMap(player, hashMap);
         }
 
         if (hashMap.size() != 0) {
@@ -102,6 +88,18 @@ public class Messages {
         } else {
             return string;
         }
+    }
+
+    private static void playerAddToHashMap(Player player, HashMap<String, String> hashMap) {
+        hashMap.put("playername", player.getName());
+        if (!Main.onlinePlayers.containsKey(player)) {
+            Main.onlinePlayers.put(player, new PlayerData(player));
+        }
+
+        hashMap.put("levelnumber", String.valueOf(Main.onlinePlayers.get(player).getLevel()));
+        hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
+        hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
+        hashMap.put("maxpoints", String.valueOf(Main.onlinePlayers.get(player).getMaxPoints()));
     }
 
 }

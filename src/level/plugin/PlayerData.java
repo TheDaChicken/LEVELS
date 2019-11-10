@@ -8,7 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 
@@ -83,13 +82,26 @@ public class PlayerData {
         return this.level;
     }
 
-    public void setLevel(int level) {
+    public boolean setLevel(int level) {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
             CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
             plugin.getDataFile().set("Users." + this.player_uuid.toString() + ".level", level);
             plugin.saveDataFile();
             this.level = level;
+            return true;
         }
+        return false;
+    }
+
+    public boolean setPoints(int points) {
+        if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
+            CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
+            plugin.getDataFile().set("Users." + this.player_uuid.toString() + ".points", points);
+            plugin.saveDataFile();
+            this.points = points;
+            return true;
+        }
+        return false;
     }
 
     int getPoints() {
@@ -117,6 +129,29 @@ public class PlayerData {
         }
 
         return "";
+    }
+
+    public int getMaxPoints() {
+        return 20;
+    }
+
+    public void addPoints(int points) {
+        int max_points = getMaxPoints();
+        int points_amount = Math.abs(this.points + points);
+        if (points_amount == max_points) {
+            if (!setPoints(0)) {
+                //player.sendMessage(Messages.StoragePlaceNotWorking);
+            }
+            if (!setLevel(this.level + 1)) {
+                //player.sendMessage(Messages.StoragePlaceNotWorking);
+            }
+        } else if (points_amount < max_points) {
+            if (!setPoints(points_amount)) {
+                //player.sendMessage(Messages.StoragePlaceNotWorking);
+            }
+        } else {
+
+        }
     }
 
 }
