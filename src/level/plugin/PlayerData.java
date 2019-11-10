@@ -90,7 +90,9 @@ public class PlayerData {
             }
             return -1;
         } else if (LevelUpTypeOptions.isLevelUpType(LevelUpTypeOptions.MULTIPLIER)) {
-
+            int start_value = plugin.getConfig().getInt("Multiplier.StartAmount");
+            int multiplier_amount = plugin.getConfig().getInt("Multiplier.MultiplierAmount");
+            return start_value * (multiplier_amount * this.level);
         }
         return null;
     }
@@ -169,18 +171,33 @@ public class PlayerData {
         int points_amount = Math.abs(this.points + points);
         if (points_amount == this.max_points) {
             if (!setPoints(0)) {
-                //player.sendMessage(Messages.StoragePlaceNotWorking);
-            }
-            if (!setLevel(this.level + 1)) {
-                //player.sendMessage(Messages.StoragePlaceNotWorking);
+                this.player_object.sendMessage(Messages.getMessage(this.player_object, "StoragePlaceNotWorking"));
+            } else if (!setLevel(this.level + 1)) {
+                this.player_object.sendMessage(Messages.getMessage(this.player_object, "StoragePlaceNotWorking"));
             }
         } else if (points_amount < max_points) {
             if (!setPoints(points_amount)) {
-                //player.sendMessage(Messages.StoragePlaceNotWorking);
+                this.player_object.sendMessage(Messages.getMessage(this.player_object, "StoragePlaceNotWorking"));
             }
         } else {
-
+            int together = Math.abs(this.max_points - points_amount);
+            this.level++;
+            while (MoreLevelingUp(together)) {
+                Bukkit.broadcastMessage(String.valueOf(together));
+                this.level++;
+                together = Math.abs(this.max_points - together);
+            }
+            if (!setPoints(together)) {
+                this.player_object.sendMessage(Messages.getMessage(this.player_object, "StoragePlaceNotWorking"));
+            } else if (!setLevel(this.level)) {
+                this.player_object.sendMessage(Messages.getMessage(this.player_object, "StoragePlaceNotWorking"));
+            }
         }
+    }
+
+    private boolean MoreLevelingUp(int together) {
+        this.max_points = this.getMaxPoints();
+        return points > max_points || points == max_points;
     }
 
 }
