@@ -7,7 +7,7 @@ import org.bukkit.ChatColor;
 
 public class SupportedPlugins {
 
-    public void setupSupportedPlugins() {
+    public static void setupSupportedPlugins() {
         if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             // Check if PlaceholderAPI is installed.
             Bukkit.getConsoleSender().sendMessage("PlaceholderAPI found!");

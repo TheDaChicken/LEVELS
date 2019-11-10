@@ -9,6 +9,7 @@ import level.plugin.Events.PlayerJoinListener;
 import level.plugin.Events.PlayerQuitListener;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
 import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
+import level.plugin.SupportedPluginsClasses.SupportedPlugins;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -31,6 +32,7 @@ public class Main extends CustomJavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         setupConfig();
         setupMessages();
+        SupportedPlugins.setupSupportedPlugins();
     }
 
     public void onDisable() {

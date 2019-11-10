@@ -99,7 +99,7 @@ public class Messages {
         hashMap.put("levelnumber", String.valueOf(Main.onlinePlayers.get(player).getLevel()));
         hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
         hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
-        hashMap.put("maxpoints", String.valueOf(Main.onlinePlayers.get(player).getMaxPoints()));
+        hashMap.put("maxpoints", String.valueOf(Main.onlinePlayers.get(player).getStoredMaxPoints()));
     }
 
 }
