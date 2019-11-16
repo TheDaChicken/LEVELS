@@ -34,6 +34,27 @@ LevelPrefix:
   '0': "&7&l"
   '19': "&6&l"
 
+# This allows you to enable and run commands when someone leveled up!
+# Variables:
+# %player% - Player's name
+levelupruncommand: false
+levelupruncommandslist:
+  - "msg %player% wow!"
+  - "msg %player% Thanks for downloading Levels!"
+
+#This is for if you want to reward the player with a command per type of level.
+levelupruncommandcertainperlevel: false
+#^^^ To Enable this "levelupruncommand" needs to be enabled.
+#When enabled "levelupruncommandlist" will be ignored.
+
+levelcommands:
+  1:
+    - "tell %player% thanks!"
+  5:
+    - "tell %player% wow! Good Job :)"
+  10:
+    - "tell %player% :>"
+
 Nametag:
   # Hooks into NameTagEdit if installed.
   Enable: false
