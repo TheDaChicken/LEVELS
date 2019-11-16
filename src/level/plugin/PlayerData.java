@@ -183,7 +183,6 @@ public class PlayerData {
             int together = Math.abs(this.max_points - points_amount);
             this.level++;
             while (MoreLevelingUp(together)) {
-                Bukkit.broadcastMessage(String.valueOf(together));
                 this.level++;
                 together = Math.abs(this.max_points - together);
             }
