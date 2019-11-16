@@ -5,6 +5,7 @@ import level.plugin.Commands.ChangeLevel;
 import level.plugin.Commands.LevelStats;
 import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
+import level.plugin.Events.LevelUpListener;
 import level.plugin.Events.PlayerJoinListener;
 import level.plugin.Events.PlayerQuitListener;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
@@ -30,6 +31,7 @@ public class Main extends CustomJavaPlugin {
         // Register Listeners
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new LevelUpListener(), this);
         setupConfig();
         setupMessages();
         SupportedPlugins.setupSupportedPlugins();

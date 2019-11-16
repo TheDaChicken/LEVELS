@@ -1,5 +1,6 @@
 package level.plugin;
 
+import level.plugin.CustomEvents.LevelUpEvent;
 import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
@@ -124,6 +125,7 @@ public class PlayerData {
             plugin.saveDataFile();
             this.level = level;
             this.max_points = getMaxPoints();
+            FireLevelUpEvent(level);
             return true;
         }
         return false;
@@ -197,6 +199,11 @@ public class PlayerData {
     private boolean MoreLevelingUp(int together) {
         this.max_points = this.getMaxPoints();
         return points > max_points || points == max_points;
+    }
+
+    private void FireLevelUpEvent(int level) {
+        LevelUpEvent event = new LevelUpEvent(this.player_object, level);
+        Bukkit.getPluginManager().callEvent(event);
     }
 
 }
