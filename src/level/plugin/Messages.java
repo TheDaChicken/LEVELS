@@ -50,6 +50,21 @@ public class Messages {
         return null;
     }
 
+    public static String getMessage(PlayerData playerData, String message_name, HashMap<String, String> extra_hashmap) {
+        Object object_message = plugin.getMessageFile().get(message_name);
+        String message = null;
+        if (object_message instanceof String) {
+            message = (String) object_message;
+        } else if (object_message instanceof List) {
+            message = StringUtils.join((List) object_message, "\n");
+        }
+        if (message != null) {
+            message = ChatColor.translateAlternateColorCodes('&', message);
+            return PlaceHolderString(playerData, message, extra_hashmap);
+        }
+        return null;
+    }
+
     private static String replaceParams(Map<String, String> hashMap, String template) {
         // Found here, https://stackoverflow.com/a/39902558/8075127
         return hashMap.entrySet().stream().reduce(template, (s, e) -> s.replace("%" + e.getKey() + "%", e.getValue()),
@@ -90,6 +105,20 @@ public class Messages {
         }
     }
 
+    private static String PlaceHolderString(PlayerData playerData, String string, HashMap<String, String> extra_hashmap) {
+        HashMap<String, String> hashMap = new HashMap<String, String>(extra_hashmap);
+        playerAddToHashMap(playerData, hashMap);
+
+        if (hashMap.size() != 0) {
+            string = replaceParams(hashMap, string);
+        }
+        if (playerData.getPlayerObject() != null || Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(playerData.getPlayerObject(), string);
+        }
+
+        return string;
+    }
+
     private static void playerAddToHashMap(Player player, HashMap<String, String> hashMap) {
         hashMap.put("playername", player.getName());
         if (!Main.onlinePlayers.containsKey(player)) {
@@ -100,6 +129,15 @@ public class Messages {
         hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
         hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
         hashMap.put("maxpoints", String.valueOf(Main.onlinePlayers.get(player).getStoredMaxPoints()));
+    }
+
+
+    private static void playerAddToHashMap(PlayerData playerData, HashMap<String, String> hashMap) {
+        hashMap.put("playername", playerData.getPlayerName());
+        hashMap.put("levelnumber", String.valueOf(playerData.getLevel()));
+        hashMap.put("points", String.valueOf(playerData.getPoints()));
+        hashMap.put("levelprefix", String.valueOf(playerData.getLevelPrefix()));
+        hashMap.put("maxpoints", String.valueOf(playerData.getStoredMaxPoints()));
     }
 
 }
