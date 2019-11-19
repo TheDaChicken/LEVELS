@@ -5,7 +5,6 @@ import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,7 +21,7 @@ public class LevelStats implements CommandExecutor {
                     Player player = (Player) sender;
                     sender.sendMessage(Messages.getMessage(player, "StatsInfoOnlySelf"));
                 } else {
-                    sender.sendMessage(Messages.getMessage(null, "ConsoleLevelStatsUsage"));
+                    sender.sendMessage(Messages.getMessage((Player) null, "ConsoleLevelStatsUsage"));
                 }
                 return true;
             } else {
@@ -30,6 +29,7 @@ public class LevelStats implements CommandExecutor {
                 String player_name = args[0];
                 try {
                     PlayerData playerData = Main.getPlayerData(player_name);
+                    sender.sendMessage(Messages.getMessage(playerData, "StatsInfoPlayers"));
                 } catch (PlayerNameDoesntExist playerNameDoesntExist) {
                     HashMap<String, String> extra_hashmap = new HashMap<>();
                     extra_hashmap.put("player_to", player_name);
@@ -41,7 +41,6 @@ public class LevelStats implements CommandExecutor {
                     sender.sendMessage(Messages.getMessage(player, "PlayerNotPlayedBefore", extra_hashmap));
                     return true;
                 }
-                sender.sendMessage(Messages.getMessage(Bukkit.getPlayer(player_name), "StatsInfoPlayers"));
                 return true;
             }
         }

@@ -50,7 +50,7 @@ public class Messages {
         return null;
     }
 
-    public static String getMessage(PlayerData playerData, String message_name, HashMap<String, String> extra_hashmap) {
+    public static String getMessage(PlayerData playerData, String message_name) {
         Object object_message = plugin.getMessageFile().get(message_name);
         String message = null;
         if (object_message instanceof String) {
@@ -60,7 +60,7 @@ public class Messages {
         }
         if (message != null) {
             message = ChatColor.translateAlternateColorCodes('&', message);
-            return PlaceHolderString(playerData, message, extra_hashmap);
+            return PlaceHolderString(playerData, message);
         }
         return null;
     }
@@ -105,8 +105,8 @@ public class Messages {
         }
     }
 
-    private static String PlaceHolderString(PlayerData playerData, String string, HashMap<String, String> extra_hashmap) {
-        HashMap<String, String> hashMap = new HashMap<String, String>(extra_hashmap);
+    private static String PlaceHolderString(PlayerData playerData, String string) {
+        HashMap<String, String> hashMap = new HashMap<String, String>();
         playerAddToHashMap(playerData, hashMap);
 
         if (hashMap.size() != 0) {
