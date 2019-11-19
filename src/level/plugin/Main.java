@@ -52,6 +52,9 @@ public class Main extends CustomJavaPlugin {
     public static PlayerData getPlayerData(String username) throws PlayerNameDoesntExist, PlayerNotPlayedBefore {
         Player player = Bukkit.getPlayer(username);
         if (player != null) {
+            if (!Main.onlinePlayers.containsKey(player)) {
+                Main.onlinePlayers.put(player, new PlayerData(player));
+            }
             return Main.onlinePlayers.get(player);
         } else {
             return new PlayerData(username);
