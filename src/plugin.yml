@@ -13,3 +13,6 @@ commands:
   addPoints:
     aliases: [ap]
     description: Add points to a player!
+  changepoints:
+    aliases: [cp]
+    description: Change Poi nts of a player.
