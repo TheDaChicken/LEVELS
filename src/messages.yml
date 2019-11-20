@@ -13,6 +13,7 @@
 ChangeLevelUsage: "&a&lUsage: /changelevel playername number"
 AddPointsUsage: "&a&lUsage: /addpoints playername number"
 ConsoleLevelStatsUsage: "&c&lUsage: /levelstats playername"
+ChangePointsUsage: "&a&lUsage: /changepoints playername number"
 
 StatsInfoOnlySelf:
   - "&b&lYour Level! > %levelprefix%%levelnumber%"
