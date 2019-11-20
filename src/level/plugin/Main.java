@@ -1,9 +1,6 @@
 package level.plugin;
 
-import level.plugin.Commands.AddPoints;
-import level.plugin.Commands.ChangeLevel;
-import level.plugin.Commands.ChangePoints;
-import level.plugin.Commands.LevelStats;
+import level.plugin.Commands.*;
 import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
 import level.plugin.Events.LevelUpListener;
@@ -30,6 +27,7 @@ public class Main extends CustomJavaPlugin {
         getCommand("changelevel").setExecutor(new ChangeLevel());
         getCommand("AddPoints").setExecutor(new AddPoints());
         getCommand("changepoints").setExecutor(new ChangePoints());
+        getCommand("addLevel").setExecutor(new AddLevel());
         // Register Listeners
         Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);

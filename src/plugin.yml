@@ -16,3 +16,6 @@ commands:
   changepoints:
     aliases: [cp]
     description: Change Poi nts of a player.
+  addlevel:
+    aliases: [al]
+    description: Adds to the player's level.

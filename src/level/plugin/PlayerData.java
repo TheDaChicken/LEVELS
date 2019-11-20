@@ -206,4 +206,7 @@ public class PlayerData {
         Bukkit.getPluginManager().callEvent(event);
     }
 
+    public boolean addLevel(Integer number) {
+        return setLevel(this.level + number);
+    }
 }
