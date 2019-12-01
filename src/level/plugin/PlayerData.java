@@ -202,7 +202,7 @@ public class PlayerData {
     }
 
     private void FireLevelUpEvent(int level) {
-        LevelUpEvent event = new LevelUpEvent(this.player_object, level);
+        LevelUpEvent event = new LevelUpEvent(this.player_object, level, this);
         Bukkit.getPluginManager().callEvent(event);
     }
 

@@ -1,5 +1,6 @@
 package level.plugin.CustomEvents;
 
+import level.plugin.PlayerData;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
@@ -10,10 +11,12 @@ public class LevelUpEvent extends Event implements Cancellable {
     private Player player;
     private int Level;
     private boolean isCancelled;
+    private PlayerData playerData;
 
-    public LevelUpEvent(Player player, int Level) {
+    public LevelUpEvent(Player player, int Level, PlayerData playerData) {
         this.player = player;
         this.Level = Level;
+        this.playerData = playerData;
         this.isCancelled = false;
     }
 
@@ -23,6 +26,10 @@ public class LevelUpEvent extends Event implements Cancellable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public PlayerData playerData() {
+        return playerData;
     }
 
     @Override
