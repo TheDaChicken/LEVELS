@@ -146,7 +146,7 @@ public class PlayerData {
         return this.points;
     }
 
-    String getLevelPrefix() {
+    public String getLevelPrefix() {
         CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
         Set<String> storedLevelPrefixKeys = plugin.getConfig().getConfigurationSection("LevelPrefix").getKeys(false);
         if (storedLevelPrefixKeys.contains(String.valueOf(this.level))) {

@@ -8,12 +8,23 @@ import org.bukkit.ChatColor;
 public class SupportedPlugins {
 
     public static void setupSupportedPlugins() {
-        if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (isPlaceHolderInstalled()) {
             // Check if PlaceholderAPI is installed.
             Bukkit.getConsoleSender().sendMessage("PlaceholderAPI found!");
             new PlaceHolderAPI(CustomJavaPlugin.getPlugin(Main.class)).register();
             Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "Enabling the PlaceHolders! - Using PlaceHolder PlaceholderExpansion.");
         }
+        if (isNameTagEditInstalled()) {
+            Bukkit.getConsoleSender().sendMessage("NameTagEdit found!");
+        }
+    }
+
+    public static boolean isPlaceHolderInstalled() {
+        return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
+    }
+
+    public static boolean isNameTagEditInstalled() {
+        return Bukkit.getPluginManager().isPluginEnabled("NameTagEdit");
     }
 
 }
