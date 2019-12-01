@@ -8,6 +8,7 @@ import level.plugin.Events.PlayerJoinListener;
 import level.plugin.Events.PlayerQuitListener;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
 import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
+import level.plugin.Libs.*;
 import level.plugin.SupportedPluginsClasses.SupportedPlugins;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -17,6 +18,8 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 
 public class Main extends CustomJavaPlugin {
+
+    public static Lib lib = null;
 
     public static HashMap<Player, PlayerData> onlinePlayers = new HashMap<>();
     public static MySQL mySQL = null;
@@ -34,6 +37,11 @@ public class Main extends CustomJavaPlugin {
         Bukkit.getPluginManager().registerEvents(new LevelUpListener(), this);
         setupConfig();
         setupMessages();
+        if (setupLib()) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "This Server has full support of this plugin!");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "This Server doesn't fully support this plugin.");
+        }
         SupportedPlugins.setupSupportedPlugins();
     }
 
@@ -95,6 +103,34 @@ public class Main extends CustomJavaPlugin {
     private void setupMessages() {
         this.getMessageFile();
         this.saveDefaultMessages();
+    }
+
+    private boolean setupLib() {
+        String version;
+        try {
+            version = Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3];
+        } catch (ArrayIndexOutOfBoundsException whatVersionAreYouUsingException) {
+            return false;
+        }
+        Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Your Server is Version: " + version);
+        if (version.equals("v1_8_R3")) {
+            lib = new Lib1_8_R3();
+        } else if (version.equals("v1_9_R1")) {
+            lib = new Lib1_9_R1();
+        } else if (version.equals("v1_12_R1")) {
+            lib = new Lib1_12_R1();
+        } else if (version.equals("v1_13_R1")) {
+            lib = new Lib1_13_R1();
+        } else if (version.equals("v1_8_R1")) {
+            lib = new Lib1_8_R1();
+        } else if (version.equals("v1_13_R2")) {
+            lib = new Lib1_13_R2();
+        } else if (version.equals("v1_8_R2")) {
+            lib = new Lib1_8_R2();
+        } else if (version.equals("v1_10_R1")) {
+            lib = new Lib1_10_R1();
+        }
+        return lib != null;
     }
 
 }
