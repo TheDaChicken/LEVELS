@@ -113,22 +113,31 @@ public class Main extends CustomJavaPlugin {
             return false;
         }
         Bukkit.getConsoleSender().sendMessage(ChatColor.GOLD + "" + ChatColor.BOLD + "Your Server is Version: " + version);
-        if (version.equals("v1_8_R3")) {
-            lib = new Lib1_8_R3();
-        } else if (version.equals("v1_9_R1")) {
-            lib = new Lib1_9_R1();
-        } else if (version.equals("v1_12_R1")) {
-            lib = new Lib1_12_R1();
-        } else if (version.equals("v1_13_R1")) {
-            lib = new Lib1_13_R1();
-        } else if (version.equals("v1_8_R1")) {
-            lib = new Lib1_8_R1();
-        } else if (version.equals("v1_13_R2")) {
-            lib = new Lib1_13_R2();
-        } else if (version.equals("v1_8_R2")) {
-            lib = new Lib1_8_R2();
-        } else if (version.equals("v1_10_R1")) {
-            lib = new Lib1_10_R1();
+        switch (version) {
+            case "v1_8_R3":
+                lib = new Lib1_8_R3();
+                break;
+            case "v1_9_R1":
+                lib = new Lib1_9_R1();
+                break;
+            case "v1_12_R1":
+                lib = new Lib1_12_R1();
+                break;
+            case "v1_13_R1":
+                lib = new Lib1_13_R1();
+                break;
+            case "v1_8_R1":
+                lib = new Lib1_8_R1();
+                break;
+            case "v1_13_R2":
+                lib = new Lib1_13_R2();
+                break;
+            case "v1_8_R2":
+                lib = new Lib1_8_R2();
+                break;
+            case "v1_10_R1":
+                lib = new Lib1_10_R1();
+                break;
         }
         return lib != null;
     }
