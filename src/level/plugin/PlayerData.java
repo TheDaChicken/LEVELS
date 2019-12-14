@@ -5,9 +5,13 @@ import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
 import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
+import level.plugin.SupportedPluginsClasses.NameTagEdit;
+import level.plugin.SupportedPluginsClasses.SupportedPlugins;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.Set;
@@ -21,7 +25,9 @@ public class PlayerData {
     private Player player_object = null;
     private String player_name = null;
 
-    private Integer level, points, max_points = null;
+    public Integer level;
+    private Integer points;
+    private Integer max_points = null;
 
     public PlayerData(Player player_object) {
         this.player_object = player_object;
@@ -208,5 +214,21 @@ public class PlayerData {
 
     public boolean addLevel(Integer number) {
         return setLevel(this.level + number);
+    }
+
+    public void UpdateNameTag() {
+        CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
+        FileConfiguration ymlconfig = plugin.getConfig();
+        if (ymlconfig.getBoolean("Nametag.Enable")) {
+            if (SupportedPlugins.isNameTagEditInstalled()) {
+                String levelprefix = getLevelPrefix() + String.valueOf(this.level) + " ";
+                String location = ymlconfig.getString("Nametag.Location");
+                if (location.equalsIgnoreCase("PREFIX")) {
+                    NameTagEdit.setPrefix(this.player_object, levelprefix);
+                } else if (location.equalsIgnoreCase("SUFFIX")) {
+                    NameTagEdit.setSuffix(this.player_object, levelprefix);
+                }
+            }
+        }
     }
 }

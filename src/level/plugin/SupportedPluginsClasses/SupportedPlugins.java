@@ -24,7 +24,7 @@ public class SupportedPlugins {
     }
 
     public static boolean isNameTagEditInstalled() {
-        return Bukkit.getPluginManager().isPluginEnabled("NameTagEdit");
+        return Bukkit.getPluginManager().isPluginEnabled("NametagEdit");
     }
 
 }

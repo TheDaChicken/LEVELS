@@ -4,7 +4,6 @@ import level.plugin.CustomEvents.LevelUpEvent;
 import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
 import level.plugin.PlayerData;
-import level.plugin.SupportedPluginsClasses.SupportedPlugins;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -40,12 +39,7 @@ public class LevelUpListener implements Listener {
                 }
             }
         }
-
-        if (ymlconfig.getBoolean("Nametag.Enable")) {
-            if (SupportedPlugins.isNameTagEditInstalled()) {
-                String levelprefix = playerData.getLevelPrefix();
-            }
-        }
+        playerData.UpdateNameTag();
     }
 
 }
