@@ -209,7 +209,7 @@ public class PlayerData {
 
     private boolean MoreLevelingUp(int together) {
         this.max_points = this.getMaxPoints();
-        return points > max_points || points == max_points;
+        return points > max_points || points.equals(max_points);
     }
 
     private void FireLevelUpEvent(int level) {
