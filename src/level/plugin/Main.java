@@ -138,6 +138,9 @@ public class Main extends CustomJavaPlugin {
             case "v1_10_R1":
                 lib = new Lib1_10_R1();
                 return true;
+            case "v1_15_R1":
+                lib = new Lib1_15_R1();
+                return true;
         }
         return false;
     }
