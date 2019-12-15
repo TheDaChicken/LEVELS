@@ -23,11 +23,13 @@ public abstract class CustomJavaPlugin extends JavaPlugin {
     private FileConfiguration messageFC = null;
     private File messageFile = new File(this.getDataFolder(), "messages.yml");
 
+    private FileConfiguration mobConfigFC = null;
+    private File mobConfigFile = new File(this.getDataFolder(), "moblistconfig.yml");
+
     FileConfiguration getDataFile() {
         if (this.dataFC == null) {
             this.reloadData();
         }
-
         return this.dataFC;
     }
 
@@ -35,12 +37,22 @@ public abstract class CustomJavaPlugin extends JavaPlugin {
         if (this.messageFC == null) {
             this.reloadMessages();
         }
-
         return this.messageFC;
+    }
+
+    public FileConfiguration getMobConfig() {
+        if (this.mobConfigFC == null) {
+            this.reloadMobConfig();
+        }
+        return this.mobConfigFC;
     }
 
     private void reloadData() {
         this.dataFC = YamlConfiguration.loadConfiguration(this.dataFile);
+    }
+
+    private void reloadMobConfig() {
+        this.mobConfigFC = YamlConfiguration.loadConfiguration(this.mobConfigFile);
     }
 
     private void reloadMessages() {
@@ -73,5 +85,4 @@ public abstract class CustomJavaPlugin extends JavaPlugin {
         }
 
     }
-
 }
