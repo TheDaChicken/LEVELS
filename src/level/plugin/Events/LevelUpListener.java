@@ -5,6 +5,7 @@ import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
+import oracle.jrockit.jfr.StringConstantPool;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -27,17 +28,20 @@ public class LevelUpListener implements Listener {
         CustomJavaPlugin javaPlugin = CustomJavaPlugin.getPlugin(Main.class);
         FileConfiguration ymlconfig = javaPlugin.getConfig();
 
-        if (ymlconfig.getBoolean("levelupruncommand")) {
-            if (ymlconfig.getBoolean("levelupruncommandcertainperlevel")) {
-                if (ymlconfig.getStringList("levelcommands." + level) == null) {
-                    return;
-                }
-                List<String> commands = ymlconfig.getStringList("levelcommands." + level);
-                for (String command : commands) {
-                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()));
+        if (ymlconfig.getBoolean("LevelUpRunCommand.Enable")) {
+            if (ymlconfig.getBoolean("LevelUpRunCommand.certainperLevel")) {
+                Object object = ymlconfig.get("LevelUpRunCommand.perLevel." + level);
+                if (object != null) {
+                    if (object instanceof List) {
+                        for (Object command : ((List) object)) {
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ((String) command).replace("%player%", player.getName()));
+                        }
+                    } else if (object instanceof String) {
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), ((String) object).replace("%player%", player.getName()));
+                    }
                 }
             } else {
-                List<String> commands = ymlconfig.getStringList("levelupruncommandslist");
+                List<String> commands = ymlconfig.getStringList("LevelUpRunCommand.list");
                 for (String command : commands) {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command.replace("%player%", player.getName()));
                 }
