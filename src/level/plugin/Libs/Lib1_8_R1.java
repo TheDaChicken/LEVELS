@@ -8,6 +8,11 @@ import java.lang.reflect.Field;
 
 public class Lib1_8_R1 implements Lib {
 
+    /*
+    Credits:
+        Lib Classes based on "Bukkit Coding - Episode 3 + 4: Particle Trails | Titles, Tab, ActionBar" by Jordan Osterberg
+     */
+
     public void sendTitle(Player player, String title, String subtitle, int fadeIn, int stay, int fadeOut) {
         CraftPlayer craftplayer = (CraftPlayer) player;
         PlayerConnection connection = craftplayer.getHandle().playerConnection;
