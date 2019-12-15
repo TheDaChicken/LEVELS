@@ -13,6 +13,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Team;
 
 import java.util.Set;
 import java.util.UUID;
@@ -156,7 +157,7 @@ public class PlayerData {
         CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
         Set<String> storedLevelPrefixKeys = plugin.getConfig().getConfigurationSection("LevelPrefix").getKeys(false);
         if (storedLevelPrefixKeys.contains(String.valueOf(this.level))) {
-            return plugin.getConfig().getString("LevelPrefix." + this.level);
+            return Main.translateColorChat(plugin.getConfig().getString("LevelPrefix." + this.level));
         } else {
             Integer best_number = null;
             for (String stored_level : storedLevelPrefixKeys) {
@@ -168,11 +169,15 @@ public class PlayerData {
                 }
             }
             if (best_number != null) {
-                return plugin.getConfig().getString("LevelPrefix." + best_number);
+                return Main.translateColorChat(plugin.getConfig().getString("LevelPrefix." + best_number));
             }
         }
-
         return "";
+    }
+
+    public String getLevelString() {
+        String levelPrefix = getLevelPrefix();
+        return levelPrefix + String.valueOf(this.level);
     }
 
     public void addPoints(int points) {
@@ -220,13 +225,30 @@ public class PlayerData {
         CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
         FileConfiguration ymlconfig = plugin.getConfig();
         if (ymlconfig.getBoolean("Nametag.Enable")) {
+            String levelString = getLevelString();
+            String location = ymlconfig.getString("Nametag.Location");
             if (SupportedPlugins.isNameTagEditInstalled()) {
-                String levelprefix = getLevelPrefix() + String.valueOf(this.level) + " ";
-                String location = ymlconfig.getString("Nametag.Location");
                 if (location.equalsIgnoreCase("PREFIX")) {
-                    NameTagEdit.setPrefix(this.player_object, levelprefix);
+                    NameTagEdit.setPrefix(this.player_object, levelString + " ");
                 } else if (location.equalsIgnoreCase("SUFFIX")) {
-                    NameTagEdit.setSuffix(this.player_object, levelprefix);
+                    NameTagEdit.setSuffix(this.player_object, " " + levelString);
+                }
+            } else {
+                if (Main.scoreboard != null) {
+                    Team team = Main.scoreboard.getTeam(String.valueOf(level));
+                    if (team == null) {
+                        team = Main.scoreboard.registerNewTeam(String.valueOf(level));
+                    }
+                    String level = String.valueOf(getLevel());
+                    if (!team.getEntries().contains(player_name)) {
+                        team.addEntry(player_name);
+                    }
+                    if (location.equalsIgnoreCase("PREFIX")) {
+                        team.setPrefix(levelString + " ");
+                    } else if (location.equalsIgnoreCase("SUFFIX")) {
+                        team.setSuffix(" " + levelString);
+                    }
+                    this.player_object.setScoreboard(Main.scoreboard);
                 }
             }
         }

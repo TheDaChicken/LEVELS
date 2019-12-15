@@ -14,35 +14,20 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
 
 import java.util.HashMap;
 
 public class Main extends CustomJavaPlugin {
 
+    public static Scoreboard scoreboard = null;
     public static Lib lib = null;
 
     public static HashMap<Player, PlayerData> onlinePlayers = new HashMap<>();
     public static MySQL mySQL = null;
 
-    public void onEnable() {
-        // Register Commands
-        getCommand("levelstats").setExecutor(new LevelStats());
-        getCommand("changelevel").setExecutor(new ChangeLevel());
-        getCommand("AddPoints").setExecutor(new AddPoints());
-        getCommand("changepoints").setExecutor(new ChangePoints());
-        getCommand("addLevel").setExecutor(new AddLevel());
-        // Register Listeners
-        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
-        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
-        Bukkit.getPluginManager().registerEvents(new LevelUpListener(), this);
-        setupConfig();
-        setupMessages();
-        if (setupLib()) {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "This Server has full support of this plugin!");
-        } else {
-            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "This Server doesn't fully support this plugin.");
-        }
-        SupportedPlugins.setupSupportedPlugins();
+    public static String translateColorChat(String string) {
+        return ChatColor.translateAlternateColorCodes('&', string);
     }
 
     public void onDisable() {
@@ -143,6 +128,30 @@ public class Main extends CustomJavaPlugin {
                 return true;
         }
         return false;
+    }
+
+    public void onEnable() {
+        // Register Commands
+        getCommand("levelstats").setExecutor(new LevelStats());
+        getCommand("changelevel").setExecutor(new ChangeLevel());
+        getCommand("AddPoints").setExecutor(new AddPoints());
+        getCommand("changepoints").setExecutor(new ChangePoints());
+        getCommand("addLevel").setExecutor(new AddLevel());
+        // Register Listeners
+        Bukkit.getPluginManager().registerEvents(new PlayerJoinListener(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
+        Bukkit.getPluginManager().registerEvents(new LevelUpListener(), this);
+        setupConfig();
+        setupMessages();
+        if (setupLib()) {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.GREEN + "" + ChatColor.BOLD + "This Server has full support of this plugin!");
+        } else {
+            Bukkit.getConsoleSender().sendMessage(ChatColor.RED + "" + ChatColor.BOLD + "This Server doesn't fully support this plugin.");
+        }
+        SupportedPlugins.setupSupportedPlugins();
+        if (!SupportedPlugins.isNameTagEditInstalled()) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        }
     }
 
 }
