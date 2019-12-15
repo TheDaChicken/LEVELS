@@ -36,3 +36,5 @@ NotANumber: "&c&l%number% is not a number!"
 PlayerNotExist: "&c&l%player_to% doesn't exist as a player name!"
 PlayerNotPlayedBefore: "&c&l%player_to% hasn't played on this server before!"
 StoragePlaceNotWorking: "&c&lAn issue occurred and was unable to save that. "
+
+LevelUpActionbar: "%random_color%Level Up! %levelnumber%!"

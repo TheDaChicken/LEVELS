@@ -3,16 +3,20 @@ package level.plugin.Events;
 import level.plugin.CustomEvents.LevelUpEvent;
 import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
+import level.plugin.Messages;
 import level.plugin.PlayerData;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.List;
 
 public class LevelUpListener implements Listener {
+
+    Integer runnable = null;
 
     @EventHandler
     public void LevelUpEvent(LevelUpEvent event) {
@@ -40,6 +44,22 @@ public class LevelUpListener implements Listener {
             }
         }
         playerData.UpdateNameTag();
+        if (Main.lib != null) {
+            runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), new Runnable() {
+                int timer = 10;
+
+                public void run() {
+                    if (timer != 0) {
+                        Main.lib.sendActionBar(player, Messages.getMessage(playerData, "LevelUpActionbar"));
+                        timer--;
+                    } else {
+                        Bukkit.getScheduler().cancelTask(runnable);
+                    }
+                }
+            }, 10L, 10L);
+        } else {
+            player.sendMessage(Messages.getMessage(playerData, "LevelUpActionbar"));
+        }
     }
 
 }

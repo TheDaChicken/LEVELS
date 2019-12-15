@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class Messages {
 
@@ -112,7 +113,7 @@ public class Messages {
         if (hashMap.size() != 0) {
             string = replaceParams(hashMap, string);
         }
-        if (playerData.getPlayerObject() != null || Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+        if (playerData.getPlayerObject() != null && Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
             return me.clip.placeholderapi.PlaceholderAPI.setPlaceholders(playerData.getPlayerObject(), string);
         }
 
@@ -129,6 +130,7 @@ public class Messages {
         hashMap.put("points", String.valueOf(Main.onlinePlayers.get(player).getPoints()));
         hashMap.put("levelprefix", String.valueOf(Main.onlinePlayers.get(player).getLevelPrefix()));
         hashMap.put("maxpoints", String.valueOf(Main.onlinePlayers.get(player).getStoredMaxPoints()));
+        hashMap.put("random_color", "" + ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))));
     }
 
 
@@ -138,6 +140,7 @@ public class Messages {
         hashMap.put("points", String.valueOf(playerData.getPoints()));
         hashMap.put("levelprefix", String.valueOf(playerData.getLevelPrefix()));
         hashMap.put("maxpoints", String.valueOf(playerData.getStoredMaxPoints()));
+        hashMap.put("random_color", "" + ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))));
     }
 
 }
