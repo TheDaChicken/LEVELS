@@ -66,7 +66,6 @@ public class PlayerData {
             if (!plugin.getDataFile().contains("Users." + this.player_uuid.toString() + ".level")) {
                 plugin.getDataFile().set("Users." + this.player_uuid.toString() + ".level", 0);
                 plugin.getDataFile().set("Users." + this.player_uuid.toString() + ".points", 0);
-                plugin.getDataFile().set("Users." + this.player_uuid.toString() + ".max_points", 0);
                 plugin.saveDataFile();
             }
             this.level = plugin.getDataFile().getInt("Users." + this.player_uuid.toString() + ".level");
