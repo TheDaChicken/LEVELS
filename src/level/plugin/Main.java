@@ -164,7 +164,7 @@ public class Main extends CustomJavaPlugin {
                         if (EntityClass != null) {
                             if (getAllExtendedOrImplementedTypesRecursively(EntityClass).contains(LivingEntity.class)) {
                                 try {
-                                    moblistconfig_cfg.set("mobs." + entityType.getName().toUpperCase(), 1);
+                                    moblistconfig_cfg.set("mobs." + entityType.getName().toUpperCase(), 5);
                                 } catch (NullPointerException ignored) {
 
                                 }
