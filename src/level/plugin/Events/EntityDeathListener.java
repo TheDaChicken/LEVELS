@@ -3,6 +3,7 @@ package level.plugin.Events;
 import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
 import level.plugin.PlayerData;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -25,6 +26,8 @@ public class EntityDeathListener implements Listener {
                 }
                 Main.onlinePlayers.get(player).addPoints(points);
             }
+            Player entity = (Player) event.getEntity();
+            Bukkit.getScheduler().scheduleAsyncDelayedTask(CustomJavaPlugin.getPlugin(Main.class), Main.onlinePlayers.get(entity)::UpdateNameTag, 15L);
         } else if (yml.getBoolean("KillEntities.EnableMobsPoints")) {
             FileConfiguration mobList = plugin.getMobConfig();
             String entityName = event.getEntity().getType().getName();
