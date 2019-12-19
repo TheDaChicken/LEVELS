@@ -26,8 +26,13 @@ public class EntityDeathListener implements Listener {
                 }
                 Main.onlinePlayers.get(player).addPoints(points);
             }
-            Player entity = (Player) event.getEntity();
-            Bukkit.getScheduler().scheduleAsyncDelayedTask(CustomJavaPlugin.getPlugin(Main.class), Main.onlinePlayers.get(entity)::UpdateNameTag, 15L);
+            Player entity = Bukkit.getPlayer(event.getEntity().getName());
+            if (entity != null) {
+                if (Main.onlinePlayers.get(entity) == null) {
+                    Main.onlinePlayers.put(entity, new PlayerData(entity));
+                }
+                Bukkit.getScheduler().scheduleAsyncDelayedTask(CustomJavaPlugin.getPlugin(Main.class), Main.onlinePlayers.get(entity)::UpdateNameTag, 15L);
+            }
         } else if (yml.getBoolean("KillEntities.EnableMobsPoints")) {
             FileConfiguration mobList = plugin.getMobConfig();
             String entityName = event.getEntity().getType().getName();

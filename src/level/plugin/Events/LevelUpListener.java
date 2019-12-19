@@ -47,7 +47,7 @@ public class LevelUpListener implements Listener {
                 }
             }
         }
-        playerData.UpdateNameTag();
+        Bukkit.getScheduler().scheduleAsyncDelayedTask(CustomJavaPlugin.getPlugin(Main.class), playerData::UpdateNameTag, 15L);
         if (Main.lib != null) {
             runnable = Bukkit.getScheduler().scheduleSyncRepeatingTask(JavaPlugin.getPlugin(Main.class), new Runnable() {
                 int timer = 10;
