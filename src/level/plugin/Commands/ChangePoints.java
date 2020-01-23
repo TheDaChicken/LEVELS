@@ -4,14 +4,14 @@ import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
 import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
 import level.plugin.Main;
 import level.plugin.Messages;
+import level.plugin.utils.BasicLevelsCommandExecutor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class ChangePoints implements CommandExecutor {
+public class ChangePoints extends BasicLevelsCommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("changepoints")) {
@@ -40,14 +40,8 @@ public class ChangePoints implements CommandExecutor {
                 }
                 return true;
             }
+            return true;
         }
         return false;
-    }
-
-    private Player getSenderPlayer(CommandSender sender) {
-        if (sender instanceof Player) {
-            return (Player) sender;
-        }
-        return null;
     }
 }

@@ -5,14 +5,14 @@ import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
+import level.plugin.utils.BasicLevelsCommandExecutor;
 import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import java.util.HashMap;
 
-public class LevelStats implements CommandExecutor {
+public class LevelStats extends BasicLevelsCommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("levelstats")) {
@@ -45,13 +45,5 @@ public class LevelStats implements CommandExecutor {
             }
         }
         return false;
-    }
-
-
-    private Player getSenderPlayer(CommandSender sender) {
-        if (sender instanceof Player) {
-            return (Player) sender;
-        }
-        return null;
     }
 }
