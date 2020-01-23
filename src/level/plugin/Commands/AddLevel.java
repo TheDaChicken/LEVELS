@@ -15,7 +15,7 @@ public class AddLevel extends BasicLevelsCommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String commandLabel, String[] args) {
         if (cmd.getName().equalsIgnoreCase("addlevel")) {
-            Player player = (Player) sender;
+            Player player = getSenderPlayer(sender);
             if (args.length < 2) {
                 sender.sendMessage(Messages.getMessage(player, "AddLevelUsage"));
             } else {
