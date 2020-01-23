@@ -5,7 +5,6 @@ import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
 import level.plugin.Messages;
 import level.plugin.PlayerData;
-import oracle.jrockit.jfr.StringConstantPool;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
