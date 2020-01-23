@@ -72,7 +72,7 @@ public class Messages {
                 (s, s2) -> s);
     }
 
-    private static String PlaceHolderString(Player player, String string) {
+    public static String PlaceHolderString(Player player, String string) {
         HashMap<String, String> hashMap = new HashMap<String, String>();
         if (player != null) {
             playerAddToHashMap(player, hashMap);
@@ -89,7 +89,7 @@ public class Messages {
         }
     }
 
-    private static String PlaceHolderString(Player player, String string, HashMap<String, String> extra_hashmap) {
+    public static String PlaceHolderString(Player player, String string, HashMap<String, String> extra_hashmap) {
         HashMap<String, String> hashMap = new HashMap<String, String>(extra_hashmap);
         if (player != null) {
             playerAddToHashMap(player, hashMap);

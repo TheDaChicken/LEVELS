@@ -30,6 +30,16 @@ Multiplier:
   StartAmount: 60
   MultiplierAmount: 4
 
+Chat:
+  Force:
+    # Forces adding Level variables to your favorite chat plugin
+    Enable: false
+    Format: '%levelprefix%%levelnumber% '
+  Whole:
+    # Custom Chat.
+    Enable: false
+    Format: '%levelprefix%%levelnumber% %playername%: %message%'
+
 LevelPrefix:
   # LEVEL: PREFIX
   '0': "&7&l"

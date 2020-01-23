@@ -3,10 +3,7 @@ package level.plugin;
 import level.plugin.Commands.*;
 import level.plugin.Enums.LevelUpTypeOptions;
 import level.plugin.Enums.StorageOptions;
-import level.plugin.Events.EntityDeathListener;
-import level.plugin.Events.LevelUpListener;
-import level.plugin.Events.PlayerJoinListener;
-import level.plugin.Events.PlayerQuitListener;
+import level.plugin.Events.*;
 import level.plugin.Exceptions.Player.PlayerNameDoesntExist;
 import level.plugin.Exceptions.Player.PlayerNotPlayedBefore;
 import level.plugin.Libs.*;
@@ -106,6 +103,7 @@ public class Main extends CustomJavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerQuitListener(), this);
         Bukkit.getPluginManager().registerEvents(new LevelUpListener(), this);
         Bukkit.getPluginManager().registerEvents(new EntityDeathListener(), this);
+        Bukkit.getPluginManager().registerEvents(new ChatListener(), this);
         setupConfig();
         setupMessages();
         if (setupLib()) {
