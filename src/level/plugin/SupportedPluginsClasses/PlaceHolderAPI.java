@@ -38,13 +38,13 @@ public class PlaceHolderAPI extends PlaceholderExpansion {
             return String.valueOf(playerData.getLevelString());
         }
         if (identifier.equalsIgnoreCase("level_number")) {
-            return String.valueOf(playerData.level);
+            return String.valueOf(playerData.getLevel());
         }
         if (identifier.equalsIgnoreCase("points")) {
-            return String.valueOf(playerData.points);
+            return String.valueOf(playerData.getPoints());
         }
         if (identifier.equalsIgnoreCase("points_max")) {
-            return String.valueOf(playerData.max_points);
+            return String.valueOf(playerData.getStoredMaxPoints());
         }
         return null;
     }

@@ -25,9 +25,9 @@ public class PlayerData {
     private Player player_object = null;
     private String player_name = null;
 
-    public Integer level;
-    public Integer points;
-    public Integer max_points = null;
+    private Integer level;
+    private Integer points;
+    private Integer max_points = null;
 
     public PlayerData(Player player_object) {
         this.player_object = player_object;
@@ -59,6 +59,31 @@ public class PlayerData {
         }
         loadPlayerData();
     }
+
+    public UUID getPlayerUUID() {
+        return this.player_uuid;
+    }
+
+    public String getPlayerName() {
+        return this.player_name;
+    }
+
+    public Player getPlayerObject() {
+        return this.player_object;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
+    public int getPoints() {
+        return this.points;
+    }
+
+    public Integer getStoredMaxPoints() {
+        return this.max_points;
+    }
+
 
     private void loadPlayerData() {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
@@ -103,26 +128,6 @@ public class PlayerData {
         return null;
     }
 
-    public UUID getPlayerUUID() {
-        return this.player_uuid;
-    }
-
-    public String getPlayerName() {
-        return this.player_name;
-    }
-
-    public Player getPlayerObject() {
-        return this.player_object;
-    }
-
-    int getLevel() {
-        return this.level;
-    }
-
-    Integer getStoredMaxPoints() {
-        return this.max_points;
-    }
-
     public boolean setLevel(int level) {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {
             CustomJavaPlugin plugin = CustomJavaPlugin.getPlugin(Main.class);
@@ -145,10 +150,6 @@ public class PlayerData {
             return true;
         }
         return false;
-    }
-
-    int getPoints() {
-        return this.points;
     }
 
     public String getLevelPrefix() {
