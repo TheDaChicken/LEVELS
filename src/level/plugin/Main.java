@@ -61,6 +61,13 @@ public class Main extends CustomJavaPlugin {
         }
     }
 
+    public static PlayerData getPlayerData(Player player) {
+        if (!Main.onlinePlayers.containsKey(player)) {
+            Main.onlinePlayers.put(player, new PlayerData(player));
+        }
+        return Main.onlinePlayers.get(player);
+    }
+
     private static Set<Class<?>> getAllExtendedOrImplementedTypesRecursively(Class<?> clazz) {
         // FOUND THIS SOMEWHERE ON THE INTERNET SORRY.
         List<Class<?>> res = new ArrayList<>();

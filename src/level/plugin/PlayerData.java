@@ -26,8 +26,8 @@ public class PlayerData {
     private String player_name = null;
 
     public Integer level;
-    private Integer points;
-    private Integer max_points = null;
+    public Integer points;
+    public Integer max_points = null;
 
     public PlayerData(Player player_object) {
         this.player_object = player_object;
