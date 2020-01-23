@@ -237,7 +237,6 @@ public class PlayerData {
                     if (team == null) {
                         team = Main.scoreboard.registerNewTeam(String.valueOf(level));
                     }
-                    String level = String.valueOf(getLevel());
                     if (!team.getEntries().contains(player_name)) {
                         team.addEntry(player_name);
                     }
