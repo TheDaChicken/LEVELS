@@ -21,6 +21,7 @@ LevelUpType: "SPECIFIC"
 
 Specific:
   # LEVEL: MAX POINTS
+  '0': 10
   '1': 50
   '2': 110
   '5': 600
