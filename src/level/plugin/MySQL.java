@@ -11,6 +11,10 @@ import java.util.stream.Collectors;
 
 class MySQL {
 
+    /*
+    TODO REWRITE THIS CLASS TO USE PREPARED STATEMENTS
+     */
+
     private Connection connection = null;
     private Statement statement = null;
     private String host, database, username, password;
