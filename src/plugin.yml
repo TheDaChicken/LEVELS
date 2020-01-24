@@ -6,16 +6,21 @@ softdepend: [PlaceholderAPI,HolographicDisplays,Vault]
 commands:
   levelstats:
     aliases: [ls]
+    permission: levels.levelstats
     description: Shows players stats level's stats and yours!
   changelevel:
+    permission: levels.changelevel
     aliases: [cl, setlevel, changlevel]
     description: Changes player's level!
   addPoints:
+    permission: levels.addpoints
     aliases: [ap]
     description: Add points to a player!
   changepoints:
+    permission: levels.changepoints
     aliases: [cp]
     description: Change Poi nts of a player.
   addlevel:
+    permission: levels.addlevel
     aliases: [al]
     description: Adds to the player's level.
