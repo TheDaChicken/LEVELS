@@ -46,6 +46,9 @@ public class PlaceHolderAPI extends PlaceholderExpansion {
         if (identifier.equalsIgnoreCase("points_max")) {
             return String.valueOf(playerData.getStoredMaxPoints());
         }
+        if(identifier.equalsIgnoreCase("points_progress")) {
+            return String.valueOf(playerData.getLevelProgress());
+        }
         return null;
     }
 }

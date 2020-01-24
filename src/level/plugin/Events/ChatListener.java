@@ -3,6 +3,7 @@ package level.plugin.Events;
 import level.plugin.CustomJavaPlugin;
 import level.plugin.Main;
 import level.plugin.Messages;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -22,10 +23,10 @@ public class ChatListener implements Listener {
             HashMap<String, String> extra_hashmap = new HashMap<>();
             extra_hashmap.put("message", event.getMessage());
             String format = Messages.PlaceHolderString(player, yml.getString("Whole.Format"), extra_hashmap);
-            event.setFormat(format);
+            event.setFormat(format.replaceAll("%", "%%"));
         } else if(yml.getBoolean("Force.Enable")) {
             String format = Messages.PlaceHolderString(player, yml.getString("Force.Format"));
-            event.setFormat(format + event.getFormat());
+            event.setFormat((format + event.getFormat()).replaceAll("%", "%%"));
         }
     }
 }

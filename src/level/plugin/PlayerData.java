@@ -80,10 +80,13 @@ public class PlayerData {
         return this.points;
     }
 
-    public Integer getStoredMaxPoints() {
+    public int getStoredMaxPoints() {
         return this.max_points;
     }
 
+    public String getLevelProgress() {
+        return Math.round(((float) this.points) / ((float) this.max_points) * 100) + "%";
+    }
 
     private void loadPlayerData() {
         if (StorageOptions.isStorageOption(StorageOptions.FILE)) {

@@ -136,6 +136,7 @@ public class Messages {
         hashMap.put("levelprefix", String.valueOf(playerData.getLevelPrefix()));
         hashMap.put("maxpoints", String.valueOf(playerData.getStoredMaxPoints()));
         hashMap.put("random_color", "" + ChatColor.getByChar(Integer.toHexString(new Random().nextInt(16))));
+        hashMap.put("points_progress", String.valueOf(playerData.getLevelProgress()));
     }
 
 }
